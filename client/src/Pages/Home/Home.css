@@ -1,0 +1,10 @@
+
+.hero_gradient {
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 300px 300px, transparent 0, rgba(50, 5, 123, 0.9) 50%);
+    transition: background-image 0.0s ease;
+}
+.bg-gradient-to-r{
+
+}

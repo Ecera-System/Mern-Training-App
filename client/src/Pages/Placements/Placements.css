@@ -1,0 +1,45 @@
+.comp_logo {
+    --swiper-theme-color: #000;
+}
+
+
+.slide {
+    transform: scale(0.8);
+    transition: transform 500ms;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.activeSlide {
+    transform: scale(1.15);
+    opacity: 1;
+    z-index: 10;
+}
+
+.arrow {
+    background-color: transparent;
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.arrow svg {
+    color: #808080;
+    transition: color 300ms;
+}
+
+.arrow svg:hover {
+    color: #000000;
+}
+
+.next {
+    right: 0%;
+    top: 50%;
+    font-size: 30px;
+}
+
+.prev {
+    left: 0%;
+    top: 50%;
+    font-size: 30px;
+}
