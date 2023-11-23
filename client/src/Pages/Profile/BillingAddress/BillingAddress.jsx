@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import CountryList from "../../Shared/CountryList"; // Update the path here
 import { Country, State, City } from "country-state-city";
 import axios from "axios";
+import useGetProfile from "../../../API/useGetProfile"; // Import the useGetProfile hook
 
 const BillingAddress = () => {
+  //
+  const [profileData, loading, fetchProfileData] = useGetProfile(); // Use the hook
+
+  useEffect(() => {
+    console.log("Profile Data:", profileData);
+  }, [profileData]);
+  //
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -74,7 +82,13 @@ const BillingAddress = () => {
       try {
         // Assuming your API endpoint for updating the billing address is '/profile/:id'
         const response = await axios.patch(
-          `${import.meta.env.VITE_API_V1_URL}/profile/${userId}`,
+          `${import.meta.env.VITE_API_V1_URL}/profile/${profileData._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              Authorization: localStorage.getItem("auth_token"),
+            },
+          },
           {
             update: "address", // Indicates that we are updating the address
             country: formData.country,
@@ -107,6 +121,7 @@ const BillingAddress = () => {
         <h1 className="text-xl font-bold text-black-700 p-5 border-b">
           Billing Address
         </h1>
+
         <div className="w-full p-8 flex flex-col gap-6">
           <div className="flex flex-col md:flex-row items-center justify-between md:gap-8 gap-6">
             <div className="w-full">
