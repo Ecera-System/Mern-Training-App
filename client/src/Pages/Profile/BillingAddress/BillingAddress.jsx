@@ -12,6 +12,7 @@ const BillingAddress = () => {
 
   useEffect(() => {
     console.log("Profile Data:", profileData);
+    console.log("auth_token:", localStorage.getItem("auth_token"));
   }, [profileData]);
   //
   const [formData, setFormData] = useState({
@@ -84,17 +85,17 @@ const BillingAddress = () => {
         const response = await axios.patch(
           `${import.meta.env.VITE_API_V1_URL}/profile/${profileData._id}`,
           {
-            method: "PATCH",
-            headers: {
-              Authorization: localStorage.getItem("auth_token"),
-            },
-          },
-          {
+            // Data payload should be passed directly, not as a separate object
             update: "address", // Indicates that we are updating the address
             country: formData.country,
             city: formData.city,
             address1: formData.address1,
             zip: formData.zip,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("auth_token"),
+            },
           }
         );
 
