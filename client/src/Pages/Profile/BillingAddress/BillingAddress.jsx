@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { BsExclamationCircleFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import CountryList from '../../Shared/CountryList'; // Update the path here
+import { Country, State, City } from 'country-state-city';
+
 
 const BillingAddress = () => {
     const [formData, setFormData] = useState({
@@ -11,11 +13,17 @@ const BillingAddress = () => {
         address1: '',
         address2: '',
         country: '',
+        state: '',
         city: '',
         zip: '',
     });
 
     const [formErrors, setFormErrors] = useState({});
+    const [countryData, setCountryData] = useState({
+        country: '',
+        state: '',
+        city: ''
+    })
     const navigate = useNavigate();
 
     const handleChange = (event) => {
@@ -28,12 +36,11 @@ const BillingAddress = () => {
 
     const validateForm = (data) => {
         let errors = {};
-
         if (!data.firstName) {
-            errors.firstName = 'First name is required!';
+            errors.firstName = 'First-name is required!';
         }
         if (!data.lastName) {
-            errors.lastName = 'Last name is required!';
+            errors.lastName = 'Last-name is required!';
         }
         if (!data.contactNumber) {
             errors.contactNumber = 'Contact Number is required!';
@@ -45,6 +52,9 @@ const BillingAddress = () => {
         }
         if (!data.country) {
             errors.country = 'Please select a country!';
+        }
+        if (!data.state) {
+            errors.state = 'Please select a state!';
         }
         if (!data.city) {
             errors.city = 'City is required!';
@@ -74,73 +84,43 @@ const BillingAddress = () => {
     };
 
     return (
-        <div className="my-5 mb-28 w-full text-gray-600">
-            <div className="p-5 border rounded-lg bg-white">
-                <h1 className="text-xl text-content-secondary font-semibold">
-                    Billing Address
-                </h1>
-                <p className='mt-1'>
-                Add your information here.
-                </p>
-            </div>
-            <div className='w-full bg-violet-500 border rounded-lg'>
+        <div className="my-5 w-full bg-white text-gray-600">
+            <form className='w-full border rounded-lg'>
                 <h1 className='text-xl font-bold text-black-700 p-5 border-b'>Billing Address</h1>
                 <div className='w-full p-8 flex flex-col gap-6'>
-                    <div className='flex flex-col md:flex-row items-center justify-between md:gap-8 gap-6'>
+                <div className='flex flex-col md:flex-row items-center justify-between md:gap-8 gap-6'>
                         <div className='w-full'>
-                            <label htmlFor='firstName' className='px-1 font-bold'>
-                                First Name
-                            </label>
+                            <label htmlFor='first-name' className="px-1 font-bold">First Name</label>
                             <input
                                 onChange={handleChange}
-                                placeholder=''
-                                type='text'
-                                name='firstName'
-                                id='firstName'
-                                className='block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none'
+                                placeholder=""
+                                type="text" name='firstName' id='first-name'
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
                             />
-                            {formErrors?.firstName && (
+                            {
+                                formErrors?.firstName &&
                                 <p className='mt-2 text-sm text-red-500 flex gap-2 items-start'>
-                                    <BsExclamationCircleFill className='mt-0.5' />
+                                    <BsExclamationCircleFill className="mt-0.5" />
                                     {formErrors?.firstName}
                                 </p>
-                            )}
+                            }
                         </div>
                         <div className='w-full'>
-                            <label htmlFor='lastName' className='px-1 font-bold'>
-                                Last Name
-                            </label>
+                            <label htmlFor='contactNumber' className="px-1 font-bold">Last Name</label>
                             <input
                                 onChange={handleChange}
-                                placeholder=''
-                                type='text'
-                                name='lastName'
-                                id='lastName'
-                                className='block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none'
+                                placeholder=""
+                                type="text" name='lastName' id='last-name'
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
                             />
-                            {formErrors?.lastName && (
+                            {
+                                formErrors?.lastName &&
                                 <p className='mt-2 text-sm text-red-500 flex gap-2 items-start'>
-                                    <BsExclamationCircleFill className='mt-0.5' />
+                                    <BsExclamationCircleFill className="mt-0.5" />
                                     {formErrors?.lastName}
                                 </p>
-                            )}
+                            }
                         </div>
-                    </div>
-                    <div className='w-full'>
-                        <label htmlFor='contactNumber' className="px-1 font-bold">Contact Number</label>
-                        <input
-                            onChange={handleChange}
-                            placeholder=""
-                            type="text" name='contactNumber' id='contactNumber'
-                            className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none"
-                        />
-                        {
-                            formErrors?.contactNumber &&
-                            <p className='mt-2 text-sm text-red-500 flex gap-2 items-start'>
-                                <BsExclamationCircleFill className="mt-0.5" />
-                                {formErrors?.contactNumber}
-                            </p>
-                        }
                     </div>
                     <div className='flex flex-col md:flex-row items-center justify-between md:gap-8 gap-6'>
                         <div className='w-full'>
@@ -149,7 +129,7 @@ const BillingAddress = () => {
                                 onChange={handleChange}
                                 placeholder=""
                                 type="text" name='address1' id='address1'
-                                className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none"
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
                             />
                             {
                                 formErrors?.address1 &&
@@ -165,7 +145,7 @@ const BillingAddress = () => {
                                 onChange={handleChange}
                                 placeholder=""
                                 type="text" name='address2' id='address2'
-                                className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none"
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
                             />
                             {
                                 formErrors?.address2 &&
@@ -179,13 +159,17 @@ const BillingAddress = () => {
                     <div className='flex flex-col md:flex-row items-center justify-between md:gap-8 gap-6'>
                         <div className='w-full'>
                             <label htmlFor='country' className="px-1 font-bold">Country</label>
-                            <select
-                                name="country" id="country"
-                                onChange={handleChange}
-                                className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none"
+                            <select required
+                                name='country'
+                                value={countryData.country}
+                                onChange={(e) => { handleChange(e); setCountryData({ ...countryData, country: e.target.value }) }}
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
                             >
-                                <option value="">Select Country</option>
-                                <CountryList />
+                                <option value={''}>Country</option>
+                                {Country &&
+                                    Country.getAllCountries().map((item) => (
+                                        <option key={item.isoCode} value={item.isoCode}>{item.name}</option>
+                                    ))}
                             </select>
                             {
                                 formErrors?.country &&
@@ -196,13 +180,41 @@ const BillingAddress = () => {
                             }
                         </div>
                         <div className='w-full'>
-                            <label htmlFor='city' className="px-1 font-bold">City/State</label>
-                            <input
-                                onChange={handleChange}
-                                placeholder=""
-                                type="text" name='city' id='city'
-                                className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none"
-                            />
+                            <label htmlFor='state' className="px-1 font-bold">State</label>
+                            <select required
+                                name='state'
+                                value={countryData.state}
+                                onChange={(e) => { handleChange(e); setCountryData({ ...countryData, state: e.target.value }) }}
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
+                            >
+                                <option key={''} value={''}>State</option>
+                                {State &&
+                                    State.getStatesOfCountry(countryData.country).map((item) => (
+                                        <option key={item.isoCode} value={item.isoCode}>{item.name}</option>
+                                    ))}
+                            </select>
+                            {
+                                formErrors?.state &&
+                                <p className='mt-2 text-sm text-red-500 flex gap-2 items-start'>
+                                    <BsExclamationCircleFill className="mt-0.5" />
+                                    {formErrors?.state}
+                                </p>
+                            }
+                        </div>
+                        <div className='w-full'>
+                            <label htmlFor='city' className="px-1 font-bold">City</label>
+                            <select required
+                                name='city'
+                                value={countryData.city}
+                                onChange={(e) => { handleChange(e); setCountryData({ ...countryData, city: e.target.value }) }}
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
+                            >
+                                <option key={''} value={''}>City</option>
+                                {City &&
+                                    City.getCitiesOfState(countryData.country, countryData.state).map((item, i) => (
+                                        <option key={i} value={item.isoCode}>{item.name}</option>
+                                    ))}
+                            </select>
                             {
                                 formErrors?.city &&
                                 <p className='mt-2 text-sm text-red-500 flex gap-2 items-start'>
@@ -211,13 +223,15 @@ const BillingAddress = () => {
                                 </p>
                             }
                         </div>
+                    </div>
+                    <div className='flex flex-col md:flex-row items-center justify-between md:gap-8 gap-6'>
                         <div className='w-full'>
                             <label htmlFor='zip' className="px-1 font-bold">Zip/Postal Code</label>
                             <input
                                 onChange={handleChange}
                                 placeholder=""
                                 type="text" name='zip' id='zip'
-                                className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none"
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
                             />
                             {
                                 formErrors?.zip &&
@@ -227,19 +241,35 @@ const BillingAddress = () => {
                                 </p>
                             }
                         </div>
-
+                        <div className='w-full'>
+                            <label htmlFor='contactNumber' className="px-1 font-bold">Contact Number</label>
+                            <input
+                                onChange={handleChange}
+                                placeholder=""
+                                type="text" name='contactNumber' id='contactNumber'
+                                className='block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none'
+                            />
+                            {
+                                formErrors?.contactNumber &&
+                                <p className='mt-2 text-sm text-red-500 flex gap-2 items-start'>
+                                    <BsExclamationCircleFill className="mt-0.5" />
+                                    {formErrors?.contactNumber}
+                                </p>
+                            }
+                        </div>
                     </div>
                 </div>
-                <div className='w-full flex items-center gap-6 my-10'>
+                <div className='w-full flex justify-end items-end gap-6 my-3'>
                     <button
                         type='button'
                         onClick={handleSubmit}
-                        className='w-max mx-auto px-10 py-3 mb-8 text-base font-medium border border-white hover:bg-white duration-300 text-white hover:text-violet-800 flex items-center gap-2 rounded'
+                        className='w-max mx-8 px-10 py-3 mb-3 text-base font-medium bg-white border border-violet-500 hover:bg-violet-500 duration-300 hover:text-white text-violet-800 flex items-center gap-2 rounded'
                     >
                         Proceed
                     </button>
+
                 </div>
-            </div>
+            </form>
         </div>
     );
 };

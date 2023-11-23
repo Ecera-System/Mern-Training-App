@@ -33,16 +33,13 @@ import NodeJSDetails from "./Pages/Projects/NodeJSDetails";
 import OrderHistory from "./Pages/Profile/OrderHistory/OrderHistory";
 import ProfileAssignments from "./Pages/Profile/Assignments/ProfileAssignments";
 import '@fortawesome/fontawesome-free/css/all.css';
-import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress";
+import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress.jsx";
 import ActivateCode from "./Pages/Auth/ActivateCode";
 
 const App = () => {
   return (<>
     <Routes>
       <Route path="/" element={<Home />}></Route>
-
-      
-    
 
       <Route path="/programs" element={<Programs />}></Route>
       <Route path="/programs/mern-stack-web-development" element={<MERNStackWebDevelopment />}></Route>
@@ -73,7 +70,7 @@ const App = () => {
         <Route path="/profile" element={<MyProfile />}></Route>
         <Route path="/profile/course" element={<MyClasses />}></Route>
         <Route path="/profile/assignments" element={<ProfileAssignments />}></Route>
-        <Route path="/profile/billing-address" element={<BillingAddress />}></Route>
+        <Route path="/profile/address" element={<BillingAddress />}></Route>
         <Route path="/profile/order-history" element={<OrderHistory />}></Route>
         <Route path="/profile/certificates" element={<Certificate/>}></Route>
       </Route>
@@ -95,7 +92,7 @@ const App = () => {
         <Route path="/admin/certificate" element={<Certificate />}></Route>
         <Route path="/admin/book-counselling" element={<BookCounselling />}></Route>
         <Route path="/admin/all-users" element={<AllUsers />}></Route>
-        {/* <Route path="/admin/Settings/settings" element={<Settings/>}></Route> */}
+        <Route path="/admin/Settings/settings" element={<Settings/>}></Route>
       </Route>
 
       <Route path="/*" element={<NotFound />}></Route>

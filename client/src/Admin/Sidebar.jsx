@@ -13,7 +13,7 @@ const Sidebar = () => {
 
     const handleSignOut = () => {
         localStorage.removeItem('auth_token');
-        navigate('/sign-in');
+        navigate('/');
     };
 
     return (<>
@@ -105,6 +105,7 @@ const Sidebar = () => {
                     <span className='max-lg:hidden'>All Users</span>
                 </NavLink>
             </li>
+            
             {/* <li>
                 <NavLink
                     to='/admin/Settings/settings'
