@@ -107,9 +107,6 @@ const BillingAddress = () => {
         <h1 className="text-xl font-bold text-black-700 p-5 border-b">
           Billing Address
         </h1>
-        {/*  */}
-        {/* <p>Hi</p> */}
-        {/*  */}
         <div className="w-full p-8 flex flex-col gap-6">
           <div className="flex flex-col md:flex-row items-center justify-between md:gap-8 gap-6">
             <div className="w-full">
