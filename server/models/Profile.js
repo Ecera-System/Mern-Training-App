@@ -1,48 +1,49 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 
-
 // Schema design
-const profileSchema = mongoose.Schema({
+const profileSchema = mongoose.Schema(
+  {
     avatar: {
-        type: String,
+      type: String,
     },
     name: {
-        type: String,
-        required: [true, "Please provide your full name!"],
-        trim: true,
+      type: String,
+      required: [true, "Please provide your full name!"],
+      trim: true,
     },
     birthday: {
-        type: String,
+      type: String,
     },
     country: {
-        type: String,
+      type: String,
     },
     address1: {
-        type: String,
+      type: String,
     },
     address2: {
-        type: String,
+      type: String,
     },
     city: {
-        type: String,
+      type: String,
     },
     zip: {
-        type: String,
+      type: String,
     },
     education: {
-        type: String,
+      type: String,
     },
     userId: {
-        type: ObjectId,
-        required: true,
-        ref: "User",
+      type: ObjectId,
+      required: true,
+      ref: "User",
     },
-}, {
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
-
-const Profile = mongoose.model('Profile', profileSchema);
+const Profile = mongoose.model("Profile", profileSchema);
 
 module.exports = Profile;
