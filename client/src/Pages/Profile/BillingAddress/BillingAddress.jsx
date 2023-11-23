@@ -3,6 +3,7 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import CountryList from "../../Shared/CountryList"; // Update the path here
 import { Country, State, City } from "country-state-city";
+import axios from "axios";
 
 const BillingAddress = () => {
   const [formData, setFormData] = useState({
@@ -65,18 +66,36 @@ const BillingAddress = () => {
     return errors;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm(formData);
 
     if (Object.keys(errors).length === 0) {
-      // Form data is valid, proceed with further actions
-      console.log("Form data:", formData);
-      // Save the form data to local storage
-      localStorage.setItem("formData", JSON.stringify(formData));
-      // Add your logic for handling the form submission here.
-      // For now, let's navigate to the checkout page
-      navigate(`/profile/course`);
+      try {
+        // Assuming your API endpoint for updating the billing address is '/profile/:id'
+        const response = await axios.patch(
+          `${import.meta.env.VITE_API_V1_URL}/profile/${userId}`,
+          {
+            update: "address", // Indicates that we are updating the address
+            country: formData.country,
+            city: formData.city,
+            address1: formData.address1,
+            zip: formData.zip,
+          }
+        );
+
+        // Check if the update was successful
+        if (response.data.success) {
+          // Optionally, you can do something after a successful update, such as navigating to another page
+          console.log("Billing address updated successfully!");
+          navigate(`/profile/course`);
+        } else {
+          // Handle the case where the update was not successful
+          console.error("Failed to update billing address");
+        }
+      } catch (error) {
+        console.error("Error updating billing address:", error);
+      }
     } else {
       setFormErrors(errors);
     }
