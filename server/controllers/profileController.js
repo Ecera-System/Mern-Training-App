@@ -56,7 +56,8 @@ exports.updateProfileById = async (req, res, next) => {
             birthday,
             avatar: imagePath ? `/images/profile/${imagePath}` : avatar,
           },
-        }
+        },
+        { new: true }
       );
 
       if (!result) return res.status(404).json({ error: "Profile not found!" });
@@ -83,7 +84,8 @@ exports.updateProfileById = async (req, res, next) => {
             address1,
             zip,
           },
-        }
+        },
+        { new: true }
       );
 
       if (!result) return res.status(404).json({ error: "Profile not found!" });
