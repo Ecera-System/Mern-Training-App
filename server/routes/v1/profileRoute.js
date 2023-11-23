@@ -47,6 +47,7 @@ router
    * @apiError (Not Found 404)  User data not found
    */
   .patch(userAuthorize, updateProfileById);
+// .patch(updateProfileById);
 
 // <!-- Admin Route -->
 router
