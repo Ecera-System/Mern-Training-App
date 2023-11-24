@@ -17,168 +17,171 @@ exports.getProfile = async (req, res, next) => {
 };
 
 //
-// exports.updateProfileById = async (req, res, next) => {
-//   try {
-//     if (req.body.update === "info") {
-//       const { name, contactNumber, birthday, avatar } = req.body;
-
-//       let imagePath;
-
-//       // <!-- Image processing -->
-//       if (avatar && avatar.startsWith("data:image")) {
-//         const buffer = Buffer.from(
-//           avatar.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
-//           "base64"
-//         );
-
-//         imagePath = `${Date.now()}-${Math.round(Math.random() * 1e9)}.png`;
-//         try {
-//           const cachedJpegDecoder = Jimp.decoders["image/jpeg"];
-//           Jimp.decoders["image/jpeg"] = (data) => {
-//             const userOpts = { maxMemoryUsageInMB: 1024 };
-//             return cachedJpegDecoder(data, userOpts);
-//           };
-//           const jimpResp = await Jimp.read(buffer);
-//           jimpResp
-//             .resize(300, Jimp.AUTO)
-//             .write(
-//               path.resolve(__dirname, `../public/images/profile/${imagePath}`)
-//             );
-//         } catch (err) {
-//           return res.status(500).json({ error: err.message });
-//         }
-//       }
-
-//       const result = await Profile.findByIdAndUpdate(
-//         { _id: req.params.id },
-//         {
-//           $set: {
-//             name,
-//             birthday,
-//             avatar: imagePath ? `/images/profile/${imagePath}` : avatar,
-//           },
-//         },
-//         { new: true }
-//       );
-
-//       if (!result) return res.status(404).json({ error: "Profile not found!" });
-
-//       await User.updateOne(
-//         { _id: req.decoded._id },
-//         { $set: { name: name, contactNumber: contactNumber } }
-//       );
-
-//       res
-//         .status(200)
-//         .json({ success: "Profile update successfully!", data: result });
-//     }
-
-//     if (req.body.update === "address") {
-//       const { country, city, address1, zip } = req.body;
-
-//       const result = await Profile.findByIdAndUpdate(
-//         { _id: req.params.id },
-//         {
-//           $set: {
-//             country,
-//             city,
-//             address1,
-//             zip,
-//           },
-//         },
-//         { new: true }
-//       );
-
-//       if (!result) return res.status(404).json({ error: "Profile not found!" });
-
-//       res
-//         .status(200)
-//         .json({ success: "Address update successfully!", data: result });
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-//
 exports.updateProfileById = async (req, res, next) => {
+  //
+  console.log("req.body:", req.body);
+  //
   try {
-    const {
-      name,
-      contactNumber,
-      birthday,
-      avatar,
-      country,
-      city,
-      address1,
-      zip,
-    } = req.body;
+    if (req.body.update === "info") {
+      const { name, contactNumber, birthday, avatar } = req.body;
 
-    //
-    console.log("req.body:", req.body);
+      let imagePath;
 
-    let imagePath;
+      // <!-- Image processing -->
+      if (avatar && avatar.startsWith("data:image")) {
+        const buffer = Buffer.from(
+          avatar.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
+          "base64"
+        );
 
-    // Image processing
-    if (avatar && avatar.startsWith("data:image")) {
-      const buffer = Buffer.from(
-        avatar.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
-        "base64"
+        imagePath = `${Date.now()}-${Math.round(Math.random() * 1e9)}.png`;
+        try {
+          const cachedJpegDecoder = Jimp.decoders["image/jpeg"];
+          Jimp.decoders["image/jpeg"] = (data) => {
+            const userOpts = { maxMemoryUsageInMB: 1024 };
+            return cachedJpegDecoder(data, userOpts);
+          };
+          const jimpResp = await Jimp.read(buffer);
+          jimpResp
+            .resize(300, Jimp.AUTO)
+            .write(
+              path.resolve(__dirname, `../public/images/profile/${imagePath}`)
+            );
+        } catch (err) {
+          return res.status(500).json({ error: err.message });
+        }
+      }
+
+      const result = await Profile.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: {
+            name,
+            birthday,
+            avatar: imagePath ? `/images/profile/${imagePath}` : avatar,
+          },
+        },
+        { new: true }
       );
 
-      imagePath = `${Date.now()}-${Math.round(Math.random() * 1e9)}.png`;
-      try {
-        const cachedJpegDecoder = Jimp.decoders["image/jpeg"];
-        Jimp.decoders["image/jpeg"] = (data) => {
-          const userOpts = { maxMemoryUsageInMB: 1024 };
-          return cachedJpegDecoder(data, userOpts);
-        };
-        const jimpResp = await Jimp.read(buffer);
-        jimpResp
-          .resize(300, Jimp.AUTO)
-          .write(
-            path.resolve(__dirname, `../public/images/profile/${imagePath}`)
-          );
-      } catch (err) {
-        return res.status(500).json({ error: err.message });
-      }
-    }
+      if (!result) return res.status(404).json({ error: "Profile not found!" });
 
-    const updateFields = {};
-
-    // Prepare update fields based on the presence of data in the request
-    if (name) updateFields.name = name;
-    if (birthday) updateFields.birthday = birthday;
-    if (avatar)
-      updateFields.avatar = imagePath ? `/images/profile/${imagePath}` : avatar;
-    if (country || city || address1 || zip) {
-      updateFields.country = country;
-      updateFields.city = city;
-      updateFields.address1 = address1;
-      updateFields.zip = zip;
-    }
-
-    const result = await Profile.findByIdAndUpdate(
-      { _id: req.params.id },
-      { $set: updateFields },
-      { new: true }
-    );
-
-    if (!result) return res.status(404).json({ error: "Profile not found!" });
-
-    if (name || contactNumber) {
       await User.updateOne(
         { _id: req.decoded._id },
         { $set: { name: name, contactNumber: contactNumber } }
       );
+
+      res
+        .status(200)
+        .json({ success: "Profile update successfully!", data: result });
     }
 
-    res
-      .status(200)
-      .json({ success: "Profile update successfully!", data: result });
+    if (req.body.update === "address") {
+      const { country, city, address1, zip } = req.body;
+
+      const result = await Profile.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          $set: {
+            country,
+            city,
+            address1,
+            zip,
+          },
+        },
+        { new: true }
+      );
+
+      if (!result) return res.status(404).json({ error: "Profile not found!" });
+
+      res
+        .status(200)
+        .json({ success: "Address update successfully!", data: result });
+    }
   } catch (error) {
     next(error);
   }
 };
+
+// exports.updateProfileById = async (req, res, next) => {
+//   try {
+//     const {
+//       name,
+//       contactNumber,
+//       birthday,
+//       avatar,
+//       country,
+//       city,
+//       address1,
+//       zip,
+//     } = req.body;
+
+//     //
+//     console.log("req.body:", req.body);
+
+//     let imagePath;
+
+//     // Image processing
+//     if (avatar && avatar.startsWith("data:image")) {
+//       const buffer = Buffer.from(
+//         avatar.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
+//         "base64"
+//       );
+
+//       imagePath = `${Date.now()}-${Math.round(Math.random() * 1e9)}.png`;
+//       try {
+//         const cachedJpegDecoder = Jimp.decoders["image/jpeg"];
+//         Jimp.decoders["image/jpeg"] = (data) => {
+//           const userOpts = { maxMemoryUsageInMB: 1024 };
+//           return cachedJpegDecoder(data, userOpts);
+//         };
+//         const jimpResp = await Jimp.read(buffer);
+//         jimpResp
+//           .resize(300, Jimp.AUTO)
+//           .write(
+//             path.resolve(__dirname, `../public/images/profile/${imagePath}`)
+//           );
+//       } catch (err) {
+//         return res.status(500).json({ error: err.message });
+//       }
+//     }
+
+//     const updateFields = {};
+
+//     // Prepare update fields based on the presence of data in the request
+//     if (name) updateFields.name = name;
+//     if (birthday) updateFields.birthday = birthday;
+//     if (avatar)
+//       updateFields.avatar = imagePath ? `/images/profile/${imagePath}` : avatar;
+//     if (country || city || address1 || zip) {
+//       updateFields.country = country;
+//       updateFields.city = city;
+//       updateFields.address1 = address1;
+//       updateFields.zip = zip;
+//     }
+
+//     const result = await Profile.findByIdAndUpdate(
+//       { _id: req.params.id },
+//       { $set: updateFields },
+//       { new: true }
+//     );
+
+//     if (!result) return res.status(404).json({ error: "Profile not found!" });
+
+//     if (name || contactNumber) {
+//       await User.updateOne(
+//         { _id: req.decoded._id },
+//         { $set: { name: name, contactNumber: contactNumber } }
+//       );
+//     }
+
+//     res
+//       .status(200)
+//       .json({ success: "Profile update successfully!", data: result });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 //
 

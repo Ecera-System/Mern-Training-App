@@ -71,30 +71,24 @@ const BillingAddress = () => {
     return errors;
   };
 
+  //
   const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm(formData);
 
     if (Object.keys(errors).length === 0) {
       try {
-        //
-        const updateFields = {
-          // Fields to be updated
-          country: formData.country,
-          city: formData.city,
-          address1: formData.address1,
-          address2: formData.address2,
-          zip: formData.zip,
-          name: `${formData.firstName} ${formData.lastName}`,
-          contactNumber: formData.contactNumber,
-          // Add other fields as needed
-        };
         // Assuming your API endpoint for updating the billing address is '/profile/:id'
         const response = await axios.patch(
           `${import.meta.env.VITE_API_V1_URL}/profile/${profileData._id}`,
-
-          updateFields, //object
-
+          {
+            // Data payload should be passed directly, not as a separate object
+            update: "address", // Indicates that we are updating the address
+            country: formData.country,
+            city: formData.city,
+            address1: formData.address1,
+            zip: formData.zip,
+          },
           {
             headers: {
               Authorization: localStorage.getItem("auth_token"),
@@ -118,6 +112,55 @@ const BillingAddress = () => {
       setFormErrors(errors);
     }
   };
+  //
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const errors = validateForm(formData);
+
+  //   if (Object.keys(errors).length === 0) {
+  //     try {
+  //       //
+  //       const updateFields = {
+  //         // Fields to be updated
+  //         country: formData.country,
+  //         city: formData.city,
+  //         address1: formData.address1,
+  //         address2: formData.address2,
+  //         zip: formData.zip,
+  //         name: `${formData.firstName} ${formData.lastName}`,
+  //         contactNumber: formData.contactNumber,
+  //         // Add other fields as needed
+  //       };
+  //       // Assuming your API endpoint for updating the billing address is '/profile/:id'
+  //       const response = await axios.patch(
+  //         `${import.meta.env.VITE_API_V1_URL}/profile/${profileData._id}`,
+
+  //         updateFields, //object
+
+  //         {
+  //           headers: {
+  //             Authorization: localStorage.getItem("auth_token"),
+  //           },
+  //         }
+  //       );
+
+  //       // Check if the update was successful
+  //       if (response.data.success) {
+  //         // Optionally, you can do something after a successful update, such as navigating to another page
+  //         console.log("Billing address updated successfully!");
+  //         navigate(`/profile/course`);
+  //       } else {
+  //         // Handle the case where the update was not successful
+  //         console.error("Failed to update billing address");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error updating billing address:", error);
+  //     }
+  //   } else {
+  //     setFormErrors(errors);
+  //   }
+  // };
 
   return (
     <div className="my-5 w-full bg-white text-gray-600">
