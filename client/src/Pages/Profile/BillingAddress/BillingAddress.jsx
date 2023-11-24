@@ -77,17 +77,24 @@ const BillingAddress = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
+        //
+        const updateFields = {
+          // Fields to be updated
+          country: formData.country,
+          city: formData.city,
+          address1: formData.address1,
+          address2: formData.address2,
+          zip: formData.zip,
+          name: `${formData.firstName} ${formData.lastName}`,
+          contactNumber: formData.contactNumber,
+          // Add other fields as needed
+        };
         // Assuming your API endpoint for updating the billing address is '/profile/:id'
         const response = await axios.patch(
           `${import.meta.env.VITE_API_V1_URL}/profile/${profileData._id}`,
-          {
-            // Data payload should be passed directly, not as a separate object
-            update: "address", // Indicates that we are updating the address
-            country: formData.country,
-            city: formData.city,
-            address1: formData.address1,
-            zip: formData.zip,
-          },
+
+          updateFields, //object
+
           {
             headers: {
               Authorization: localStorage.getItem("auth_token"),
