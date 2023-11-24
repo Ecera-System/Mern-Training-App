@@ -10,10 +10,6 @@ const BillingAddress = () => {
   //
   const [profileData, loading, fetchProfileData] = useGetProfile(); // Use the hook
 
-  useEffect(() => {
-    console.log("Profile Data:", profileData);
-    console.log("auth_token:", localStorage.getItem("auth_token"));
-  }, [profileData]);
   //
   const [formData, setFormData] = useState({
     firstName: "",
