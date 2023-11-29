@@ -31,6 +31,7 @@ import BackendDetails from "./Pages/Projects/BackendDetails";
 import ReactJSDetails from "./Pages/Projects/ReactJSDetails";
 import NodeJSDetails from "./Pages/Projects/NodeJSDetails";
 import OrderHistory from "./Pages/Profile/OrderHistory/OrderHistory";
+import MyReward from "./Pages/Profile/MyReward/MyReward";
 import ProfileAssignments from "./Pages/Profile/Assignments/ProfileAssignments";
 import '@fortawesome/fontawesome-free/css/all.css';
 import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress.jsx";
@@ -71,6 +72,7 @@ const App = () => {
         <Route path="/profile/course" element={<MyClasses />}></Route>
         <Route path="/profile/assignments" element={<ProfileAssignments />}></Route>
         <Route path="/profile/address" element={<BillingAddress />}></Route>
+        <Route path="/profile/my-reward" element={<MyReward />}></Route>
         <Route path="/profile/order-history" element={<OrderHistory />}></Route>
         <Route path="/profile/certificates" element={<Certificate/>}></Route>
       </Route>

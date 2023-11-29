@@ -2,6 +2,7 @@ import { BsJournalCode } from 'react-icons/bs';
 import { FiLogOut, FiUser } from 'react-icons/fi';
 import { MdOutlineAssignment } from 'react-icons/md';
 import { RiHistoryFill } from 'react-icons/ri';
+import { FaAward } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom';
 import useGetProfile from '../../API/useGetProfile';
 import Spinner from '../Shared/Spinner/Spinner';
@@ -86,6 +87,15 @@ const Sidebar = () => {
                 >
                     <SlBadge className='text-lg' />
                     <span className='lg:block hidden'>Certificate</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                to='/profile/my-reward'
+                    className='lg:w-full w-max h-auto py-3 lg:px-5 px-3 text-base hover:text-violet-600 side-nav hover:bg-violet-100 duration-300 relative rounded flex items-center gap-3'
+                >
+                    <FaAward className='text-lg' />
+                    <span className='lg:block hidden'>My Rewards</span>
                 </NavLink>
             </li>
             <li>
