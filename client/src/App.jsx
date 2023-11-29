@@ -31,6 +31,7 @@ import BackendDetails from "./Pages/Projects/BackendDetails";
 import ReactJSDetails from "./Pages/Projects/ReactJSDetails";
 import NodeJSDetails from "./Pages/Projects/NodeJSDetails";
 import OrderHistory from "./Pages/Profile/OrderHistory/OrderHistory";
+import MyReward from "./Pages/Profile/MyReward/MyReward";
 import ProfileAssignments from "./Pages/Profile/Assignments/ProfileAssignments";
 import "@fortawesome/fontawesome-free/css/all.css";
 import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress.jsx";

@@ -10,6 +10,8 @@ const ContextProvider = ({ children }) => {
         localStorage.getItem('auth_token') !== null
     ); //User Authenticate
     const [toast, setToast] = useState({ success: '', error: '' }); //Toast Notify
+    const [rewardBalance, setRewardBalance] = useState(0); // Reward Points
+
 
     const showToast = (message) => {
         setToast(message);
@@ -30,7 +32,9 @@ const ContextProvider = ({ children }) => {
                 courseState,
                 setCourseState,
                 isLoggedIn,
-                setIsLoggedIn
+                setIsLoggedIn,
+                rewardBalance,
+                setRewardBalance
             }}
         >
             <div className={`fixed top-0 left-0 w-full h-auto bg-white z-[60] text-center duration-500 ${toast.success || toast.error ? 'translate-y-0' : '-translate-y-full'}`}>
