@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import rewardImage from "/images/reward.jpg"; // Import your reward image
-import additionalImage from "/images/reward4.jpg"; // Import your additional image
 
 import { contextProvider } from "../../../Context/ContextProvider";
 import { useNavigate } from "react-router-dom";
+
 
 const MyReward = () => {
   const { rewardBalance, setRewardBalance } = useContext(contextProvider);
