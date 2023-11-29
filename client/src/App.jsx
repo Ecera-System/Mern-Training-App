@@ -95,6 +95,7 @@ const App = () => {
             element={<OrderHistory />}
           ></Route>
           <Route path="/profile/certificates" element={<Certificate />}></Route>
+          <Route path="/profile/my-reward" element={<MyReward />}></Route>
         </Route>
 
         {/* <!== === === === Admin === === === === */}
