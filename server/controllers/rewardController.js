@@ -67,7 +67,7 @@ exports.getAllRewards = async (req, res, next) => {
 //<!-- Redeem Reward Points -->
 exports.reedemRewardPoints = async (req, res, next) => {
   try {
-    const { _id } = req.decoded; // Change from _id to userId
+    const { _id } = req.decoded;
     const itemPrice = parseFloat(req.body.itemPrice);
 
     // Validate itemPrice to ensure it's a positive number
@@ -76,34 +76,23 @@ exports.reedemRewardPoints = async (req, res, next) => {
     }
 
     // Fetch the user's total reward points
-    const userReward = await Reward.findOne({ userId: _id }); // Change from _id to userId
+    const userReward = await Reward.findOne({ userId: _id });
 
     if (!userReward) {
       return res.status(404).json({ error: "User reward data not found!" });
     }
 
-    // Calculate the discount based on reward points
-    const discountAmount = Math.floor(userReward.points / 10);
-    //
-    console.log(discountAmount, "discountAmount");
-    const discountedPrice = itemPrice - discountAmount;
-
-    // Ensure the discounted price doesn't go below zero
-    const finalPrice = Math.max(discountedPrice, 0);
+    // Calculate the discount based on reward points (1:1 conversion)
+    const discountAmount = Math.min(userReward.points, itemPrice);
 
     // Update the user's reward points after redemption
-    if (discountAmount >= itemPrice) {
-      userReward.points -= itemPrice * 10;
-    } else {
-      userReward.points -= userReward.points;
-    }
-
+    userReward.points -= discountAmount;
     await userReward.save();
 
     res.status(200).json({
       success: "Reward points redeemed successfully!",
       discountAmount,
-      finalPrice,
+      finalPrice: Math.max(itemPrice - discountAmount, 0),
     });
   } catch (error) {
     next(error);
