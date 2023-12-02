@@ -5,12 +5,45 @@ import { contextProvider } from "../../../Context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 
 import useGetRewards from "../../../API/useGetReward";
+//
+import axios from "axios";
 
 const MyReward = () => {
+  const { showToast } = useContext(contextProvider);
   // const { rewardBalance, setRewardBalance } = useContext(contextProvider);
-  const [rewardData, loading] = useGetRewards();
+  const [rewardData, loading, fetchRewardData] = useGetRewards();
+  //temporary
+  const [rewardInput, setRewardInput] = useState("");
   const navigate = useNavigate();
   console.log(rewardData, "rewardData");
+  //
+  const handleAddReward = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_V1_URL}/reward`,
+        { points: rewardInput },
+        {
+          headers: {
+            Authorization: localStorage.getItem("auth_token"),
+          },
+        }
+      );
+
+      showToast({
+        success: response?.data?.success,
+        error: response?.data?.error,
+      });
+
+      // Fetch updated reward data after adding reward
+      fetchRewardData();
+    } catch (err) {
+      showToast({
+        success: "",
+        error: err?.response?.data?.error,
+      });
+    }
+  };
+  //
   return (
     <div style={styles.container}>
       <div style={styles.overlay}>
@@ -35,6 +68,17 @@ const MyReward = () => {
           >
             Explore More
           </button>
+          {/* temporary just to test */}
+          <p>
+            $value:{" "}
+            <input
+              type="text"
+              value={rewardInput}
+              onChange={(e) => setRewardInput(e.target.value)}
+            />
+            <button onClick={handleAddReward}>Add reward</button>
+          </p>
+          {/*  */}
         </div>
       </div>
       <p style={styles.earnText}>Don't just spend,Earn!</p>
