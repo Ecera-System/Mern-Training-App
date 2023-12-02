@@ -36,6 +36,8 @@ import ProfileAssignments from "./Pages/Profile/Assignments/ProfileAssignments";
 import "@fortawesome/fontawesome-free/css/all.css";
 import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress.jsx";
 import ActivateCode from "./Pages/Auth/ActivateCode";
+import SignIn from "./Pages/Auth/SignIn.jsx";
+import SignUp from "./Pages/Auth/SignUp.jsx";
 
 const App = () => {
   return (
@@ -74,6 +76,10 @@ const App = () => {
           element={<StripeCheckoutMsg />}
         ></Route>
         <Route path="/contact" element={<ContactUs />}></Route>
+        
+        <Route path="/sign-in" element={<SignIn />}></Route>
+        <Route path="/sign-up" element={<SignUp />}></Route>
+
 
         <Route
           path="/profile"
@@ -89,7 +95,7 @@ const App = () => {
             path="/profile/assignments"
             element={<ProfileAssignments />}
           ></Route>
-          <Route path="/profile/address" element={<BillingAddress />}></Route>
+          <Route path="/profile/billing-address" element={<BillingAddress />}></Route>
           <Route
             path="/profile/order-history"
             element={<OrderHistory />}

@@ -8,8 +8,7 @@ import SignUp from '../../Auth/SignUp';
 
 const DesktopView = ({ profile }) => {
     const { isLoggedIn } = useContext(contextProvider);
-    const [signInPopUp, setSignInPopUp] = useState(false);
-    const [signUpPopUp, setSignUpPopUp] = useState(false);
+
     return (
         <ul className='list-none hidden lg:flex items-center justify-between gap-10 text-lg font-normal'>
             {
@@ -59,26 +58,20 @@ const DesktopView = ({ profile }) => {
                     <HeaderProfile />
                     :
                     <li className='flex items-center justify-between gap-5'>
-                        <button
-                            onClick={() => setSignInPopUp(true)}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-violet-600 hover:text-white border-2 border-violet-600 rounded-full'
+                        <Link
+                            to={'/sign-in'}
+                            className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-white-600 hover:text-white border-2 border-violet-600 rounded-full'
                         >
                             Sign in
-                        </button>
-                        {
-                            signInPopUp && <SignIn signInPopUp={signInPopUp} setSignInPopUp={setSignInPopUp} />
-                        }
+                        </Link>
 
-                        <button
-                            onClick={() => setSignUpPopUp(true)}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-violet-600 hover:text-white border-2 border-violet-600 rounded-full'
+                        <Link
+                            to={'/sign-up'}
+                            className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-white-600 hover:text-white border-2 border-violet-600 rounded-full'
                         >
                             Sign up
-                        </button>
-                        {
-                            signUpPopUp && <SignUp signUpPopUp={signUpPopUp} setSignUpPopUp={setSignUpPopUp} />
-                        }
-
+                        </Link>
+                        
                     </li>
 
             }
