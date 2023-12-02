@@ -49,7 +49,10 @@ exports.createReward = async (req, res, next) => {
 exports.getAllRewards = async (req, res, next) => {
   try {
     const { _id } = req.decoded;
+    console.log(_id, "_id from getAllRewards");
     const result = await Reward.findOne({ userId: _id });
+
+    console.log(result, "result from getAllRewards");
     res.status(200).json(result);
   } catch (error) {
     next(error);

@@ -4,18 +4,26 @@ import rewardImage from "/images/reward.jpg"; // Import your reward image
 import { contextProvider } from "../../../Context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 
+import useGetRewards from "../../../API/useGetReward";
 
 const MyReward = () => {
-  const { rewardBalance, setRewardBalance } = useContext(contextProvider);
+  // const { rewardBalance, setRewardBalance } = useContext(contextProvider);
+  const [rewardData, loading] = useGetRewards();
   const navigate = useNavigate();
-
+  console.log(rewardData, "rewardData");
   return (
     <div style={styles.container}>
       <div style={styles.overlay}>
         <div style={styles.content}>
           <h2 style={styles.header}>My Balance</h2>
           <div style={styles.rewardContainer}>
-            <p style={styles.rewardText}> {rewardBalance} points </p>
+            {/* <p style={styles.rewardText}> {rewardBalance} points </p> */}
+            {/* <p style={styles.rewardText}> {rewardData.points} points </p> */}
+            <p style={styles.rewardText}>
+              {rewardData && rewardData.points !== undefined
+                ? `${rewardData.points} points`
+                : "0 points"}
+            </p>
           </div>
           <button style={styles.button}>Redeem</button>
           <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
