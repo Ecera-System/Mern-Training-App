@@ -12,16 +12,16 @@ const MyReward = () => {
   const { showToast } = useContext(contextProvider);
   // const { rewardBalance, setRewardBalance } = useContext(contextProvider);
   const [rewardData, loading, fetchRewardData] = useGetRewards();
-  //temporary
-  const [rewardInput, setRewardInput] = useState("");
+
   const navigate = useNavigate();
   console.log(rewardData, "rewardData");
-  //
+  //temporary
+  const [rewardInput, setRewardInput] = useState("");
   const handleAddReward = async () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_V1_URL}/reward`,
-        { points: rewardInput },
+        { dollarsSpent: rewardInput },
         {
           headers: {
             Authorization: localStorage.getItem("auth_token"),
