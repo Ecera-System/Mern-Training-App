@@ -4,7 +4,7 @@ const userAuthorize = require("../../middleware/userAuthorize");
 const {
   createReward,
   getAllRewards,
-  redeemRewardPoints,
+  reedemRewardPoints,
   deleteRewardById,
 } = require("../../controllers/rewardController");
 
@@ -16,7 +16,7 @@ router
   .post(userAuthorize, createReward);
 
 //<!-- Redeem Reward Points -->
-router.route("/redeem").post(userAuthorize, redeemRewardPoints);
+router.route("/redeem").post(userAuthorize, reedemRewardPoints);
 
 router
   .route("/:id")

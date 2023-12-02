@@ -3,7 +3,7 @@ const { ObjectId } = mongoose.Schema.Types;
 
 const rewardSchema = mongoose.Schema(
   {
-    user: {
+    userId: {
       type: ObjectId,
       ref: "User",
       required: true,
