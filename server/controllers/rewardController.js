@@ -63,7 +63,7 @@ exports.getAllRewards = async (req, res, next) => {
     console.log(_id, "_id from getAllRewards");
     const result = await Reward.findOne({ userId: _id });
 
-    console.log(result, "result from getAllRewards");
+    // console.log(result, "result from getAllRewards");
     res.status(200).json(result);
   } catch (error) {
     next(error);
@@ -93,12 +93,16 @@ exports.reedemRewardPoints = async (req, res, next) => {
 
     // Update the user's reward points after redemption
     userReward.points -= discountAmount;
+
+    //
+    const finalPrice = Math.max(itemPrice - discountAmount, 0);
+    //
     await userReward.save();
 
     res.status(200).json({
       success: "Reward points redeemed successfully!",
       discountAmount,
-      finalPrice: Math.max(itemPrice - discountAmount, 0),
+      finalPrice: finalPrice,
     });
   } catch (error) {
     next(error);

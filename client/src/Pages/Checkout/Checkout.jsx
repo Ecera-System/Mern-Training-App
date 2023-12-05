@@ -31,13 +31,17 @@ const loadRazorpay = (src) => {
 const Checkout = () => {
   //
   const [rewardData, fetchRewardData] = useGetRewards();
-  // console.log(rewardData, "rewardData");
+
   //
   const { showToast } = useContext(contextProvider);
   const location = useLocation();
   const [courseData, loading] = useGetCourseById(
     location?.pathname?.split("/")[3]
   );
+  //
+  const [updatedPrice, setUpdatedPrice] = useState(courseData.price); // New state for the updated price
+  // console.log(updatedPrice, "updatedPrice");
+  //
   const [isDiscount, setIsDiscount] = useState(null); // For Coupon Code
   const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
@@ -55,6 +59,9 @@ const Checkout = () => {
   const [btnLoading, setBtnLoading] = useState(false);
   const navigate = useNavigate();
   const [razorpayRes, setRazorpayRes] = useState(null);
+
+  //
+  // console.log(isDiscount, "isDiscount");
 
   // <-- Razorpay payment verify api -->
   useEffect(() => {
@@ -92,6 +99,8 @@ const Checkout = () => {
 
   if (loading) return <Spinner />;
   const { _id, title, price } = courseData;
+
+  // console.log(price, "price");
 
   // <!-- onChange input -->
   const handleChange = (event) => {
@@ -181,7 +190,8 @@ const Checkout = () => {
               ...formData,
               courseId: _id,
               title: title,
-              price: isDiscount || parseFloat(courseData.price),
+              // price: isDiscount || parseFloat(courseData.price),
+              price: isDiscount || updatedPrice || parseFloat(courseData.price),
             },
             {
               method: "POST",
@@ -246,6 +256,51 @@ const Checkout = () => {
       setBtnLoading(false);
     } else {
       setFormErrors(errors);
+    }
+  };
+
+  // <!-- Reedem reward points -->
+  const handeleReedemRewardPoint = async (event) => {
+    event.preventDefault();
+
+    try {
+      // Make a request to redeem reward points
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_V1_URL}/reward/redeem`,
+        {
+          itemPrice: isDiscount || parseFloat(courseData.price),
+        },
+        {
+          method: "POST",
+          headers: {
+            Authorization: localStorage.getItem("auth_token"),
+          },
+        }
+      );
+
+      // Check if the redemption was successful
+      if (response.data.success) {
+        //
+        console.log(response);
+        //
+        // Update the state of the price with the discounted amount
+        setUpdatedPrice(response.data.finalPrice);
+        //
+        showToast({
+          succuss: response.data.success,
+          error: "",
+        });
+
+        // Update the state or do anything else you need
+        // For example, you might want to update the UI to reflect the discount or new price
+      }
+    } catch (error) {
+      showToast({
+        succuss: "",
+        error:
+          error?.response?.data?.error ||
+          "An error occurred while redeeming reward points.",
+      });
     }
   };
 
@@ -466,7 +521,7 @@ const Checkout = () => {
                 />
               )}
             </div>
-            {/* for reward */}
+            {/* for reward point and it's reedem button*/}
             <div>
               <p>
                 Total rewards:
@@ -476,7 +531,10 @@ const Checkout = () => {
               </p>
 
               {rewardData && rewardData.points > 0 && (
-                <button className="text-base px-6 py-2.5 bg-blue-600 text-white hover:bg-blue-700 duration-300 rounded">
+                <button
+                  onClick={handeleReedemRewardPoint}
+                  className="text-base px-6 py-2.5 bg-blue-600 text-white hover:bg-blue-700 duration-300 rounded"
+                >
                   Redeem reward points
                 </button>
               )}
@@ -503,7 +561,12 @@ const Checkout = () => {
 
           {/* <!-- Left Summary --> */}
           <div className="lg:w-1/4 w-full lg:sticky top-[74px] right-0">
-            <Summary data={courseData} isDiscount={isDiscount || price} />
+            {/* <Summary data={courseData} isDiscount={isDiscount || price} /> */}
+
+            <Summary
+              data={courseData}
+              isDiscount={isDiscount || updatedPrice || price}
+            />
           </div>
         </div>
       </div>
