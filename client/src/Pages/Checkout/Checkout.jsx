@@ -10,6 +10,8 @@ import Spinner from "../Shared/Spinner/Spinner";
 import ApplyCoupon from "./ApplyCoupon";
 import Summary from "./Summary";
 import useGetCourseById from "../../API/useGetCourseById";
+//
+import useGetRewards from "../../API/useGetReward";
 
 // <-- Razorpay payment API -->
 const loadRazorpay = (src) => {
@@ -27,6 +29,10 @@ const loadRazorpay = (src) => {
 };
 
 const Checkout = () => {
+  //
+  const [rewardData, fetchRewardData] = useGetRewards();
+  // console.log(rewardData, "rewardData");
+  //
   const { showToast } = useContext(contextProvider);
   const location = useLocation();
   const [courseData, loading] = useGetCourseById(
@@ -460,6 +466,22 @@ const Checkout = () => {
                 />
               )}
             </div>
+            {/* for reward */}
+            <div>
+              <p>
+                Total rewards:
+                {rewardData && rewardData.points !== undefined
+                  ? `${rewardData.points} points`
+                  : "0 points"}
+              </p>
+
+              {rewardData && rewardData.points > 0 && (
+                <button className="text-base px-6 py-2.5 bg-blue-600 text-white hover:bg-blue-700 duration-300 rounded">
+                  Redeem reward points
+                </button>
+              )}
+            </div>
+            {/*  */}
 
             <div className="w-full flex items-center gap-6 my-10">
               <button

@@ -300,10 +300,7 @@ exports.razorpayVerify = async (req, res, next) => {
       // adding for rewards
 
       if (courseEnroll._id) {
-        const existingReward = await createOrUpdateRewardPoints(
-          studentId,
-          price
-        );
+        const addingReward = await createOrUpdateRewardPoints(studentId, price);
       }
 
       //
