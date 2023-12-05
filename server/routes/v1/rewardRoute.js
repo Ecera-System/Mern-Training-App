@@ -12,7 +12,7 @@ router
   .route("/")
   //<!-- Get all Rewards -->
   .get(userAuthorize, getAllRewards)
-  //<!-- Create Rewar d -->
+  //<!-- Create Reward -->
   .post(userAuthorize, createReward);
 
 //<!-- Redeem Reward Points -->

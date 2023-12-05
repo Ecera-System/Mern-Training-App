@@ -1,28 +1,32 @@
+const {
+  createOrUpdateRewardPoints,
+} = require("../../server/utils/rewardFunctions");
+
 const Reward = require("../models/Reward");
 
 // function to create or update reward points
-const createOrUpdateRewardPoints = async (userId, dollarsSpent) => {
-  try {
-    //
-    const pointsEarned = Math.floor(dollarsSpent / 10);
-    //
-    let existingReward = await Reward.findOne({ userId: userId });
+// const createOrUpdateRewardPoints = async (userId, dollarsSpent) => {
+//   try {
+//     //
+//     const pointsEarned = Math.floor(dollarsSpent / 10);
+//     //
+//     let existingReward = await Reward.findOne({ userId: userId });
 
-    if (existingReward) {
-      existingReward.points += pointsEarned;
-      await existingReward.save();
-    } else {
-      existingReward = await Reward.create({
-        userId: userId,
-        points: pointsEarned,
-      });
-    }
+//     if (existingReward) {
+//       existingReward.points += pointsEarned;
+//       await existingReward.save();
+//     } else {
+//       existingReward = await Reward.create({
+//         userId: userId,
+//         points: pointsEarned,
+//       });
+//     }
 
-    return existingReward;
-  } catch (error) {
-    throw error;
-  }
-};
+//     return existingReward;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 //
 
 //<!-- Create Reward -->
@@ -40,6 +44,8 @@ exports.createReward = async (req, res, next) => {
       return res.status(400).json({ error: "Invalid dollars spent value!" });
     }
     const existingReward = await createOrUpdateRewardPoints(_id, dollarsSpent);
+
+    console.log(existingReward, "existingReward");
 
     res.status(200).json({
       data: existingReward,
@@ -110,3 +116,6 @@ exports.deleteRewardById = async (req, res, next) => {
     next(error);
   }
 };
+
+//
+// module.exports = { createOrUpdateRewardPoints };

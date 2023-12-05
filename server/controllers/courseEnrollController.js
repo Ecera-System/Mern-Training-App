@@ -11,6 +11,13 @@ const CourseEnroll = require("../models/CourseEnroll");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const { log } = require("console");
+//for reward
+const {
+  createOrUpdateRewardPoints,
+} = require("../../server/utils/rewardFunctions");
+
+const Reward = require("../models/Reward");
+//
 
 // <!-- Get Student enrolled course -->
 exports.getEnrolledCourse = async (req, res, next) => {
@@ -200,6 +207,8 @@ exports.enrollCourseByINR = async (req, res, next) => {
       currency: "USD",
     });
 
+    console.log(order, "order from enrollCourseByINR");
+
     order
       ? res.status(200).json({
           ...order,
@@ -288,6 +297,16 @@ exports.razorpayVerify = async (req, res, next) => {
           { new: true }
         );
       }
+      // adding for rewards
+
+      if (courseEnroll._id) {
+        const existingReward = await createOrUpdateRewardPoints(
+          studentId,
+          price
+        );
+      }
+
+      //
 
       const role = user.role === "admin" ? "admin" : "student";
       await User.findByIdAndUpdate(
@@ -312,3 +331,103 @@ exports.razorpayVerify = async (req, res, next) => {
     next(error);
   }
 };
+//
+// exports.razorpayVerify = async (req, res, next) => {
+//   try {
+//     const body =
+//       req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
+//     //
+
+//     console.log("razorpayVerify-body:", body);
+
+//     const expectedSignature = crypto
+//       .createHmac("sha256", process.env.RAZORPAY_SECRET_KEY)
+//       .update(body.toString())
+//       .digest("hex");
+
+//     //
+
+//     console.log("expectedSignature:", expectedSignature);
+
+//     if (expectedSignature === req.body.razorpay_signature) {
+//       const {
+//         studentId,
+//         courseId,
+//         price,
+//         firstName,
+//         lastName,
+//         contactNumber,
+//         address1,
+//         address2,
+//         country,
+//         city,
+//         zip,
+//         razorpay_payment_id,
+//         currency,
+//       } = req.body;
+
+//       const course = await Course.findById(courseId);
+//       const user = await User.findById(studentId);
+//       const profileId = await Profile.findOne({ userId: studentId });
+//       await Profile.updateOne(
+//         { userId: studentId },
+//         {
+//           $set: {
+//             name: firstName + " " + lastName,
+//             userId: studentId,
+//             country: country,
+//             address1: address1,
+//             address2: address2,
+//             city: city,
+//             zip: zip,
+//           },
+//         }
+//       );
+
+//       // <!-- Create Course Enroll -->
+//       const courseEnroll = await CourseEnroll.create({
+//         courseId: courseId,
+//         studentId: studentId,
+//         profileId: profileId._id,
+//         price: price / 100, //divided 100 for converting cent to dollar
+//         paymentMethod: "Razorpay",
+//         transactionId: razorpay_payment_id,
+//         paymentStatus: "paid",
+//         currency: currency,
+//       });
+
+//       // <!-- Update Course sales and students -->
+//       if (courseEnroll._id) {
+//         await Course.findByIdAndUpdate(
+//           { _id: courseId },
+//           {
+//             $set: { sales: course.sales + 1 },
+//             $push: { students: courseEnroll._id },
+//           },
+//           { new: true }
+//         );
+//       }
+
+//       const role = user.role === "admin" ? "admin" : "student";
+//       await User.findByIdAndUpdate(
+//         { _id: studentId },
+//         {
+//           $set: {
+//             profile: profileId._id,
+//             name: firstName + " " + lastName,
+//             contactNumber: contactNumber,
+//             role: role,
+//           },
+//           $push: { courses: courseEnroll._id },
+//         },
+//         { new: true }
+//       );
+
+//       res.status(200).json({ success: "Course enrolled successfully!" });
+//     } else {
+//       res.status(403).json({ error: "Payment is not verified!" });
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// };
