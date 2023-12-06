@@ -28,9 +28,8 @@ app.use(
   "/api/v1/book-counselling",
   require("./routes/v1/bookCounsellingRoute")
 );
-//
-app.use("/api/v1/reward", require("./routes/v1/rewardRoute"));
-//
+app.use("/api/v1/billing-address", require("./routes/v1/billingAddressRoute"));
+
 app.all("*", (req, res) => {
   res.send("No Route found.");
 });

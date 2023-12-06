@@ -258,6 +258,22 @@ const Checkout = () => {
       setFormErrors(errors);
     }
   };
+                    const paymentObject = new window.Razorpay(options);
+                    paymentObject.open();
+                };
+
+            } catch (err) {
+                showToast({
+                    succuss: '', error: err?.response?.data?.error,
+                });
+                if (err?.response?.data?.notExist) {
+                    localStorage.removeItem('auth_token');
+                    return navigate('/sign-in');
+                }
+            };
+            setBtnLoading(false);
+
+    };
 
   // <!-- Reedem reward points -->
   const handeleReedemRewardPoint = async (event) => {
