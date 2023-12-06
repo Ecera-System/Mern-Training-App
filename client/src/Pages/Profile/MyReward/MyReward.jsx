@@ -69,7 +69,7 @@ const MyReward = () => {
             Explore More
           </button>
           {/* temporary just to test */}
-          <p>
+          {/* <p>
             $value:{" "}
             <input
               type="text"
@@ -77,7 +77,7 @@ const MyReward = () => {
               onChange={(e) => setRewardInput(e.target.value)}
             />
             <button onClick={handleAddReward}>Add reward</button>
-          </p>
+          </p> */}
           {/*  */}
         </div>
       </div>
