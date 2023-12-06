@@ -29,6 +29,8 @@ app.use(
   require("./routes/v1/bookCounsellingRoute")
 );
 app.use("/api/v1/billing-address", require("./routes/v1/billingAddressRoute"));
+//
+app.use("/api/v1/reward", require("./routes/v1/rewardRoute"));
 
 app.all("*", (req, res) => {
   res.send("No Route found.");
