@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { Country, State, City } from "country-state-city";
 import axios from "axios";
 import useGetProfile from "../../../API/useGetProfile"; // Import the useGetProfile hook
+import Spinner from "../../Shared/Spinner/Spinner";
+import { contextProvider } from "../../../Context/ContextProvider";
+
 
 const StoreBillingAddressForm = ({showInfo}) => {
-  //
-  const [profileData, loading, fetchProfileData] = useGetProfile(); // Use the hook
+  
+  const { showToast } = useContext(contextProvider);
+  const [profileData, fetchProfileData] = useGetProfile(); // Use the hook
 
-  //
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -32,10 +37,22 @@ const StoreBillingAddressForm = ({showInfo}) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if(name === 'country' || name === 'state' || name === 'city'){
+
+      const selectedOption = event.target.options[event.target.selectedIndex];
+      const selectedText = selectedOption.innerText;
+
+      setFormData({
+        ...formData,
+        [name]: selectedText
+      })
+
+    }else{
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const validateForm = (data) => {
@@ -78,6 +95,7 @@ const StoreBillingAddressForm = ({showInfo}) => {
     if (Object.keys(errors).length === 0) {
       try {
 
+        setLoading(true);
         const response = await axios.post(
           `${import.meta.env.VITE_API_V1_URL}/billing-address/store`,
           formData,
@@ -90,16 +108,28 @@ const StoreBillingAddressForm = ({showInfo}) => {
 
         // Check if the update was successful
         if (response.data.success) {
+
+          showToast({
+            error: '', success: 'Address stored successfully'
+          })
+
           showInfo(true)
-          navigate(`/profile/billing-address`);
         } else {
           // Handle the case where the update was not successful
-          console.error("Failed to update billing address");
+          showToast({
+            success: '', error: 'Address has not stored please try again'
+          })
+
         }
+        setLoading(false);
       } catch (error) {
-        console.error("Error updating billing address:", error);
+
+        showToast({
+          success: '', error: 'Address has not stored please try again'
+        })
       }
     } else {
+      setLoading(false)
       setFormErrors(errors);
     }
   };
@@ -321,10 +351,10 @@ const StoreBillingAddressForm = ({showInfo}) => {
                 id="contactNo"
                 className="block mt-2 px-3 py-2 rounded-sm w-full bg-transparent text-gray-600 border border-violet-300 focus:shadow-[2px_2px_5pxpx_rgb(0, 0, 0, 0.3)] focus:border-violet-600 focus:outline-none"
               />
-              {formErrors?.contactNumber && (
+              {formErrors?.contactNo && (
                 <p className="mt-2 text-sm text-red-500 flex gap-2 items-start">
                   <BsExclamationCircleFill className="mt-0.5" />
-                  {formErrors?.contactNumber}
+                  {formErrors?.contactNo}
                 </p>
               )}
             </div>
@@ -340,6 +370,10 @@ const StoreBillingAddressForm = ({showInfo}) => {
           </button>
         </div>
       </form>
+      {
+        loading &&
+        <Spinner />
+      }
     </div>
   );
 };

@@ -31,11 +31,11 @@ function BillingAddress() {
       }else{
         setCurrentPage('store');
       }
-      console.log(response);
+      // console.log(response);
       setLoading(false);
     } catch (error) {
+      setCurrentPage('store');
       setLoading(false);
-      console.log(error);
     }
   }
 
@@ -49,9 +49,10 @@ function BillingAddress() {
     }
   }
 
-  const showEditFun = (val) =>{
-    if(val) {
-      setCurrentPage('edit')
+  const showAnotherScreen = (val) =>{
+    setCurrentPage(val)
+    if(val === 'fetch'){
+      fetchBillingAddressData();
     }
   }
 
@@ -59,11 +60,11 @@ function BillingAddress() {
     <div>
       <PageTitle title='Billing Address' />
       {currentPage === 'fetch' ? (
-        <ShowBillingAddress billingAdd={billingAddress} showEdit={showEditFun} />
+        <ShowBillingAddress billingAdd={billingAddress} showEdit={showAnotherScreen} />
       ) : currentPage === 'store' ? (
         <StoreBillingAddressForm showInfo={showInfoFun} />
       ) : currentPage === 'edit' ? (
-        <EditBillingAddressForm />
+        <EditBillingAddressForm showInfo={showAnotherScreen} />
       ) : null}
       {loading && <Spinner />}
     </div>

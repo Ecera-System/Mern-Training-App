@@ -2,13 +2,13 @@ import React from 'react';
 
 function ShowBillingAddress({ billingAdd, showEdit }) {
   const editFormOpener = () => {
-    showEdit(true);
+    showEdit('edit');
   };
 
   return (
     <div className='h-full flex column flex-wrap justify-center align-middle'>
       <h1 className='text-2xl font-bold p-5'>My Billing Address</h1>
-      <div className='infoContainer flex flex-wrap justify-around bg-white p-5 rounded relative'>
+      <div className='w-full flex flex-wrap justify-around bg-white p-5 rounded relative'>
         <button
           onClick={editFormOpener}
           className='editBtn absolute right-5 top-5 bg-blue-500 text-white px-2 py-1 rounded'

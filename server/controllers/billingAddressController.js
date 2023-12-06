@@ -47,3 +47,25 @@ exports.getBillingAddress = async (req, res) => {
         res.status(500).json({ error: 'Something went wrong!' });
     }
 };
+
+
+exports.updateBillingAddress = async (req, res) => {
+    try {
+        const updateFields = req.body; // Fields to be updated
+
+
+        const updatedBillingAddress = await BillingAddress.findOneAndUpdate(
+            {userId: req.decoded._id},
+            updateFields,
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedBillingAddress) {
+            return res.status(404).json({ success: false, error: 'Billing address not found!' });
+        }
+
+        res.status(200).json({ success: true, updatedBillingAddress });
+    } catch (error) {
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+};
