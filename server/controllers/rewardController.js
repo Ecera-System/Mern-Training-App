@@ -1,5 +1,6 @@
 const {
   createOrUpdateRewardPoints,
+  redeemRewardPointsDeduction,
 } = require("../../server/utils/rewardFunctions");
 
 const Reward = require("../models/Reward");
@@ -28,6 +29,30 @@ const Reward = require("../models/Reward");
 //   }
 // };
 //
+//
+// const redeemRewardPoints = async (userId, rewardDiscount) => {
+//   try {
+//     // Fetch the user's total reward points
+//     const userReward = await Reward.findOne({ userId });
+
+//     if (!userReward) {
+//       throw new Error("User reward data not found!");
+//     }
+
+//     // Ensure rewardDiscount is a positive number
+//     rewardDiscount = Math.max(0, rewardDiscount);
+
+//     // Reduce the user's reward points after redemption
+//     userReward.points -= rewardDiscount;
+
+//     // Save the updated user reward data
+//     await userReward.save();
+
+//     return { success: "Reward points redeemed successfully!", rewardDiscount };
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 //<!-- Create Reward -->
 
@@ -84,24 +109,31 @@ exports.reedemRewardPoints = async (req, res, next) => {
     // Fetch the user's total reward points
     const userReward = await Reward.findOne({ userId: _id });
 
+    console.log(userReward, "userReward");
+
     if (!userReward) {
       return res.status(404).json({ error: "User reward data not found!" });
     }
 
     // Calculate the discount based on reward points (1:1 conversion)
-    const discountAmount = Math.min(userReward.points, itemPrice);
+    const rewardDiscount = Math.min(userReward.points, itemPrice);
 
     // Update the user's reward points after redemption
-    userReward.points -= discountAmount;
+    // userReward.points -= rewardDiscount;
 
     //
-    const finalPrice = Math.max(itemPrice - discountAmount, 0);
+    const finalPrice = Math.max(itemPrice - rewardDiscount, 0);
     //
-    await userReward.save();
+    // await userReward.save();
+
+    // const output = await redeemRewardPointsDeduction(_id, rewardDiscount);
+
+    // console.log(output, "output");
+    // console.log(rewardDiscount, "rewardDiscount");
 
     res.status(200).json({
       success: "Reward points redeemed successfully!",
-      discountAmount,
+      rewardDiscount,
       finalPrice: finalPrice,
     });
   } catch (error) {

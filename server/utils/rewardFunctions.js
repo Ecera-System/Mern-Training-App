@@ -25,4 +25,29 @@ const createOrUpdateRewardPoints = async (userId, dollarsSpent) => {
   }
 };
 
-module.exports = { createOrUpdateRewardPoints };
+//
+const redeemRewardPointsDeduction = async (userId, rewardDiscount) => {
+  try {
+    // Fetch the user's total reward points
+    const userReward = await Reward.findOne({ userId });
+
+    if (!userReward) {
+      throw new Error("User reward data not found!");
+    }
+
+    // Ensure rewardDiscount is a positive number
+    rewardDiscount = Math.max(0, rewardDiscount);
+
+    // Reduce the user's reward points after redemption
+    userReward.points -= rewardDiscount;
+
+    // Save the updated user reward data
+    await userReward.save();
+
+    return { success: "Reward points redeemed successfully!", rewardDiscount };
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { createOrUpdateRewardPoints, redeemRewardPointsDeduction };
