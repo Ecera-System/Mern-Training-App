@@ -28,6 +28,7 @@ const loadRazorpay = (src) => {
 
 const Checkout = () => {
   //
+  const [isRedeemed, setIsRedeemed] = useState(false);
   const [rewardData, fetchRewardData] = useGetRewards();
   const [rewardDiscount, setRewardDiscount] = useState(0);
   //
@@ -302,6 +303,8 @@ const Checkout = () => {
       if (response.data.success) {
         //
         console.log(response);
+        // Update the state to indicate redemption
+        setIsRedeemed(true);
         //
         // Update the state of the price with the discounted amount
         setUpdatedPrice(response.data.finalPrice);
@@ -360,20 +363,33 @@ const Checkout = () => {
 
             {/* for reward point and it's reedem button*/}
             <div>
-              <p>
-                Total rewards:
-                {rewardData && rewardData.points !== undefined
-                  ? `${rewardData.points} points`
-                  : "0 points"}
-              </p>
+              {isRedeemed ? (
+                // Content when points are redeemed
+                <p>
+                  Total discount from Rewards:
+                  {rewardData && rewardData.points !== undefined
+                    ? `${rewardData.points} `
+                    : "0 USD"}
+                </p>
+              ) : (
+                // Content before redemption
+                <>
+                  <p>
+                    Total rewards:
+                    {rewardData && rewardData.points !== undefined
+                      ? `${rewardData.points} points`
+                      : "0 points"}
+                  </p>
 
-              {rewardData && rewardData.points > 0 && (
-                <button
-                  onClick={handeleReedemRewardPoint}
-                  className="text-base px-6 py-2.5 bg-blue-600 text-white hover:bg-blue-700 duration-300 rounded"
-                >
-                  Redeem reward points
-                </button>
+                  {rewardData && rewardData.points > 0 && (
+                    <button
+                      onClick={handeleReedemRewardPoint}
+                      className="text-base px-6 py-2.5 bg-blue-600 text-white hover:bg-blue-700 duration-300 rounded"
+                    >
+                      Redeem reward points
+                    </button>
+                  )}
+                </>
               )}
             </div>
             {/*  */}
