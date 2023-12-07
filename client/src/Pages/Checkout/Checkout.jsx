@@ -29,7 +29,7 @@ const loadRazorpay = (src) => {
 const Checkout = () => {
   //
   const [rewardData, fetchRewardData] = useGetRewards();
-
+  const [rewardDiscount, setRewardDiscount] = useState(0);
   //
   const { showToast } = useContext(contextProvider);
   const location = useLocation();
@@ -94,7 +94,11 @@ const Checkout = () => {
       axios
         .post(
           `${import.meta.env.VITE_API_V1_URL}/course-enroll/razorpay-verify`,
-          razorpayRes,
+          // razorpayRes,
+          {
+            ...razorpayRes,
+            rewardDiscount: rewardDiscount, // Include rewardDiscount in the payload
+          },
           {
             method: "POST",
             headers: {
@@ -301,6 +305,8 @@ const Checkout = () => {
         //
         // Update the state of the price with the discounted amount
         setUpdatedPrice(response.data.finalPrice);
+        // Update the state of the price with the discounted amount
+        setRewardDiscount(response.data.rewardDiscount);
         //
         showToast({
           succuss: response.data.success,

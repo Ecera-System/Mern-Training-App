@@ -14,6 +14,7 @@ const { log } = require("console");
 //for reward
 const {
   createOrUpdateRewardPoints,
+  redeemRewardPointsDeduction,
 } = require("../../server/utils/rewardFunctions");
 
 const Reward = require("../models/Reward");
@@ -256,6 +257,10 @@ exports.razorpayVerify = async (req, res, next) => {
         currency,
       } = req.body;
 
+      //
+
+      //
+
       const course = await Course.findById(courseId);
       const user = await User.findById(studentId);
       const profileId = await Profile.findOne({ userId: studentId });
@@ -303,6 +308,13 @@ exports.razorpayVerify = async (req, res, next) => {
         const addingReward = await createOrUpdateRewardPoints(studentId, price);
       }
 
+      //adding for rewards points deduction
+      if (req.body.rewardDiscount > 0) {
+        // Call the function to deduct reward points
+        await redeemRewardPointsDeduction(studentId, req.body.rewardDiscount);
+
+        console.log("req.body.rewardDiscount:", req.body.rewardDiscount);
+      }
       //
 
       const role = user.role === "admin" ? "admin" : "student";
