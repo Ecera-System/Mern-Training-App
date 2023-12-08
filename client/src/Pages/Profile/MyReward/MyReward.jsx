@@ -14,7 +14,7 @@ const MyReward = () => {
   const [rewardData, loading, fetchRewardData] = useGetRewards();
 
   const navigate = useNavigate();
-  console.log(rewardData, "rewardData");
+
   //temporary
   const [rewardInput, setRewardInput] = useState("");
   const handleAddReward = async () => {

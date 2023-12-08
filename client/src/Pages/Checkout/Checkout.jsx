@@ -225,7 +225,7 @@ const Checkout = () => {
           }
         );
         //
-        console.log("Response-of-enroll-in-inr", res.data); // Log the response
+        // console.log("Response-of-enroll-in-inr", res.data); // Log the response
         //
         const options = {
           key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -302,7 +302,7 @@ const Checkout = () => {
       // Check if the redemption was successful
       if (response.data.success) {
         //
-        console.log(response);
+        // console.log(response);
         // Update the state to indicate redemption
         setIsRedeemed(true);
         //

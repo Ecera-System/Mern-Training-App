@@ -188,8 +188,6 @@ exports.postStripeWebHook = async (req, res, next) => {
         { new: true }
       );
 
-      // TODO: giveAwayReward(price, userId)
-
       res.status(200).json({ success: "Course enrolled successfully!" });
     } else {
       res.status(403).json({});
@@ -208,7 +206,7 @@ exports.enrollCourseByINR = async (req, res, next) => {
       currency: "USD",
     });
 
-    console.log(order, "order from enrollCourseByINR");
+    // console.log(order, "order from enrollCourseByINR");
 
     order
       ? res.status(200).json({
@@ -229,7 +227,7 @@ exports.razorpayVerify = async (req, res, next) => {
       req.body.razorpay_order_id + "|" + req.body.razorpay_payment_id;
     //
 
-    console.log("razorpayVerify-body:", body);
+    // console.log("razorpayVerify-body:", body);
 
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_SECRET_KEY)
@@ -238,7 +236,7 @@ exports.razorpayVerify = async (req, res, next) => {
 
     //
 
-    console.log("expectedSignature:", expectedSignature);
+    // console.log("expectedSignature:", expectedSignature);
 
     if (expectedSignature === req.body.razorpay_signature) {
       const {
@@ -313,7 +311,7 @@ exports.razorpayVerify = async (req, res, next) => {
         // Call the function to deduct reward points
         await redeemRewardPointsDeduction(studentId, req.body.rewardDiscount);
 
-        console.log("req.body.rewardDiscount:", req.body.rewardDiscount);
+        // console.log("req.body.rewardDiscount:", req.body.rewardDiscount);
       }
       //
 
