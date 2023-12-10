@@ -12,7 +12,7 @@ const Certificates = () => {
                         Certificates
                     </h1>
                     <p className='mt-1'>
-                        After a course completion you a get Certificate.
+                        After a course completion you will get Certificate.
                     </p>
                 </div>
             </div>
