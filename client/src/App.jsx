@@ -131,7 +131,7 @@ const App = () => {
             element={<BookCounselling />}
           ></Route>
           <Route path="/admin/all-users" element={<AllUsers />}></Route>
-          <Route path="/admin/Settings/settings" element={<Settings />}></Route>
+          
         </Route>
 
         <Route path="/*" element={<NotFound />}></Route>
