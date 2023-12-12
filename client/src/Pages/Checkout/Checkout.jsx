@@ -108,8 +108,12 @@ const Checkout = () => {
           }
         )
         .then((res) => {
+          //
+          // console.log("in ", res);
+          //
           showToast({
-            succuss: res.data.success,
+            success: res?.data?.success,
+            // succuss: res.data.success,
             error: "",
           });
           setRazorpayRes(null);

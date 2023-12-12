@@ -208,6 +208,8 @@ exports.enrollCourseByINR = async (req, res, next) => {
 
     // console.log(order, "order from enrollCourseByINR");
 
+    console.log("enrollCourseByINR");
+
     order
       ? res.status(200).json({
           ...order,
@@ -329,6 +331,10 @@ exports.razorpayVerify = async (req, res, next) => {
         },
         { new: true }
       );
+
+      //
+      console.log("razorpayVerify");
+      //
 
       res.status(200).json({ success: "Course enrolled successfully!" });
     } else {

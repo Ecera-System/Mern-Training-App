@@ -7,8 +7,7 @@ import useGetProfile from "../../../API/useGetProfile"; // Import the useGetProf
 import Spinner from "../../Shared/Spinner/Spinner";
 import { contextProvider } from "../../../Context/ContextProvider";
 
-
-const EditBillingAddressForm = ({showInfo}) => {
+const EditBillingAddressForm = ({ showInfo }) => {
   //
   const [profileData, fetchProfileData] = useGetProfile(); // Use the hook
   const { showToast } = useContext(contextProvider);
@@ -17,9 +16,8 @@ const EditBillingAddressForm = ({showInfo}) => {
 
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-  
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   const fetchBillingAddressData = async () => {
     try {
@@ -33,20 +31,19 @@ const EditBillingAddressForm = ({showInfo}) => {
         }
       );
 
-      if(response.data.billingAddress){
+      if (response.data.billingAddress) {
         setFormData(response.data.billingAddress);
       }
       // console.log(response);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      
     }
-  }
+  };
 
   useEffect(() => {
-    fetchBillingAddressData()
-  }, [])
+    fetchBillingAddressData();
+  }, []);
 
   const [countryData, setCountryData] = useState({
     country: formData.country,
@@ -54,20 +51,17 @@ const EditBillingAddressForm = ({showInfo}) => {
     city: formData.city,
   });
 
-
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if(name === 'country' || name === 'state' || name === 'city'){
-
+    if (name === "country" || name === "state" || name === "city") {
       const selectedOption = event.target.options[event.target.selectedIndex];
       const selectedText = selectedOption.innerText;
 
       setFormData({
         ...formData,
-        [name]: selectedText
-      })
-
-    }else{
+        [name]: selectedText,
+      });
+    } else {
       setFormData({
         ...formData,
         [name]: value,
@@ -114,7 +108,6 @@ const EditBillingAddressForm = ({showInfo}) => {
 
     if (Object.keys(errors).length === 0) {
       try {
-
         setLoading(true);
         const response = await axios.put(
           `${import.meta.env.VITE_API_V1_URL}/billing-address/update`,
@@ -128,34 +121,38 @@ const EditBillingAddressForm = ({showInfo}) => {
 
         // Check if the update was successful
         if (response.data.success) {
-
           showToast({
-            error: '', success: 'Address updated successfully'
-          })
+            error: "",
+            success: "Address updated successfully",
+          });
 
-          showInfo('fetch')
+          showInfo("fetch");
         } else {
           // Handle the case where the update was not successful
           showToast({
-            success: '', error: 'Address is not updated please try again'
-          })
+            success: "",
+            error: "Address is not updated please try again",
+          });
         }
         setLoading(false);
       } catch (error) {
         showToast({
-          success: '', error: error.response.data.error || 'Address is not updated please try again'
-        })
-            }
+          success: "",
+          error:
+            error.response.data.error ||
+            "Address is not updated please try again",
+        });
+      }
     } else {
       setFormErrors(errors);
     }
   };
-  
+
   //function to show diff diff pages.. like edit, store, show
-  const backPageFun = () =>{
-    showInfo('fetch')
-  }
-  
+  const backPageFun = () => {
+    showInfo("fetch");
+  };
+
   return (
     <div className="my-5 w-full bg-white text-gray-600">
       <form className="w-full border rounded-lg">
@@ -392,7 +389,6 @@ const EditBillingAddressForm = ({showInfo}) => {
             type="button"
             onClick={backPageFun}
             className="w-max mx-8 px-10 py-3 mb-3 text-base font-medium bg-violet-500 border border-violet-500 hover:bg-white duration-300 hover:text-violet-500 text-white flex items-center gap-2 rounded"
-
           >
             Cancel
           </button>
@@ -405,13 +401,9 @@ const EditBillingAddressForm = ({showInfo}) => {
           </button>
         </div>
       </form>
-      {
-        loading &&
-        <Spinner />
-      }
+      {loading && <Spinner />}
     </div>
   );
 };
 
-
-export default EditBillingAddressForm
+export default EditBillingAddressForm;
