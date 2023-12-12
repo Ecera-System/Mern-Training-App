@@ -12,6 +12,7 @@ import AddCourses from "./Admin/AddCourses/AddCourses";
 import AssignmentDetails from "./Admin/Assignments/AssignmentDetails";
 import Certificate from "./Admin/Certificate/Certificate";
 import CouponCode from "./Admin/CouponCode/CouponCode";
+import Settings from "./Admin/Settings/settings";
 import MyProfile from "./Pages/Profile/MyProfile/MyProfile";
 import Checkout from "./Pages/Checkout/Checkout";
 import NotFound from "./Pages/NotFound/NotFound";
@@ -31,7 +32,9 @@ import ReactJSDetails from "./Pages/Projects/ReactJSDetails";
 import NodeJSDetails from "./Pages/Projects/NodeJSDetails";
 import OrderHistory from "./Pages/Profile/OrderHistory/OrderHistory";
 import MyReward from "./Pages/Profile/MyReward/MyReward";
-import Certificates from "./Pages/Profile/Certificates/Certificates";
+//
+import CourseAvailable from "./Pages/Profile/CourseAvailable/CourseAvailable.jsx";
+//
 import ProfileAssignments from "./Pages/Profile/Assignments/ProfileAssignments";
 import "@fortawesome/fontawesome-free/css/all.css";
 import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress.jsx";
@@ -90,6 +93,12 @@ const App = () => {
         >
           <Route path="/profile" element={<MyProfile />}></Route>
           <Route path="/profile/course" element={<MyClasses />}></Route>
+          {/*  */}
+          <Route
+            path="/profile/course-available"
+            element={<CourseAvailable />}
+          ></Route>
+          {/*  */}
           <Route
             path="/profile/assignments"
             element={<ProfileAssignments />}
@@ -102,7 +111,7 @@ const App = () => {
             path="/profile/order-history"
             element={<OrderHistory />}
           ></Route>
-          <Route path="/profile/certificates" element={<Certificates />}></Route>
+          <Route path="/profile/certificates" element={<Certificate />}></Route>
           <Route path="/profile/my-reward" element={<MyReward />}></Route>
         </Route>
 
@@ -131,7 +140,7 @@ const App = () => {
             element={<BookCounselling />}
           ></Route>
           <Route path="/admin/all-users" element={<AllUsers />}></Route>
-          
+          <Route path="/admin/Settings/settings" element={<Settings />}></Route>
         </Route>
 
         <Route path="/*" element={<NotFound />}></Route>
