@@ -238,12 +238,12 @@ const BookAFreeCounselling = () => {
                                                 
                                                 <option value="">Select a date</option>
                                                 {/* Add available date options here */}
-                                                <option value="2023-10-20">October 20, 2023</option>
-                                                <option value="2023-10-25">October 25, 2023</option>
-                                                <option value="2023-10-30">October 30, 2023</option>
-                                                <option value="2023-11-10">November 10, 2023</option>
-                                                <option value="2023-11-15">November 15, 2023</option>
-                                                <option value="2023-11-20">November 20, 2023</option>
+                                                <option value="2023-12-15">December 15, 2023</option>
+                                                <option value="2023-12-25">December 25, 2023</option>
+                                                <option value="2024-1-1">January 1, 2024</option>
+                                                <option value="2024-1-5">January 5, 2024</option>
+                                                <option value="2024-1-10">January 10, 2024</option>
+                                                <option value="2024-1-15">January 15, 2024</option>
 
 
                                                 
