@@ -12,6 +12,10 @@ const MyClasses = () => {
   const [content, setContent] = useState();
   const navigate = useNavigate();
 
+  //
+  // console.log(coursesData, "coursesData");
+  // console.log(enrolledData, "enrolledData");
+  //
   // <!-- Check exist course -->
   const courses = enrolledData?.filter((f) => f.courseId);
 

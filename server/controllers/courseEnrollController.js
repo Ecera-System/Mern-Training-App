@@ -26,6 +26,11 @@ exports.getEnrolledCourse = async (req, res, next) => {
     const result = await CourseEnroll.find({
       studentId: req.decoded._id,
     }).populate("courseId");
+
+    // console.log("used getEnrolledCourse");
+    //
+    // console.log("getEnrolledCourse", result);
+    //
     res.status(200).json(result);
   } catch (error) {
     next(error);
