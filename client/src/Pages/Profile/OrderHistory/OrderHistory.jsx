@@ -6,7 +6,7 @@ import TableLoadingSkeleton from "../../Shared/Spinner/TableLoadingSkeleton";
 import axios from "axios";
 
 const OrderHistory = () => {
-  const [enrolledData, loading, refetchEnrolledData] = useGetEnrolledCourse();
+  const [enrolledData, loading] = useGetEnrolledCourse();
   const course = enrolledData?.filter((f) => f.courseId);
   const [refundButtonDisabled, setRefundButtonDisabled] = useState(false);
 
@@ -47,7 +47,7 @@ const OrderHistory = () => {
       );
 
       // Refetch the enrolled data after a successful update
-      refetchEnrolledData();
+      // refetchEnrolledData();
     } catch (error) {
       console.error("Error updating refund request:", error);
     } finally {
@@ -124,13 +124,15 @@ const OrderHistory = () => {
                       <td className="py-3 pr-5">
                         {isRefundButtonDisabled ? (
                           <span className="w-max text-sm font-medium capitalize text-red-500">
-                            {data?.refundRequest === "Yes"
-                              ? "Refunded"
+                            {data?.refundRequest === true
+                              ? "Refund requested"
                               : "Window Over"}
                           </span>
                         ) : (
                           <span className="w-max text-sm font-medium capitalize text-emerald-500">
-                            {data?.refundRequest || "Not Requested"}
+                            {data?.refundRequest === true
+                              ? "Refund requested"
+                              : "Not Requested"}
                           </span>
                         )}
                       </td>
@@ -143,7 +145,9 @@ const OrderHistory = () => {
                           } text-sm font-medium text-white capitalize rounded focus:outline-none focus:ring focus:border-red-700`}
                           onClick={() => handleRefundRequest(data._id)}
                           disabled={
-                            isRefundButtonDisabled || refundButtonDisabled
+                            isRefundButtonDisabled ||
+                            refundButtonDisabled ||
+                            data?.refundRequest === true
                           }
                         >
                           Request refund

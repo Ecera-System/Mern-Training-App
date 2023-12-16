@@ -37,8 +37,8 @@ const courseEnrollSchema = mongoose.Schema(
       default: null,
     },
     refundRequest: {
-      type: String,
-      default: null, //
+      type: Boolean,
+      default: false,
     },
     //
     price: {

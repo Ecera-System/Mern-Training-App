@@ -368,18 +368,16 @@ exports.updateRefundRequest = async (req, res, next) => {
       return res.status(404).json({ error: "Course enrollment not found" });
     }
 
-    if (courseEnroll.refundRequest === null) {
-      courseEnroll.refundRequest = "Yes";
-      await courseEnroll.save();
+    // Toggle the value of refundRequest
+    courseEnroll.refundRequest = !courseEnroll.refundRequest;
 
-      return res
-        .status(200)
-        .json({ success: "Refund request updated successfully" });
-    } else {
-      return res.status(400).json({ error: "Refund request already made" });
-    }
+    await courseEnroll.save();
+
+    return res
+      .status(200)
+      .json({ success: "Refund request updated successfully" });
   } catch (error) {
-    console.error("Error updating refund request:", error); // Log the error here
+    console.error("Error updating refund request:", error);
     next(error);
   }
 };
