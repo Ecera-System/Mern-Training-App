@@ -31,6 +31,7 @@ const courseEnrollSchema = mongoose.Schema(
     //
     couponDiscount: {
       type: String,
+      default: null,
     },
     rewardDiscount: {
       type: String,

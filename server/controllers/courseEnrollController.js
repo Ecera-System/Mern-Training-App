@@ -272,6 +272,23 @@ exports.razorpayVerify = async (req, res, next) => {
       //
 
       const course = await Course.findById(courseId);
+
+      //
+
+      const priceInUSD = parseFloat(req.body.price / 100);
+      const courseBasePrice = parseFloat(course.price);
+
+      console.log("courseBasePrice", courseBasePrice);
+      console.log("priceInUSD", priceInUSD);
+      console.log("Reward discount", req.body.rewardDiscount);
+
+      // Calculate couponDiscount
+      const couponDiscount =
+        courseBasePrice - (priceInUSD + req.body.rewardDiscount);
+
+      //
+      console.log("couponDiscount", couponDiscount);
+      //
       const user = await User.findById(studentId);
       const profileId = await Profile.findOne({ userId: studentId });
       await Profile.updateOne(
@@ -300,7 +317,9 @@ exports.razorpayVerify = async (req, res, next) => {
         paymentStatus: "paid",
         currency: currency,
         rewardDiscount: req.body.rewardDiscount || null, //
+        couponDiscount: couponDiscount || null, // Add couponDiscount
       });
+      //
 
       //
       console.log("razorpayVerify controller courseEnroll", courseEnroll);
