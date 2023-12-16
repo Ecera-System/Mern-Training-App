@@ -8,6 +8,10 @@ const OrderHistory = () => {
   const [enrolledData, loading] = useGetEnrolledCourse();
   const course = enrolledData?.filter((f) => f.courseId);
 
+  //
+  //   console.log("Order History page", course);
+  //
+
   const handleRefundRequest = () => {
     console.log("Refund button clicked");
   };
@@ -30,7 +34,8 @@ const OrderHistory = () => {
                 <th className="text-sm py-3 pr-5">Payment Status</th>
                 <th className="text-sm py-3 pr-5">Enroll Date</th>
                 <th className="text-sm py-3 pr-5">ACTION</th>
-                <th className="text-sm py-3 pr-5">Refund</th>
+                <th className="text-sm py-3 pr-5">Refund Status </th>
+                <th className="text-sm py-3 pr-5">Refund </th>
               </tr>
             </thead>
             <tbody>
@@ -57,15 +62,26 @@ const OrderHistory = () => {
                       </span>
                     </td>
                     <td className="py-3 pr-5">
-                      <span className="w-max text-sm font-medium">
+                      {/* <span className="w-max text-sm font-medium">
                         {moment(data?.courseId?.createdAt).format(
                           "DD-MMM-YYYY"
                         )}
+                      </span> */}
+                      {/*  */}
+                      <span className="w-max text-sm font-medium">
+                        {moment(data?.createdAt).format("DD-MMM-YYYY")}
                       </span>
+                      {/*  */}
                     </td>
                     <td className="py-3 pr-5">
                       <span className="w-max inline-block py-1.5 px-6 bg-violet-200 text-sm font-medium capitalize rounded">
                         Enrolled
+                      </span>
+                    </td>
+                    {/*  */}
+                    <td className="py-3 pr-5">
+                      <span className="w-max text-sm font-medium capitalize text-emerald-500">
+                        {data?.refundRequest}
                       </span>
                     </td>
                     {/*  */}

@@ -294,7 +294,12 @@ exports.razorpayVerify = async (req, res, next) => {
         transactionId: razorpay_payment_id,
         paymentStatus: "paid",
         currency: currency,
+        rewardDiscount: req.body.rewardDiscount || null, //
       });
+
+      //
+      console.log("razorpayVerify controller courseEnroll", courseEnroll);
+      //
 
       // <!-- Update Course sales and students -->
       if (courseEnroll._id) {
