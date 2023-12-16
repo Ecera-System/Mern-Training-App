@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
 import PageTitle from "../../Shared/PageTitle";
 import moment from "moment";
@@ -8,20 +8,10 @@ import axios from "axios";
 const OrderHistory = () => {
   const [enrolledData, loading] = useGetEnrolledCourse();
   const course = enrolledData?.filter((f) => f.courseId);
-  const [refundButtonDisabled, setRefundButtonDisabled] = useState(false);
-
-  //
-
-  //   console.log(localStorage.getItem("auth_token"));
-
-  //
 
   const handleRefundRequest = async (id) => {
     try {
       console.log(id);
-
-      // Disable the refund button to prevent multiple requests
-      setRefundButtonDisabled(true);
 
       // Check if the token exists
       const authToken = localStorage.getItem("auth_token");
@@ -50,9 +40,6 @@ const OrderHistory = () => {
       // refetchEnrolledData();
     } catch (error) {
       console.error("Error updating refund request:", error);
-    } finally {
-      // Enable the refund button after the API call, you can set a timeout if needed
-      setRefundButtonDisabled(false);
     }
   };
 
@@ -123,13 +110,25 @@ const OrderHistory = () => {
                       </td>
                       <td className="py-3 pr-5">
                         {isRefundButtonDisabled ? (
-                          <span className="w-max text-sm font-medium capitalize text-red-500">
+                          <span
+                            className={`w-max text-sm font-medium capitalize ${
+                              data?.refundRequest === true
+                                ? "text-red-500"
+                                : "text-red-500"
+                            }`}
+                          >
                             {data?.refundRequest === true
                               ? "Refund requested"
                               : "Window Over"}
                           </span>
                         ) : (
-                          <span className="w-max text-sm font-medium capitalize text-emerald-500">
+                          <span
+                            className={`w-max text-sm font-medium capitalize ${
+                              data?.refundRequest === true
+                                ? "text-red-500"
+                                : "text-emerald-500"
+                            }`}
+                          >
                             {data?.refundRequest === true
                               ? "Refund requested"
                               : "Not Requested"}
@@ -139,14 +138,15 @@ const OrderHistory = () => {
                       <td className="py-3 pr-5">
                         <button
                           className={`w-max inline-block py-1.5 px-6 ${
-                            isRefundButtonDisabled || refundButtonDisabled
+                            isRefundButtonDisabled
                               ? "bg-gray-300 cursor-not-allowed"
+                              : data?.refundRequest === true
+                              ? "bg-red-300"
                               : "bg-red-500 hover:bg-red-600"
                           } text-sm font-medium text-white capitalize rounded focus:outline-none focus:ring focus:border-red-700`}
                           onClick={() => handleRefundRequest(data._id)}
                           disabled={
                             isRefundButtonDisabled ||
-                            refundButtonDisabled ||
                             data?.refundRequest === true
                           }
                         >
