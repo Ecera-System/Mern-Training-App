@@ -1,15 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
 import PageTitle from "../../Shared/PageTitle";
 import moment from "moment";
 import TableLoadingSkeleton from "../../Shared/Spinner/TableLoadingSkeleton";
+import axios from "axios";
 
 const OrderHistory = () => {
-  const [enrolledData, loading] = useGetEnrolledCourse();
+  const [enrolledData, loading, refetchEnrolledData] = useGetEnrolledCourse();
   const course = enrolledData?.filter((f) => f.courseId);
+  const [refundButtonDisabled, setRefundButtonDisabled] = useState(false);
 
-  const handleRefundRequest = () => {
-    console.log("Refund button clicked");
+  //
+
+  //   console.log(localStorage.getItem("auth_token"));
+
+  //
+
+  const handleRefundRequest = async (id) => {
+    try {
+      console.log(id);
+
+      // Disable the refund button to prevent multiple requests
+      setRefundButtonDisabled(true);
+
+      // Check if the token exists
+      const authToken = localStorage.getItem("auth_token");
+      if (!authToken) {
+        console.error("No bearer token found");
+        // Handle the absence of a token (e.g., redirect to login)
+        return;
+      }
+
+      // Make the API call to update the refund request
+      await axios.patch(
+        `${
+          import.meta.env.VITE_API_V1_URL
+        }/course-enroll/update-refund-request/${id}`,
+        {
+          // Remove the "method" property, if not needed
+        },
+        {
+          headers: {
+            Authorization: `${authToken}`,
+          },
+        }
+      );
+
+      // Refetch the enrolled data after a successful update
+      refetchEnrolledData();
+    } catch (error) {
+      console.error("Error updating refund request:", error);
+    } finally {
+      // Enable the refund button after the API call, you can set a timeout if needed
+      setRefundButtonDisabled(false);
+    }
   };
 
   return (
@@ -31,8 +75,8 @@ const OrderHistory = () => {
                 <th className="text-sm py-3 pr-5">Payment Status</th>
                 <th className="text-sm py-3 pr-5">Enroll Date</th>
                 <th className="text-sm py-3 pr-5">ACTION</th>
-                <th className="text-sm py-3 pr-5">Refund Status </th>
-                <th className="text-sm py-3 pr-5">Refund </th>
+                <th className="text-sm py-3 pr-5">Refund Status</th>
+                <th className="text-sm py-3 pr-5">Refund</th>
               </tr>
             </thead>
             <tbody>
@@ -57,17 +101,11 @@ const OrderHistory = () => {
                           ${data?.price}
                         </span>
                       </td>
-                      {/*  */}
                       <td className="py-3 pr-5">
                         <span className="w-max text-sm font-semibold">
-                          $
-                          {data?.rewardDiscount !== null &&
-                          data?.rewardDiscount !== undefined
-                            ? data?.rewardDiscount
-                            : "0"}
+                          ${data?.rewardDiscount ?? "0"}
                         </span>
                       </td>
-                      {/*  */}
                       <td className="py-3 pr-5">
                         <span className="w-max text-sm font-medium capitalize text-emerald-500">
                           {data?.paymentStatus}
@@ -86,7 +124,9 @@ const OrderHistory = () => {
                       <td className="py-3 pr-5">
                         {isRefundButtonDisabled ? (
                           <span className="w-max text-sm font-medium capitalize text-red-500">
-                            Window Over
+                            {data?.refundRequest === "Yes"
+                              ? "Refunded"
+                              : "Window Over"}
                           </span>
                         ) : (
                           <span className="w-max text-sm font-medium capitalize text-emerald-500">
@@ -97,12 +137,14 @@ const OrderHistory = () => {
                       <td className="py-3 pr-5">
                         <button
                           className={`w-max inline-block py-1.5 px-6 ${
-                            isRefundButtonDisabled
+                            isRefundButtonDisabled || refundButtonDisabled
                               ? "bg-gray-300 cursor-not-allowed"
                               : "bg-red-500 hover:bg-red-600"
                           } text-sm font-medium text-white capitalize rounded focus:outline-none focus:ring focus:border-red-700`}
-                          onClick={handleRefundRequest}
-                          disabled={isRefundButtonDisabled}
+                          onClick={() => handleRefundRequest(data._id)}
+                          disabled={
+                            isRefundButtonDisabled || refundButtonDisabled
+                          }
                         >
                           Request refund
                         </button>

@@ -52,6 +52,9 @@ exports.getRecentOrders = async (req, res, next) => {
     next(error);
   }
 };
+//
+
+//
 
 // <!-- Course Enroll with Stripe -->
 exports.enrollCourseByUSD = async (req, res, next) => {
@@ -354,6 +357,33 @@ exports.razorpayVerify = async (req, res, next) => {
     next(error);
   }
 };
+
+// <!-- refund request -->
+exports.updateRefundRequest = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const courseEnroll = await CourseEnroll.findById(id);
+
+    if (!courseEnroll) {
+      return res.status(404).json({ error: "Course enrollment not found" });
+    }
+
+    if (courseEnroll.refundRequest === null) {
+      courseEnroll.refundRequest = "Yes";
+      await courseEnroll.save();
+
+      return res
+        .status(200)
+        .json({ success: "Refund request updated successfully" });
+    } else {
+      return res.status(400).json({ error: "Refund request already made" });
+    }
+  } catch (error) {
+    console.error("Error updating refund request:", error); // Log the error here
+    next(error);
+  }
+};
+
 //
 // exports.razorpayVerify = async (req, res, next) => {
 //   try {

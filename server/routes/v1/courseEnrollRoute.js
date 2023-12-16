@@ -9,6 +9,7 @@ const {
   postStripeWebHook,
   enrollCourseByINR,
   razorpayVerify,
+  updateRefundRequest,
 } = require("../../controllers/courseEnrollController");
 
 router.route("/student").get(userAuthorize, getEnrolledCourse);
@@ -23,5 +24,8 @@ router.route("/enroll-in-usd").post(userAuthorize, enrollCourseByUSD);
 router.route("/stripe/webhook").post(postStripeWebHook);
 router.route("/enroll-in-inr").post(userAuthorize, enrollCourseByINR);
 router.route("/razorpay-verify").post(userAuthorize, razorpayVerify);
+
+// <!-- refund request -->
+router.patch("/update-refund-request/:id", userAuthorize, updateRefundRequest);
 
 module.exports = router;
