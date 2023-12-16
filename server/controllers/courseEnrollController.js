@@ -47,6 +47,8 @@ exports.getRecentOrders = async (req, res, next) => {
       .populate("studentId")
       .populate("profileId");
 
+    // console.log("getRecentOrders", result);
+
     res.status(200).json(result);
   } catch (error) {
     next(error);
