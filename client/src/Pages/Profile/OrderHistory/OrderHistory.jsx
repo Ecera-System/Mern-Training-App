@@ -8,10 +8,6 @@ const OrderHistory = () => {
   const [enrolledData, loading] = useGetEnrolledCourse();
   const course = enrolledData?.filter((f) => f.courseId);
 
-  //
-  //   console.log("Order History page", course);
-  //
-
   const handleRefundRequest = () => {
     console.log("Refund button clicked");
   };
@@ -30,7 +26,8 @@ const OrderHistory = () => {
             <thead className="bg-violet-50 uppercase text-left">
               <tr>
                 <th className="text-sm py-3 px-5">COURSES</th>
-                <th className="text-sm py-3 pr-5">Price</th>
+                <th className="text-sm py-3 pr-5">Amount Paid</th>
+                <th className="text-sm py-3 pr-5">Reward Used</th>
                 <th className="text-sm py-3 pr-5">Payment Status</th>
                 <th className="text-sm py-3 pr-5">Enroll Date</th>
                 <th className="text-sm py-3 pr-5">ACTION</th>
@@ -42,60 +39,77 @@ const OrderHistory = () => {
               {loading ? (
                 <TableLoadingSkeleton td_count={5} />
               ) : (
-                course?.map((data) => (
-                  <tr key={data.id} className="border-b">
-                    <td className="py-3 px-5">
-                      <div className="w-[25rem] flex items-center gap-5">
-                        <h2 className="text-base text-start font-medium text-gray-800 duration-300">
-                          {data?.courseId?.title}
-                        </h2>
-                      </div>
-                    </td>
-                    <td className="py-3 pr-5">
-                      <span className="w-max text-sm font-semibold">
-                        ${data?.price}
-                      </span>
-                    </td>
-                    <td className="py-3 pr-5">
-                      <span className="w-max text-sm font-medium capitalize text-emerald-500">
-                        {data?.paymentStatus}
-                      </span>
-                    </td>
-                    <td className="py-3 pr-5">
-                      {/* <span className="w-max text-sm font-medium">
-                        {moment(data?.courseId?.createdAt).format(
-                          "DD-MMM-YYYY"
+                course?.map((data) => {
+                  const isRefundButtonDisabled =
+                    moment().diff(moment(data?.createdAt), "days") > 7;
+
+                  return (
+                    <tr key={data.id} className="border-b">
+                      <td className="py-3 px-5">
+                        <div className="w-[25rem] flex items-center gap-5">
+                          <h2 className="text-base text-start font-medium text-gray-800 duration-300">
+                            {data?.courseId?.title}
+                          </h2>
+                        </div>
+                      </td>
+                      <td className="py-3 pr-5">
+                        <span className="w-max text-sm font-semibold">
+                          ${data?.price}
+                        </span>
+                      </td>
+                      {/*  */}
+                      <td className="py-3 pr-5">
+                        <span className="w-max text-sm font-semibold">
+                          $
+                          {data?.rewardDiscount !== null &&
+                          data?.rewardDiscount !== undefined
+                            ? data?.rewardDiscount
+                            : "0"}
+                        </span>
+                      </td>
+                      {/*  */}
+                      <td className="py-3 pr-5">
+                        <span className="w-max text-sm font-medium capitalize text-emerald-500">
+                          {data?.paymentStatus}
+                        </span>
+                      </td>
+                      <td className="py-3 pr-5">
+                        <span className="w-max text-sm font-medium">
+                          {moment(data?.createdAt).format("DD-MMM-YYYY")}
+                        </span>
+                      </td>
+                      <td className="py-3 pr-5">
+                        <span className="w-max inline-block py-1.5 px-6 bg-violet-200 text-sm font-medium capitalize rounded">
+                          Enrolled
+                        </span>
+                      </td>
+                      <td className="py-3 pr-5">
+                        {isRefundButtonDisabled ? (
+                          <span className="w-max text-sm font-medium capitalize text-red-500">
+                            Window Over
+                          </span>
+                        ) : (
+                          <span className="w-max text-sm font-medium capitalize text-emerald-500">
+                            {data?.refundRequest || "Not Requested"}
+                          </span>
                         )}
-                      </span> */}
-                      {/*  */}
-                      <span className="w-max text-sm font-medium">
-                        {moment(data?.createdAt).format("DD-MMM-YYYY")}
-                      </span>
-                      {/*  */}
-                    </td>
-                    <td className="py-3 pr-5">
-                      <span className="w-max inline-block py-1.5 px-6 bg-violet-200 text-sm font-medium capitalize rounded">
-                        Enrolled
-                      </span>
-                    </td>
-                    {/*  */}
-                    <td className="py-3 pr-5">
-                      <span className="w-max text-sm font-medium capitalize text-emerald-500">
-                        {data?.refundRequest}
-                      </span>
-                    </td>
-                    {/*  */}
-                    <td className="py-3 pr-5">
-                      <button
-                        className="w-max inline-block py-1.5 px-6 bg-red-500 text-sm font-medium text-white capitalize rounded hover:bg-red-600 focus:outline-none focus:ring focus:border-red-700"
-                        onClick={handleRefundRequest}
-                      >
-                        Request refund
-                      </button>
-                    </td>
-                    {/*  */}
-                  </tr>
-                ))
+                      </td>
+                      <td className="py-3 pr-5">
+                        <button
+                          className={`w-max inline-block py-1.5 px-6 ${
+                            isRefundButtonDisabled
+                              ? "bg-gray-300 cursor-not-allowed"
+                              : "bg-red-500 hover:bg-red-600"
+                          } text-sm font-medium text-white capitalize rounded focus:outline-none focus:ring focus:border-red-700`}
+                          onClick={handleRefundRequest}
+                          disabled={isRefundButtonDisabled}
+                        >
+                          Request refund
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
