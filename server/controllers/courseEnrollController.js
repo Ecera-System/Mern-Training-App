@@ -385,8 +385,21 @@ exports.updateRefundRequest = async (req, res, next) => {
     const { id } = req.params;
     const courseEnroll = await CourseEnroll.findById(id);
 
+    //
+    // console.log("courseEnroll", courseEnroll.createdAt);
+
     if (!courseEnroll) {
       return res.status(404).json({ error: "Course enrollment not found" });
+    }
+
+    // Check if less than 7 days have passed since enrollment
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 8);
+
+    if (courseEnroll.createdAt < sevenDaysAgo) {
+      return res.status(400).json({
+        error: "Refund request cannot be updated after 7 days of enrollment",
+      });
     }
 
     // Toggle the value of refundRequest

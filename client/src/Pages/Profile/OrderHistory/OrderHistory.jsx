@@ -13,25 +13,25 @@ const OrderHistory = () => {
     try {
       console.log(id);
 
-      // Check if the token exists
-      const authToken = localStorage.getItem("auth_token");
-      if (!authToken) {
-        console.error("No bearer token found");
-        // Handle the absence of a token (e.g., redirect to login)
-        return;
-      }
+      // // Check if the token exists
+      // const authToken = localStorage.getItem("auth_token");
+      // if (!authToken) {
+      //   console.error("No bearer token found");
+      //   // Handle the absence of a token (e.g., redirect to login)
+      //   return;
+      // }
 
       // Make the API call to update the refund request
       await axios.patch(
         `${
           import.meta.env.VITE_API_V1_URL
         }/course-enroll/update-refund-request/${id}`,
+        {},
         {
           method: "PATCH",
-        },
-        {
           headers: {
-            Authorization: `${authToken}`,
+            // Authorization: `${authToken}`,
+            Authorization: localStorage.getItem("auth_token"),
           },
         }
       );
