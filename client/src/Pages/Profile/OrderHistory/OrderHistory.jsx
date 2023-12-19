@@ -27,7 +27,7 @@ const OrderHistory = () => {
           import.meta.env.VITE_API_V1_URL
         }/course-enroll/update-refund-request/${id}`,
         {
-          // Remove the "method" property, if not needed
+          method: "PATCH",
         },
         {
           headers: {
@@ -35,9 +35,6 @@ const OrderHistory = () => {
           },
         }
       );
-
-      // Refetch the enrolled data after a successful update
-      // refetchEnrolledData();
     } catch (error) {
       console.error("Error updating refund request:", error);
     }
@@ -59,6 +56,7 @@ const OrderHistory = () => {
                 <th className="text-sm py-3 px-5">COURSES</th>
                 <th className="text-sm py-3 pr-5">Amount Paid</th>
                 <th className="text-sm py-3 pr-5">Reward Used</th>
+                <th className="text-sm py-3 pr-5">Coupon Used</th>
                 <th className="text-sm py-3 pr-5">Payment Status</th>
                 <th className="text-sm py-3 pr-5">Enroll Date</th>
                 <th className="text-sm py-3 pr-5">ACTION</th>
@@ -93,6 +91,13 @@ const OrderHistory = () => {
                           ${data?.rewardDiscount ?? "0"}
                         </span>
                       </td>
+                      {/*  */}
+                      <td className="py-3 pr-5">
+                        <span className="w-max text-sm font-semibold">
+                          ${data?.couponDiscount ?? "0"}
+                        </span>
+                      </td>
+                      {/*  */}
                       <td className="py-3 pr-5">
                         <span className="w-max text-sm font-medium capitalize text-emerald-500">
                           {data?.paymentStatus}

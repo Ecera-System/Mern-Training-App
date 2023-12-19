@@ -67,6 +67,7 @@ const OrderList = () => {
                   <h2 className="w-max">Amount Paid</h2>
                 </th>
                 <th className="text-sm py-3 pr-5">Reward Used</th>
+                <th className="text-sm py-3 pr-5">Coupon Used</th>
                 <th className="text-sm py-3 pr-5">
                   <h2 className="w-max">Payment By</h2>
                 </th>
@@ -105,6 +106,13 @@ const OrderList = () => {
                         ${data?.rewardDiscount ?? "0"}
                       </span>
                     </td>
+                    {/*  */}
+                    <td className="py-3 pr-5">
+                      <span className="w-max text-sm font-semibold">
+                        ${data?.couponDiscount ?? "0"}
+                      </span>
+                    </td>
+                    {/*  */}
                     <td className="py-3 pr-5 text-center">
                       <p className="w-max text-sm capitalize">
                         {data?.paymentMethod}
@@ -120,8 +128,9 @@ const OrderList = () => {
                         {data?.refundRequest === true
                           ? "Refund requested"
                           : moment().diff(moment(data?.createdAt), "days") > 7
-                          ? "Refund not requested (Window closed)"
-                          : "Refund not requested"}
+                          ? "Window closed"
+                          : // "Refund not requested (Window closed)"
+                            "Refund not requested"}
                       </p>
                     </td>
                   </tr>
