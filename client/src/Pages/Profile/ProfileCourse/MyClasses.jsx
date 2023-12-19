@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
+// import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
+import useGetEnrolledAndNotRefund from "../../../API/useGetEnrolledAndNotRefund";
+
 import PageTitle from "../../Shared/PageTitle";
 import Spinner from "../../Shared/Spinner/Spinner";
 import ClassContent from "./ClassContent";
 import useGetAllCourses from "../../../API/useGetAllCourses";
 
 const MyClasses = () => {
-  const [enrolledData, loading] = useGetEnrolledCourse();
+  const [enrolledData, loading] = useGetEnrolledAndNotRefund();
   const [coursesData] = useGetAllCourses();
   const [content, setContent] = useState();
   const navigate = useNavigate();

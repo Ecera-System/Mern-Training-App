@@ -4,6 +4,8 @@ const userAuthorize = require("../../middleware/userAuthorize");
 const adminAuthorize = require("../../middleware/adminAuthorize");
 const {
   getEnrolledCourse,
+  //
+  getEnrolledAndNotRefundCourse,
   getRecentOrders,
   enrollCourseByUSD,
   postStripeWebHook,
@@ -13,6 +15,10 @@ const {
 } = require("../../controllers/courseEnrollController");
 
 router.route("/student").get(userAuthorize, getEnrolledCourse);
+//
+router
+  .route("/student-not-refund")
+  .get(userAuthorize, getEnrolledAndNotRefundCourse);
 
 //<!-- Get recent enrolled orders for admin dashboard -->
 router

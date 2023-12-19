@@ -25,6 +25,24 @@ exports.getEnrolledCourse = async (req, res, next) => {
   try {
     const result = await CourseEnroll.find({
       studentId: req.decoded._id,
+      // refundRequest: false,
+    }).populate("courseId");
+
+    // console.log("used getEnrolledCourse");
+    //
+    // console.log("getEnrolledCourse", result);
+    //
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+// <!-- Get Student enrolled and not refunded course -->
+exports.getEnrolledAndNotRefundCourse = async (req, res, next) => {
+  try {
+    const result = await CourseEnroll.find({
+      studentId: req.decoded._id,
+      refundRequest: false,
     }).populate("courseId");
 
     // console.log("used getEnrolledCourse");
