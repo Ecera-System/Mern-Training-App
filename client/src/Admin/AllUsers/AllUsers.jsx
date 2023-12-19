@@ -180,7 +180,7 @@ const AllUsers = () => {
                                             {profile?.userId?.role}
                                         </div>
                                     </td>
-                                    {profile.userId.role === 'admin' ?
+                                    {profile?.userId?.role === 'admin' ?
                                         <td></td> :
                                         <td className='py-3 pr-5'>
                                             <select
@@ -201,7 +201,7 @@ const AllUsers = () => {
                                             </select>
                                         </td>}
 
-                                    {profile.userId.role === 'admin' ?
+                                    {profile?.userId?.role === 'admin' ?
                                         <td></td> :
                                         <td className='py-3 pr-5 text-center'>
                                             <button

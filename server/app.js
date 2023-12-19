@@ -18,6 +18,7 @@ app.get("/api/v1", (req, res) => {
 });
 
 app.use("/api/v1/user", require("./routes/v1/userRoute"));
+app.use("/api/v1/admin", require("./routes/v1/adminRoute"));
 app.use("/api/v1/profile", require("./routes/v1/profileRoute"));
 app.use("/api/v1/course", require("./routes/v1/courseRoute"));
 app.use("/api/v1/course-enroll", require("./routes/v1/courseEnrollRoute"));

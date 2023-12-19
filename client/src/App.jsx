@@ -41,6 +41,10 @@ import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress.jsx";
 import ActivateCode from "./Pages/Auth/ActivateCode";
 import SignIn from "./Pages/Auth/SignIn.jsx";
 import SignUp from "./Pages/Auth/SignUp.jsx";
+import ForgotPassword from "./Pages/Auth/ForgotPassword.jsx";
+import ResetPassword from "./Pages/Auth/ResetPassword.jsx";
+import UpdatePassword from "./Pages/Profile/UpdatePassword/UpdatePassword.jsx";
+import UpdatePasswordByAdmin from "./Admin/AllUsers/UpdatePasswordByAdmin.jsx";
 
 const App = () => {
   return (
@@ -49,11 +53,14 @@ const App = () => {
         <Route path="/" element={<Home />}></Route>
 
         <Route path="/programs" element={<Programs />}></Route>
-        <Route
-          path="/programs/mern-stack-web-development"
-          element={<MERNStackWebDevelopment />}
-        ></Route>
+        <Route path="/programs/mern-stack-web-development" element={<MERNStackWebDevelopment />}></Route>
+
         <Route path="/activateCode" element={<ActivateCode />}></Route>
+        <Route path="/sign-in" element={<SignIn />}></Route>
+        <Route path="/sign-up" element={<SignUp />}></Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        <Route path="/reset-password/:token" element={<ResetPassword />}></Route>
+        <Route path="/update-password" element={<RequireAuth><UpdatePassword /></RequireAuth>}></Route>
 
         <Route path="/projects" element={<Projects />}></Route>
         <Route
@@ -79,9 +86,6 @@ const App = () => {
           element={<StripeCheckoutMsg />}
         ></Route>
         <Route path="/contact" element={<ContactUs />}></Route>
-
-        <Route path="/sign-in" element={<SignIn />}></Route>
-        <Route path="/sign-up" element={<SignUp />}></Route>
 
         <Route
           path="/profile"
@@ -139,6 +143,7 @@ const App = () => {
             path="/admin/book-counselling"
             element={<BookCounselling />}
           ></Route>
+          <Route path="/admin/change-password/:email" element={<UpdatePasswordByAdmin />}></Route>
           <Route path="/admin/all-users" element={<AllUsers />}></Route>
           <Route path="/admin/Settings/settings" element={<Settings />}></Route>
         </Route>

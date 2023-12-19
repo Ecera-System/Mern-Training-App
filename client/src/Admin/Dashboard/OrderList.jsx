@@ -23,6 +23,7 @@ const OrderList = () => {
             }
         })
             .then(res => {
+                console.log(res)
                 setOrders(res.data);
                 setLoading(false)
             })
@@ -36,7 +37,7 @@ const OrderList = () => {
                     return navigate('/sign-in');
                 }
             });
-    }, [orders, showToast, navigate]);
+    }, [ showToast]);
 
 
     return (<>

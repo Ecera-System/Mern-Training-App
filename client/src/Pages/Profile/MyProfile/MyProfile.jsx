@@ -5,6 +5,7 @@ import useGetProfile from '../../../API/useGetProfile';
 import Spinner from '../../Shared/Spinner/Spinner';
 import ProfileForm from './ProfileForm';
 import AddressForm from './AddressForm';
+import { Link } from 'react-router-dom';
 
 const MyProfile = () => {
     const [profileData, loading] = useGetProfile();
@@ -57,6 +58,10 @@ const MyProfile = () => {
                                 >
                                     Change Photo
                                 </button>
+                                <Link
+                                to={'/update-password'}
+                                className='text-black bg-violet-400 hover:bg-violet-500 duration-300 px-6 py-2.5 rounded text-sm font-medium'
+                                >Change Password</Link>
                             </div>
                             <ul className='list-none md:w-3/5 w-full flex flex-col gap-5'>
                                 <li>

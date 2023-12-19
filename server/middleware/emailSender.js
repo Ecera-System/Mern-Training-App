@@ -47,3 +47,41 @@ exports.verifyEmail = ({ email, code }) => {
         `
     }, function (error, response) { });
 };
+
+exports.sendResetPasswordMail = ( {req, email, resetPasswordToken} ) => {
+    smtpTransport.sendMail({
+        from: {
+            name: 'Ecera Immigration System',
+            address: process.env.SENDER_EMAIL
+        },
+        to: email,
+        subject: `Ecera IMS Reset Password`,
+        html: `
+        <div style="width: 100%; background-color: #F1F5F9; padding: 40px 0; font-family: 'Lato',sans-serif;">
+        <style>
+            @media (max-width: 600px) {
+                #box {
+                    width: 85% !important;
+                    margin: 0 auto !important;
+                }
+            }
+        </style>
+        <div id="box" style='width: 500px; margin: 0 auto; border-radius: 8px; background-color: white; padding: 30px;'>
+            <h2 style='text-align: center; margin: 10px 0; font-size: 30px; color: #1D4ED8;'>Ecera Immigration System
+            </h2>
+            <h1 style="margin: 0 0 15px 0; text-align: center; font-size: 20px; font-weight: 400; color: #6a6a6a;">Reset Your Password</h1>
+            <hr />
+            <h3 style="margin: 15px 0; text-align: center; font-size: 16px; font-weight: 500; color: #363636;">
+                To Reset your password click on the below link/button. I you didn't requested this email then inform to admin
+            </h3>
+            <a href='${req.protocol}://${req.get('host')}/reset-password/${resetPasswordToken}' 
+            style="text-decoration: none; margin: auto; font-size: 18px; padding: 5px 10px; background-color: blue; color: #fff; text-align: center; margin: 10px 0;">Reset Password</a>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 16px">
+                This link will expire in 2 minutes.
+            </p>
+        </div>
+        <p style="text-align: center; color: #363636;">&copy; Ecera System</p>
+    </div>
+        `
+    }, function (error, response) { });
+};

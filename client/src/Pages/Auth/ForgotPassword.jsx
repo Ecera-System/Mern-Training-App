@@ -1,13 +1,14 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { AiOutlineWarning } from 'react-icons/ai';
-import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Spinner from '../Shared/Spinner/Spinner';
+import { contextProvider } from '../../Context/ContextProvider';
 
-const ForgotPassword = ({ open, onClose }) => {
+const ForgotPassword = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const { showToast } = useContext(contextProvider);
 
     const handleForgotPassword = async (e) => {
         e.preventDefault();
@@ -15,50 +16,46 @@ const ForgotPassword = ({ open, onClose }) => {
             setLoading(true);
             await axios.post(`${import.meta.env.VITE_API_V1_URL}/user/forgot-password`, { email })
                 .then(res => {
-                    setSuccess(res.data.success);
+                    showToast({success: res.data.message, error: ''});
+                    navigate('/sign-in')
                 })
                 .catch(err => {
-                    setError(err?.response?.data?.error);
+                    showToast({success: '', error: err?.response?.data?.error})
                 });
             setLoading(false);
+        }else{
+            showToast({error: 'Email is required', success: ''});
         }
     };
 
-    if (!open) return null;
 
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-md">
-                <h2 className="text-xl font-bold mb-4">Forgot Password</h2>
+            <div className="bg-white p-6 rounded-md flex flex-col justify-between align-middle">
+                <h2 className="text-xl text-center font-bold mb-4">Forgot Password</h2>
                 <form onSubmit={handleForgotPassword}>
-                    <div>
+                    <div className='flex justify-center'>
                         <input
                             type="email"
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            className='w-80 p-2 border-2 border-violet-500 rounded-sm outline-none'
                         />
                     </div>
-                    <div className="mt-4">
-                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                    <div className="w-80 mt-4 flex justify-between">
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-md">
                             Submit
                         </button>
-                        <button onClick={onClose} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md ml-3">
-                            Close
-                        </button>
+                        <Link to={'/sign-in'}  className="bg-gray-300 text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md ml-3">
+                            Cancel
+                        </Link>
                     </div>
-                    {loading && <div>Loading...</div>}
-                    {error && <div className="text-red-500 mt-2 flex items-center"><AiOutlineWarning className="mr-1" />{error}</div>}
-                    {success && <div className="text-green-500 mt-2">{success}</div>}
+                    {loading && <Spinner />}
                 </form>
             </div>
         </div>
     );
-};
-
-ForgotPassword.propTypes = {
-    open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
 };
 
 export default ForgotPassword;

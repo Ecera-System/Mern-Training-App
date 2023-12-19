@@ -181,6 +181,12 @@ const SignIn = () => {
               </Link>
             
             </p>
+            <Link
+                to={'/forgot-password'}
+                className="text-violet-400 hover:text-violet-400 ml-2 cursor-pointer hover:underline"
+              >
+                Forgot password
+              </Link>
             <GoogleSignIn />
           </form>
         </div>
