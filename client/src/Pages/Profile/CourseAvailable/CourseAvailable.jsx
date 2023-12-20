@@ -4,11 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import PageTitle from "../../Shared/PageTitle";
 import Spinner from "../../Shared/Spinner/Spinner";
 import { contextProvider } from "../../../Context/ContextProvider";
-import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
+// import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
+import useGetEnrolledAndNotRefund from "../../../API/useGetEnrolledAndNotRefund";
 import useGetAllCourses from "../../../API/useGetAllCourses";
 
 const CourseAvailable = () => {
-  const [enrolledData] = useGetEnrolledCourse();
+  // const [enrolledData] = useGetEnrolledCourse();
+  const [enrolledData] = useGetEnrolledAndNotRefund();
   const { showToast } = useContext(contextProvider);
   const [coursesData] = useGetAllCourses();
   const navigate = useNavigate();
