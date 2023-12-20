@@ -66,7 +66,7 @@ exports.sendResetPasswordMail = ( {req, email, resetPasswordToken} ) => {
                 }
             }
         </style>
-        <div id="box" style='width: 500px; margin: 0 auto; border-radius: 8px; background-color: white; padding: 30px;'>
+        <div id="box" style='width: 500px; margin: 0 auto; border-radius: 8px; background-color: white; padding: 30px;>
             <h2 style='text-align: center; margin: 10px 0; font-size: 30px; color: #1D4ED8;'>Ecera Immigration System
             </h2>
             <h1 style="margin: 0 0 15px 0; text-align: center; font-size: 20px; font-weight: 400; color: #6a6a6a;">Reset Your Password</h1>
@@ -75,7 +75,9 @@ exports.sendResetPasswordMail = ( {req, email, resetPasswordToken} ) => {
                 To Reset your password click on the below link/button. I you didn't requested this email then inform to admin
             </h3>
             <a href='${req.protocol}://${req.get('host')}/reset-password/${resetPasswordToken}' 
-            style="text-decoration: none; margin: auto; font-size: 18px; padding: 5px 10px; background-color: blue; color: #fff; text-align: center; margin: 10px 0;">Reset Password</a>
+            style="text-decoration: none; margin: 0 40%; font-size: 18px; padding: 5px 10px; background-color: blue; color: #fff; text-align: center;">
+            Reset Password
+            </a>
             <p style="text-align: center; margin-bottom: 20px; font-size: 16px">
                 This link will expire in 2 minutes.
             </p>

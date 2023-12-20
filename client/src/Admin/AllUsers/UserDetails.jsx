@@ -38,9 +38,7 @@ const UserDetails = ({ userDetails, setUserDetails }) => {
                             className='w-[9.4rem] h-[9.4rem] max-w-full object-cover rounded-full border'
                             loading='lazy'
                         />
-                        <Link
-                        className='py-1 px-3 my-2 text-white bg-violet-400 rounded-sm hover:bg-violet-500'
-                         to={`/admin/change-password/${userDetails?.userId?.email}`}>Change Password</Link>
+                        
                     </li>
                     <li className='flex items-center'>
                         <span className='w-2/6 text-sm font-medium text-gray-500'>Full Name</span>
