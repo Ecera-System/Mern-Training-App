@@ -39,7 +39,6 @@ const OrderList = () => {
       });
   }, [orders, showToast, navigate]);
 
-<<<<<<< HEAD
     // <!-- Fetch recent orders data --> 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_V1_URL}/course-enroll/recent-orders`, {
@@ -64,7 +63,6 @@ const OrderList = () => {
                 }
             });
     }, [ showToast]);
-=======
   return (
     <>
       <section className="mt-5 bg-white text-gray-600 border rounded-lg">
@@ -165,7 +163,6 @@ const OrderList = () => {
             </tbody>
           </table>
         </div>
->>>>>>> origin/master
 
         {!loading && orders.length === 0 ? (
           <div className="py-20 w-full text-center">
