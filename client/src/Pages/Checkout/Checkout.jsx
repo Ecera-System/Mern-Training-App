@@ -47,6 +47,8 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [razorpayRes, setRazorpayRes] = useState(null);
 
+  // console.log(isDiscount, "isDiscount");
+
   // Fetching billing address from database
 
   const fetchBillingAddressData = async () => {

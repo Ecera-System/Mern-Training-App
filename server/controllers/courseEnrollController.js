@@ -25,6 +25,24 @@ exports.getEnrolledCourse = async (req, res, next) => {
   try {
     const result = await CourseEnroll.find({
       studentId: req.decoded._id,
+      // refundRequest: false,
+    }).populate("courseId");
+
+    // console.log("used getEnrolledCourse");
+    //
+    // console.log("getEnrolledCourse", result);
+    //
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+// <!-- Get Student enrolled and not refunded course -->
+exports.getEnrolledAndNotRefundCourse = async (req, res, next) => {
+  try {
+    const result = await CourseEnroll.find({
+      studentId: req.decoded._id,
+      refundRequest: false,
     }).populate("courseId");
 
     // console.log("used getEnrolledCourse");
@@ -47,11 +65,16 @@ exports.getRecentOrders = async (req, res, next) => {
       .populate("studentId")
       .populate("profileId");
 
+    // console.log("getRecentOrders", result);
+
     res.status(200).json(result);
   } catch (error) {
     next(error);
   }
 };
+//
+
+//
 
 // <!-- Course Enroll with Stripe -->
 exports.enrollCourseByUSD = async (req, res, next) => {
@@ -267,6 +290,23 @@ exports.razorpayVerify = async (req, res, next) => {
       //
 
       const course = await Course.findById(courseId);
+
+      //
+
+      const priceInUSD = parseFloat(req.body.price / 100);
+      const courseBasePrice = parseFloat(course.price);
+
+      console.log("courseBasePrice", courseBasePrice);
+      console.log("priceInUSD", priceInUSD);
+      console.log("Reward discount", req.body.rewardDiscount);
+
+      // Calculate couponDiscount
+      const couponDiscount =
+        courseBasePrice - (priceInUSD + req.body.rewardDiscount);
+
+      //
+      console.log("couponDiscount", couponDiscount);
+      //
       const user = await User.findById(studentId);
       const profileId = await Profile.findOne({ userId: studentId });
       await Profile.updateOne(
@@ -294,7 +334,14 @@ exports.razorpayVerify = async (req, res, next) => {
         transactionId: razorpay_payment_id,
         paymentStatus: "paid",
         currency: currency,
+        rewardDiscount: req.body.rewardDiscount || null, //
+        couponDiscount: couponDiscount || null, // Add couponDiscount
       });
+      //
+
+      //
+      console.log("razorpayVerify controller courseEnroll", courseEnroll);
+      //
 
       // <!-- Update Course sales and students -->
       if (courseEnroll._id) {
@@ -349,6 +396,44 @@ exports.razorpayVerify = async (req, res, next) => {
     next(error);
   }
 };
+
+// <!-- refund request -->
+exports.updateRefundRequest = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const courseEnroll = await CourseEnroll.findById(id);
+
+    //
+    // console.log("courseEnroll", courseEnroll.createdAt);
+
+    if (!courseEnroll) {
+      return res.status(404).json({ error: "Course enrollment not found" });
+    }
+
+    // Check if less than 7 days have passed since enrollment
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 8);
+
+    if (courseEnroll.createdAt < sevenDaysAgo) {
+      return res.status(400).json({
+        error: "Refund request cannot be updated after 7 days of enrollment",
+      });
+    }
+
+    // Toggle the value of refundRequest
+    courseEnroll.refundRequest = !courseEnroll.refundRequest;
+
+    await courseEnroll.save();
+
+    return res
+      .status(200)
+      .json({ success: "Refund request updated successfully" });
+  } catch (error) {
+    console.error("Error updating refund request:", error);
+    next(error);
+  }
+};
+
 //
 // exports.razorpayVerify = async (req, res, next) => {
 //   try {
