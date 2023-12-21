@@ -3,19 +3,17 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../Shared/Spinner/Spinner';
 import { contextProvider } from '../../Context/ContextProvider';
-import ReCAPTCHA from "react-google-recaptcha";
 import PageTitle from '../Shared/PageTitle';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
-    const [captcha, setCaptcha] = useState('');
     const { showToast } = useContext(contextProvider);
 
     const handleForgotPassword = async (e) => {
         e.preventDefault();
-        if (email && captcha) {
+        if (email) {
             setLoading(true);
             await axios.post(`${import.meta.env.VITE_API_V1_URL}/user/forgot-password`, { email })
                 .then(res => {
@@ -26,18 +24,10 @@ const ForgotPassword = () => {
                     showToast({success: '', error: err?.response?.data?.error})
                 });
             setLoading(false);
-        }else if(!captcha){
-            showToast({error: 'Captcha verification required', success: ''});
-        }
-        else{
+        }else{
             showToast({error: 'Email is required', success: ''});
         }
     };
-
-    function onCaptchaChange(value) {
-        setCaptcha(value);
-        // console.log("Captcha value:", value);
-    }
 
     return (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
@@ -54,9 +44,6 @@ const ForgotPassword = () => {
                             className='w-80 p-2 border-2 border-violet-500 rounded-sm outline-none'
                         />
                     </div>
-                    <ReCAPTCHA
-                        className="w-full my-5 mx-auto flex justify-center align-middle"
-                        sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={onCaptchaChange} />
                     <div className="w-80 mt-4 flex justify-between">
                         <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-md">
                             Submit

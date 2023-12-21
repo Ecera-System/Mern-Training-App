@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState } from "react";
 import GoogleSignIn from "./GoogleSignIn";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -6,16 +5,18 @@ import { contextProvider } from "../../Context/ContextProvider";
 import axios from "axios";
 import { IoCloseSharp } from "react-icons/io5";
 import { AiOutlineWarning } from "react-icons/ai";
-import PropTypes from "prop-types";
-import ForgotPassword from "./ForgotPassword";
-
-import SignUp from "./SignUp";
 import Spinner from "../Shared/Spinner/Spinner";
+import ReCAPTCHA from "react-google-recaptcha";
+
+
+
 const SignIn = () => {
   const { showToast, setIsLoggedIn } = useContext(contextProvider);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState({});
+  const [captcha, setCaptcha] = useState('');
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -86,13 +87,20 @@ const SignIn = () => {
           });
         });
       setLoading(false);
-    } else {
+    }else if(!captcha){
+      showToast({ error: "Captcha verification required", success: '' });
+} else {
       setFormErrors(errors);
     }
   };
 
-  const closeModel = () =>{
+  const closeModel = () => {
     navigate('/');
+  }
+
+  function onCaptchaChange(value) {
+    setCaptcha(value);
+    // console.log("Captcha value:", value);
   }
 
   return (
@@ -161,6 +169,10 @@ const SignIn = () => {
               )}
             </div>
 
+            {/* <ReCAPTCHA
+              className="w-full my-5 mx-auto flex justify-center align-middle"
+              sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={onCaptchaChange} /> */}
+
             <div className="flex justify-start">
               <button
                 type="submit"
@@ -179,14 +191,14 @@ const SignIn = () => {
               >
                 Create an account
               </Link>
-            
+
             </p>
             <Link
-                to={'/forgot-password'}
-                className="text-violet-400 hover:text-violet-400 ml-2 cursor-pointer hover:underline"
-              >
-                Forgot password
-              </Link>
+              to={'/forgot-password'}
+              className="text-violet-400 hover:text-violet-400 ml-2 cursor-pointer hover:underline"
+            >
+              Forgot password
+            </Link>
             <GoogleSignIn />
           </form>
         </div>

@@ -3,7 +3,6 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { contextProvider } from '../../Context/ContextProvider';
 import Spinner from '../../Pages/Shared/Spinner/Spinner';
-import ReCAPTCHA from "react-google-recaptcha";
 import PageTitle from '../../Pages/Shared/PageTitle';
 
 const UpdatePasswordByAdmin = () => {
@@ -16,11 +15,10 @@ const UpdatePasswordByAdmin = () => {
         confirmPassword: '',
     });
     const [loading, setLoading] = useState(false);
-    const [captcha, setCaptcha] = useState('');
 
     const handleResetPassword = async (e) => {
         e.preventDefault();
-        if (passwords.newPassword && passwords.confirmPassword && captcha) {
+        if (passwords.newPassword && passwords.confirmPassword && passwords.newPassword.length >= 6) {
             setLoading(true);
             await axios.post(`${import.meta.env.VITE_API_V1_URL}/admin/update-password`, { userEmail: email, ...passwords }, {
                 method: "POST",
@@ -36,17 +34,12 @@ const UpdatePasswordByAdmin = () => {
                     showToast({ error: err?.response?.data?.error, success: '' });
                 });
             setLoading(false);
-        } else if (!captcha) {
-            showToast({ error: "Captcha verification required", success: '' });
+        } else if(passwords.newPassword.length < 6) {
+            showToast({error: "Password must be of atleat 6 characters"})
         } else {
             showToast({ error: "All fields are required", success: '' });
         }
     };
-
-    function onCaptchaChange(value) {
-        setCaptcha(value);
-        // console.log("Captcha value:", value);
-    }
 
 
     return (
@@ -72,9 +65,6 @@ const UpdatePasswordByAdmin = () => {
                         />
 
                     </div>
-                    <ReCAPTCHA
-                        className="w-full my-5 mx-auto flex justify-center align-middle"
-                        sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={onCaptchaChange} />
                     <div className="w-80 mt-4 flex justify-between">
                         <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-md">
                             Submit
