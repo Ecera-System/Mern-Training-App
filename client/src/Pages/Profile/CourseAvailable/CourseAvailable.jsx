@@ -7,12 +7,16 @@ import { contextProvider } from "../../../Context/ContextProvider";
 import useGetEnrolledAndNotRefund from "../../../API/useGetEnrolledAndNotRefund";
 import useGetAllCourses from "../../../API/useGetAllCourses";
 import TermsModal from "./TermsModal"; // Import the TermsModal component
+import useGetRefundTerms from "../../../API/useGetRefundTerms";
 
 const CourseAvailable = () => {
   const [enrolledData] = useGetEnrolledAndNotRefund();
   const { showToast } = useContext(contextProvider);
   const [coursesData] = useGetAllCourses();
   const navigate = useNavigate();
+  //
+  const [refundTermsData] = useGetRefundTerms();
+  // console.log(refundTermsData, "refundTermsData");
 
   // State variables for TermsModal
   const [showTermsModal, setShowTermsModal] = useState(false);
@@ -107,6 +111,7 @@ const CourseAvailable = () => {
         toggleModal={() => setShowTermsModal(!showTermsModal)}
         onCheckboxChange={handleCheckboxChange}
         isChecked={termsAccepted}
+        refundTermsData={refundTermsData}
       />
     </div>
   );
