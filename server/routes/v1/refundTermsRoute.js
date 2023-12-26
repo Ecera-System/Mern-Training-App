@@ -15,7 +15,7 @@ router
   // Create new terms
   .post(userAuthorize, adminAuthorize, createRefundTerms)
   // Get terms
-  .get(userAuthorize, adminAuthorize, getRefundTerms)
+  .get(userAuthorize, getRefundTerms)
   // Update registration fees
   .put(userAuthorize, adminAuthorize, updateRegistrationFees)
   // Update return window
