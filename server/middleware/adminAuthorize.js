@@ -3,20 +3,18 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const adminAuthorize = (req, res, next) => {
-    try {
-        if (req.decoded.role !== 'admin') {
-            return res.status(403).json({
-                error: "You are not allowed!",
-                logout: true
-            })
-        };
-        next();
-    } catch (error) {
-        next(error)
+  try {
+    if (req.decoded.role !== "admin") {
+      return res.status(403).json({
+        error: "You are not allowed!",
+        logout: true,
+      });
     }
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
-
-
 
 // const adminAuthorize = (req, res, next) => {
 //     try {
@@ -28,9 +26,9 @@ const adminAuthorize = (req, res, next) => {
 //           logout: true,
 //         });
 //       }
-  
+
 //       const token = bearer.split(" ")[1];
-  
+
 //       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
 //         if (err) {
 //           console.error("Token verification error:", err);
@@ -39,7 +37,7 @@ const adminAuthorize = (req, res, next) => {
 //             logout: true,
 //           });
 //         }
-  
+
 //         const user = await User.findOne({ _id: decoded.id });
 //         // console.log(user);
 //         if (!user) {
@@ -58,9 +56,9 @@ const adminAuthorize = (req, res, next) => {
 //             })
 //         };
 //         next();
-  
+
 //         //   console.log("Decoded user:", user);
-  
+
 //         req.decoded = user;
 //         next();
 //       });
@@ -69,6 +67,5 @@ const adminAuthorize = (req, res, next) => {
 //       return res.status(500).json({ error: err.message });
 //     }
 //   };
-  
 
-  module.exports = adminAuthorize;
+module.exports = adminAuthorize;

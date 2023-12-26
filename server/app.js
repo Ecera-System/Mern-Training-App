@@ -32,6 +32,8 @@ app.use(
 app.use("/api/v1/billing-address", require("./routes/v1/billingAddressRoute"));
 //
 app.use("/api/v1/reward", require("./routes/v1/rewardRoute"));
+//
+app.use("/api/v1/refund-terms", require("./routes/v1/refundTermsRoute"));
 
 app.all("*", (req, res) => {
   res.send("No Route found.");
