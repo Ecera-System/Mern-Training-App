@@ -1,60 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import useGetRefundTerms from "../../API/useGetRefundTerms";
 import axios from "axios";
-
+import { contextProvider } from "../../Context/ContextProvider";
 const RefundTerms = () => {
-  const [refundTermsData, setRefundTermsData] = useGetRefundTerms();
+  const [
+    refundTermsData,
+    setRefundTermsData,
+    fetchRefundTermsData,
+  ] = useGetRefundTerms();
   const [newReturnWindow, setNewReturnWindow] = useState("");
   const [newRegistrationFees, setNewRegistrationFees] = useState("");
-
-  //   console.log(newReturnWindow, "newReturnWindow");
-  //   console.log(newRegistrationFees, "newRegistrationFees");
-
-  //   console.log(localStorage.getItem("auth_token"));
+  const { showToast } = useContext(contextProvider);
 
   const handleUpdateReturnWindow = async () => {
+    if (!newReturnWindow) {
+      showToast({
+        success: "",
+        error: "Please enter a value for Return Window.",
+      });
+      return;
+    }
+
     try {
       await axios.patch(
         `${import.meta.env.VITE_API_V1_URL}/refund-terms`,
         { returnWindow: newReturnWindow },
         {
           method: "PATCH",
-          //   returnWindow: newReturnWindow,
           headers: {
             Authorization: localStorage.getItem("auth_token"),
           },
         }
       );
-      // Refresh refund terms data after update
-      //   setRefundTermsData((prevData) => ({
-      //     ...prevData,
-      //     returnWindow: newReturnWindow,
-      //   }));
+
+      await fetchRefundTermsData();
+
+      showToast({
+        success: "Return window updated successfully!",
+        error: "",
+      });
     } catch (error) {
       console.error("Error updating return window:", error);
+      showToast({
+        success: "",
+        error: "Failed to update return window. Please try again.",
+      });
     }
   };
 
   const handleUpdateRegistrationFees = async () => {
+    if (!newRegistrationFees) {
+      showToast({
+        success: "",
+        error: "Please enter a value for Registration Fee.",
+      });
+      return;
+    }
+
     try {
       await axios.put(
         `${import.meta.env.VITE_API_V1_URL}/refund-terms`,
         { registrationFees: newRegistrationFees },
         {
-          //   registrationFees: newRegistrationFees,
           method: "PUT",
           headers: {
             Authorization: localStorage.getItem("auth_token"),
           },
         }
       );
-      // Refresh refund terms data after update
-      //   setRefundTermsData((prevData) => ({
-      //     ...prevData,
-      //     registrationFees: newRegistrationFees,
-      //   }));
+
+      await fetchRefundTermsData();
+
+      showToast({
+        success: "Registration fees updated successfully!",
+        error: "",
+      });
     } catch (error) {
       console.error("Error updating registration fees:", error);
+      showToast({
+        success: "",
+        error: "Failed to update registration fees. Please try again.",
+      });
     }
   };
 
