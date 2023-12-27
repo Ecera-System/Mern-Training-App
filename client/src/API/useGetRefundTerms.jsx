@@ -19,7 +19,16 @@ const useGetRefundTerms = () => {
         }
       );
 
-      setRefundTermsData(response.data);
+      // console.log(response, "response");
+
+      // Set default values if returnWindow is not present in the response
+      const defaultRefundTermsData = {
+        returnWindow: 6, // Set your default value here
+        registrationFees: 20,
+        ...response.data,
+      };
+
+      setRefundTermsData(defaultRefundTermsData);
       setLoading(false);
     } catch (err) {
       showToast({

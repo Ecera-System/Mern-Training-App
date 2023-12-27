@@ -80,7 +80,8 @@ const OrderHistory = () => {
                   const isRefundButtonDisabled =
                     // moment().diff(moment(data?.createdAt), "days") > 7;
                     moment().diff(moment(data?.createdAt), "days") >
-                    refundTermsData.returnWindow;
+                    (refundTermsData.returnWindow || 7);
+                  // refundTermsData.returnWindow;
 
                   return (
                     <tr key={data.id} className="border-b">

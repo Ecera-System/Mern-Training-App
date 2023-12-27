@@ -163,7 +163,7 @@ const OrderList = () => {
                           ? "Refund requested"
                           : // moment().diff(moment(data?.createdAt), "days") > 7
                           moment().diff(moment(data?.createdAt), "days") >
-                            refundTermsData.returnWindow
+                            (refundTermsData.returnWindow || 7)
                           ? "Window closed"
                           : // "Refund not requested (Window closed)"
                             "Refund not requested"}
