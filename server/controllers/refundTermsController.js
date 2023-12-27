@@ -31,13 +31,21 @@ exports.getRefundTerms = async (req, res, next) => {
 };
 
 // Update registration fees
+
 exports.updateRegistrationFees = async (req, res, next) => {
   try {
     const { registrationFees } = req.body;
-    // console.log(req.body, "req.body");
-    //
-    // console.log(registrationFees, "registrationFees");
-    await RefundTerms.updateOne({}, { $set: { registrationFees } });
+
+    // Check if there is an existing document in the RefundTerms collection
+    const existingRefundTerms = await RefundTerms.findOne();
+
+    if (existingRefundTerms) {
+      // If the document exists, update the registrationFees
+      await RefundTerms.updateOne({}, { $set: { registrationFees } });
+    } else {
+      // If the document doesn't exist, create one with default values
+      await RefundTerms.create({ registrationFees });
+    }
 
     res
       .status(200)
@@ -47,16 +55,54 @@ exports.updateRegistrationFees = async (req, res, next) => {
   }
 };
 
+// exports.updateRegistrationFees = async (req, res, next) => {
+//   try {
+//     const { registrationFees } = req.body;
+//     // console.log(req.body, "req.body");
+//     //
+//     // console.log(registrationFees, "registrationFees");
+//     await RefundTerms.updateOne({}, { $set: { registrationFees } });
+
+//     res
+//       .status(200)
+//       .json({ success: "Registration fees updated successfully!" });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 // Update return window
+
 exports.updateReturnWindow = async (req, res, next) => {
   try {
     const { returnWindow } = req.body;
 
-    // console.log(returnWindow, "returnWindow");
-    await RefundTerms.updateOne({}, { $set: { returnWindow } });
+    // Check if there is an existing document in the RefundTerms collection
+    const existingRefundTerms = await RefundTerms.findOne();
+
+    if (existingRefundTerms) {
+      // If the document exists, update the returnWindow
+      await RefundTerms.updateOne({}, { $set: { returnWindow } });
+    } else {
+      // If the document doesn't exist, create one with default values
+      await RefundTerms.create({ returnWindow });
+    }
 
     res.status(200).json({ success: "Return window updated successfully!" });
   } catch (error) {
     next(error);
   }
 };
+
+// exports.updateReturnWindow = async (req, res, next) => {
+//   try {
+//     const { returnWindow } = req.body;
+
+//     // console.log(returnWindow, "returnWindow");
+//     await RefundTerms.updateOne({}, { $set: { returnWindow } });
+
+//     res.status(200).json({ success: "Return window updated successfully!" });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
