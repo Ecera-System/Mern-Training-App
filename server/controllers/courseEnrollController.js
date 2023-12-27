@@ -411,9 +411,7 @@ exports.updateRefundRequest = async (req, res, next) => {
     }
 
     // Determine the threshold for the number of days
-    const returnWindowDays = refundTerms.returnWindow + 1 || 8;
-
-    console.log(returnWindowDays, "returnWindowDays");
+    const returnWindowDays = refundTerms?.returnWindow + 1 || 7; // Use 8 if refundTerms is undefined
 
     // Check if less than specified days have passed since enrollment
     const thresholdDate = new Date();
@@ -443,22 +441,24 @@ exports.updateRefundRequest = async (req, res, next) => {
 //   try {
 //     const { id } = req.params;
 //     const courseEnroll = await CourseEnroll.findById(id);
-
 //     const refundTerms = await RefundTerms.findOne();
-//     //
-//     // console.log("courseEnroll", courseEnroll.createdAt);
 
 //     if (!courseEnroll) {
 //       return res.status(404).json({ error: "Course enrollment not found" });
 //     }
 
-//     // Check if less than 7 days have passed since enrollment
-//     const sevenDaysAgo = new Date();
-//     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 8);
+//     // Determine the threshold for the number of days
+//     const returnWindowDays = refundTerms.returnWindow + 1 || 8;
 
-//     if (courseEnroll.createdAt < sevenDaysAgo) {
+//     // console.log(returnWindowDays, "returnWindowDays");
+
+//     // Check if less than specified days have passed since enrollment
+//     const thresholdDate = new Date();
+//     thresholdDate.setDate(thresholdDate.getDate() - returnWindowDays);
+
+//     if (courseEnroll.createdAt < thresholdDate) {
 //       return res.status(400).json({
-//         error: "Refund request cannot be updated after 7 days of enrollment",
+//         error: `Refund request cannot be updated after ${returnWindowDays} days of enrollment`,
 //       });
 //     }
 
