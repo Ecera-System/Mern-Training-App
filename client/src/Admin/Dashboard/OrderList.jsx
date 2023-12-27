@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { contextProvider } from "../../Context/ContextProvider";
 import TableLoadingSkeleton from "../../Pages/Shared/Spinner/TableLoadingSkeleton";
 import StudentDetails from "../Students/StudentDetails";
+import useGetRefundTerms from "../../API/useGetRefundTerms";
 
 const OrderList = () => {
   const { showToast } = useContext(contextProvider);
@@ -12,6 +13,12 @@ const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [studentDetails, setStudentDetails] = useState(null);
+  //
+  const [
+    refundTermsData,
+    // setRefundTermsData,
+    // fetchRefundTermsData,
+  ] = useGetRefundTerms();
 
   // <!-- Fetch recent orders data -->
   useEffect(() => {
@@ -39,30 +46,32 @@ const OrderList = () => {
       });
   }, [orders, showToast, navigate]);
 
-    // <!-- Fetch recent orders data --> 
-    useEffect(() => {
-        axios.get(`${import.meta.env.VITE_API_V1_URL}/course-enroll/recent-orders`, {
-            method: 'GET',
-            headers: {
-                'Authorization': localStorage.getItem('auth_token')
-            }
-        })
-            .then(res => {
-                console.log(res)
-                setOrders(res.data);
-                setLoading(false)
-            })
-            .catch(err => {
-                showToast({
-                    succuss: '', error: err?.response?.data?.error,
-                });
-                setLoading(false);
-                if (err?.response?.data?.notExist) {
-                    localStorage.removeItem('auth_token');
-                    return navigate('/sign-in');
-                }
-            });
-    }, [ showToast]);
+  // <!-- Fetch recent orders data -->
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_V1_URL}/course-enroll/recent-orders`, {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem("auth_token"),
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setOrders(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        showToast({
+          succuss: "",
+          error: err?.response?.data?.error,
+        });
+        setLoading(false);
+        if (err?.response?.data?.notExist) {
+          localStorage.removeItem("auth_token");
+          return navigate("/sign-in");
+        }
+      });
+  }, [showToast]);
   return (
     <>
       <section className="mt-5 bg-white text-gray-600 border rounded-lg">
@@ -144,14 +153,17 @@ const OrderList = () => {
                     </td>
                     <td className="py-3 pr-5 text-center">
                       <p className="w-max text-sm capitalize">
-                        {moment(data?.updatedAt).format("DD-MMM-YYYY")}
+                        {/* {moment(data?.updatedAt).format("DD-MMM-YYYY")} */}
+                        {moment(data?.createdAt).format("DD-MMM-YYYY")}
                       </p>
                     </td>
                     <td className="py-3 pr-5 text-center">
                       <p className="w-max text-sm capitalize">
                         {data?.refundRequest === true
                           ? "Refund requested"
-                          : moment().diff(moment(data?.createdAt), "days") > 7
+                          : // moment().diff(moment(data?.createdAt), "days") > 7
+                          moment().diff(moment(data?.createdAt), "days") >
+                            refundTermsData.returnWindow
                           ? "Window closed"
                           : // "Refund not requested (Window closed)"
                             "Refund not requested"}

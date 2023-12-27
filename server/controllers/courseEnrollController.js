@@ -18,6 +18,7 @@ const {
 } = require("../../server/utils/rewardFunctions");
 
 const Reward = require("../models/Reward");
+const RefundTerms = require("../models/RefundTerms");
 //
 
 // <!-- Get Student enrolled course -->
@@ -398,25 +399,29 @@ exports.razorpayVerify = async (req, res, next) => {
 };
 
 // <!-- refund request -->
+
 exports.updateRefundRequest = async (req, res, next) => {
   try {
     const { id } = req.params;
     const courseEnroll = await CourseEnroll.findById(id);
-
-    //
-    // console.log("courseEnroll", courseEnroll.createdAt);
+    const refundTerms = await RefundTerms.findOne();
 
     if (!courseEnroll) {
       return res.status(404).json({ error: "Course enrollment not found" });
     }
 
-    // Check if less than 7 days have passed since enrollment
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 8);
+    // Determine the threshold for the number of days
+    const returnWindowDays = refundTerms.returnWindow + 1 || 8;
 
-    if (courseEnroll.createdAt < sevenDaysAgo) {
+    console.log(returnWindowDays, "returnWindowDays");
+
+    // Check if less than specified days have passed since enrollment
+    const thresholdDate = new Date();
+    thresholdDate.setDate(thresholdDate.getDate() - returnWindowDays);
+
+    if (courseEnroll.createdAt < thresholdDate) {
       return res.status(400).json({
-        error: "Refund request cannot be updated after 7 days of enrollment",
+        error: `Refund request cannot be updated after ${returnWindowDays} days of enrollment`,
       });
     }
 
@@ -433,6 +438,43 @@ exports.updateRefundRequest = async (req, res, next) => {
     next(error);
   }
 };
+
+// exports.updateRefundRequest = async (req, res, next) => {
+//   try {
+//     const { id } = req.params;
+//     const courseEnroll = await CourseEnroll.findById(id);
+
+//     const refundTerms = await RefundTerms.findOne();
+//     //
+//     // console.log("courseEnroll", courseEnroll.createdAt);
+
+//     if (!courseEnroll) {
+//       return res.status(404).json({ error: "Course enrollment not found" });
+//     }
+
+//     // Check if less than 7 days have passed since enrollment
+//     const sevenDaysAgo = new Date();
+//     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 8);
+
+//     if (courseEnroll.createdAt < sevenDaysAgo) {
+//       return res.status(400).json({
+//         error: "Refund request cannot be updated after 7 days of enrollment",
+//       });
+//     }
+
+//     // Toggle the value of refundRequest
+//     courseEnroll.refundRequest = !courseEnroll.refundRequest;
+
+//     await courseEnroll.save();
+
+//     return res
+//       .status(200)
+//       .json({ success: "Refund request updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating refund request:", error);
+//     next(error);
+//   }
+// };
 
 //
 // exports.razorpayVerify = async (req, res, next) => {

@@ -34,7 +34,7 @@ exports.getRefundTerms = async (req, res, next) => {
 exports.updateRegistrationFees = async (req, res, next) => {
   try {
     const { registrationFees } = req.body;
-    console.log(req.body, "req.body");
+    // console.log(req.body, "req.body");
     //
     // console.log(registrationFees, "registrationFees");
     await RefundTerms.updateOne({}, { $set: { registrationFees } });
@@ -52,7 +52,7 @@ exports.updateReturnWindow = async (req, res, next) => {
   try {
     const { returnWindow } = req.body;
 
-    console.log(returnWindow, "returnWindow");
+    // console.log(returnWindow, "returnWindow");
     await RefundTerms.updateOne({}, { $set: { returnWindow } });
 
     res.status(200).json({ success: "Return window updated successfully!" });
