@@ -7,6 +7,8 @@ import { BsFillJournalBookmarkFill, BsJournalCode } from 'react-icons/bs';
 import { RiCoupon2Line } from 'react-icons/ri';
 // import { IoSettingsOutline } from 'react-icons/io5';
 import { HiOutlineUserGroup } from 'react-icons/hi';
+import { MdOutlineStorage } from "react-icons/md";
+
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -105,17 +107,18 @@ const Sidebar = () => {
                     <span className='max-lg:hidden'>All Users</span>
                 </NavLink>
             </li>
-            
-            {/* <li>
+
+            <li>
                 <NavLink
-                    to='/admin/Settings/settings'
+                    to='/admin/env-variables'
                     className='lg:w-full w-max h-auto py-3 lg:px-5 px-3 text-base hover:text-violet-600 side-nav hover:bg-violet-100 duration-300 relative rounded flex items-center gap-3'
                     end
                 >
-                    <IoSettingsOutline className='text-lg' />
-                    <span className='max-lg:hidden'>Settings</span>
+                    <MdOutlineStorage className='text-lg' />
+                    <span className='max-lg:hidden'>Env. Variables</span>
                 </NavLink>
-            </li> */}
+            </li>
+            
             <li>
                 <button
                     onClick={handleSignOut}

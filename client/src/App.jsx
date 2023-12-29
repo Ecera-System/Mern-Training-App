@@ -45,7 +45,7 @@ import ForgotPassword from "./Pages/Auth/ForgotPassword.jsx";
 import ResetPassword from "./Pages/Auth/ResetPassword.jsx";
 import UpdatePassword from "./Pages/Profile/UpdatePassword/UpdatePassword.jsx";
 import UpdatePasswordByAdmin from "./Admin/AllUsers/UpdatePasswordByAdmin.jsx";
-
+import EnvVariables from "./Admin/EnvVariables/EnvVariables.jsx";
 const App = () => {
   return (
     <>
@@ -120,6 +120,7 @@ const App = () => {
         </Route>
 
         {/* <!== === === === Admin === === === === */}
+
         <Route
           path="/admin"
           element={
@@ -146,6 +147,8 @@ const App = () => {
           <Route path="/admin/change-password/:email" element={<UpdatePasswordByAdmin />}></Route>
           <Route path="/admin/all-users" element={<AllUsers />}></Route>
           <Route path="/admin/Settings/settings" element={<Settings />}></Route>
+          <Route path="/admin/env-variables" element={<EnvVariables />}></Route>
+          
         </Route>
 
         <Route path="/*" element={<NotFound />}></Route>

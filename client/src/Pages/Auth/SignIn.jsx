@@ -59,7 +59,7 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm(formData);
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0 && captcha) {
       setLoading(true);
       setFormErrors({});
       await axios
@@ -169,9 +169,9 @@ const SignIn = () => {
               )}
             </div>
 
-            {/* <ReCAPTCHA
+            <ReCAPTCHA
               className="w-full my-5 mx-auto flex justify-center align-middle"
-              sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={onCaptchaChange} /> */}
+              sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={onCaptchaChange} />
 
             <div className="flex justify-start">
               <button

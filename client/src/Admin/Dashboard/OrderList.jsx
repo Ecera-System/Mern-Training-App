@@ -48,7 +48,7 @@ const OrderList = () => {
             }
         })
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 setOrders(res.data);
                 setLoading(false)
             })
