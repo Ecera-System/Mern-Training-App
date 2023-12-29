@@ -53,14 +53,27 @@ const App = () => {
         <Route path="/" element={<Home />}></Route>
 
         <Route path="/programs" element={<Programs />}></Route>
-        <Route path="/programs/mern-stack-web-development" element={<MERNStackWebDevelopment />}></Route>
+        <Route
+          path="/programs/mern-stack-web-development"
+          element={<MERNStackWebDevelopment />}
+        ></Route>
 
         <Route path="/activateCode" element={<ActivateCode />}></Route>
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-        <Route path="/reset-password/:token" element={<ResetPassword />}></Route>
-        <Route path="/update-password" element={<RequireAuth><UpdatePassword /></RequireAuth>}></Route>
+        <Route
+          path="/reset-password/:token"
+          element={<ResetPassword />}
+        ></Route>
+        <Route
+          path="/update-password"
+          element={
+            <RequireAuth>
+              <UpdatePassword />
+            </RequireAuth>
+          }
+        ></Route>
 
         <Route path="/projects" element={<Projects />}></Route>
         <Route
@@ -144,7 +157,10 @@ const App = () => {
             path="/admin/book-counselling"
             element={<BookCounselling />}
           ></Route>
-          <Route path="/admin/change-password/:email" element={<UpdatePasswordByAdmin />}></Route>
+          <Route
+            path="/admin/change-password/:email"
+            element={<UpdatePasswordByAdmin />}
+          ></Route>
           <Route path="/admin/all-users" element={<AllUsers />}></Route>
           <Route path="/admin/Settings/settings" element={<Settings />}></Route>
           <Route path="/admin/env-variables" element={<EnvVariables />}></Route>

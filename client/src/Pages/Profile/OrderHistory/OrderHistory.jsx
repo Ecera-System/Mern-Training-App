@@ -4,10 +4,18 @@ import PageTitle from "../../Shared/PageTitle";
 import moment from "moment";
 import TableLoadingSkeleton from "../../Shared/Spinner/TableLoadingSkeleton";
 import axios from "axios";
+import useGetRefundTerms from "../../../API/useGetRefundTerms";
 
 const OrderHistory = () => {
   const [enrolledData, loading] = useGetEnrolledCourse();
   const course = enrolledData?.filter((f) => f.courseId);
+  const [
+    refundTermsData,
+    // setRefundTermsData,
+    // fetchRefundTermsData,
+  ] = useGetRefundTerms();
+
+  // console.log(refundTermsData, "refundTermsData");
 
   const handleRefundRequest = async (id) => {
     try {
@@ -70,7 +78,10 @@ const OrderHistory = () => {
               ) : (
                 course?.map((data) => {
                   const isRefundButtonDisabled =
-                    moment().diff(moment(data?.createdAt), "days") > 7;
+                    // moment().diff(moment(data?.createdAt), "days") > 7;
+                    moment().diff(moment(data?.createdAt), "days") >
+                    (refundTermsData.returnWindow || 7);
+                  // refundTermsData.returnWindow;
 
                   return (
                     <tr key={data.id} className="border-b">
