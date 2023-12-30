@@ -46,7 +46,6 @@ const OrderList = () => {
       });
   }, [orders, showToast, navigate]);
 
-<<<<<<< HEAD
     // <!-- Fetch recent orders data --> 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_V1_URL}/course-enroll/recent-orders`, {
@@ -71,34 +70,6 @@ const OrderList = () => {
                 }
             });
     }, [ showToast]);
-=======
-  // <!-- Fetch recent orders data -->
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_V1_URL}/course-enroll/recent-orders`, {
-        method: "GET",
-        headers: {
-          Authorization: localStorage.getItem("auth_token"),
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setOrders(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        showToast({
-          succuss: "",
-          error: err?.response?.data?.error,
-        });
-        setLoading(false);
-        if (err?.response?.data?.notExist) {
-          localStorage.removeItem("auth_token");
-          return navigate("/sign-in");
-        }
-      });
-  }, [showToast]);
->>>>>>> origin/master
   return (
     <>
       <section className="mt-5 bg-white text-gray-600 border rounded-lg">
