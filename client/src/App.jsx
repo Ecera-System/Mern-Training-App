@@ -46,6 +46,7 @@ import ResetPassword from "./Pages/Auth/ResetPassword.jsx";
 import UpdatePassword from "./Pages/Profile/UpdatePassword/UpdatePassword.jsx";
 import UpdatePasswordByAdmin from "./Admin/AllUsers/UpdatePasswordByAdmin.jsx";
 import EnvVariables from "./Admin/EnvVariables/EnvVariables.jsx";
+import AllUserRewards from "./Admin/AllUserRewards/AllUserRewards.jsx";
 const App = () => {
   return (
     <>
@@ -164,7 +165,12 @@ const App = () => {
           <Route path="/admin/all-users" element={<AllUsers />}></Route>
           <Route path="/admin/Settings/settings" element={<Settings />}></Route>
           <Route path="/admin/env-variables" element={<EnvVariables />}></Route>
-          
+          {/*  */}
+          <Route
+            path="/admin/all-user-rewards"
+            element={<AllUserRewards />}
+          ></Route>
+          {/*  */}
         </Route>
 
         <Route path="/*" element={<NotFound />}></Route>

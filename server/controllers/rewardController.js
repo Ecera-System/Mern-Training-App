@@ -105,4 +105,14 @@ exports.deleteRewardById = async (req, res, next) => {
 };
 
 //
+exports.getAllUserRewardList = async (req, res, next) => {
+  try {
+    const result = await Reward.find().populate("userId");
+    console.log(result, "result");
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+//
 // module.exports = { createOrUpdateRewardPoints };
