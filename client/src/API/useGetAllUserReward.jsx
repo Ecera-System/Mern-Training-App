@@ -9,7 +9,7 @@ const useGetAllUserReward = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchUserRewards = () => {
     axios
       .get(`${import.meta.env.VITE_API_V1_URL}/reward/allUserRewardList`, {
         method: "GET",
@@ -29,9 +29,14 @@ const useGetAllUserReward = () => {
           return navigate("/sign-in");
         }
       });
+  };
+
+  useEffect(() => {
+    // Fetch user rewards when the component mounts
+    fetchUserRewards();
   }, [navigate]);
 
-  return [userRewards, loading];
+  return [userRewards, loading, fetchUserRewards];
 };
 
 export default useGetAllUserReward;

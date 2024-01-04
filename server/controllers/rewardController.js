@@ -4,6 +4,7 @@ const {
 } = require("../../server/utils/rewardFunctions");
 
 const Reward = require("../models/Reward");
+const User = require("../models/User");
 
 //<!-- Create Reward -->
 
@@ -108,11 +109,52 @@ exports.deleteRewardById = async (req, res, next) => {
 exports.getAllUserRewardList = async (req, res, next) => {
   try {
     const result = await Reward.find().populate("userId");
-    console.log(result, "result");
+    // console.log(result, "result");
     res.status(200).json(result);
   } catch (error) {
     next(error);
   }
 };
 //
+exports.findByEmailAndAddPoint = async (req, res, next) => {
+  try {
+    const { email, points } = req.body;
+    console.log(req.body);
+
+    // Check if the email exists in the User collection
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(403)
+        .json({ error: "User not found with the provided email." });
+    }
+
+    // Check if the userId has a reward entry in the Reward collection
+    const existingReward = await Reward.findOne({ userId: user._id });
+
+    if (existingReward) {
+      existingReward.points = Math.max(
+        0,
+        existingReward.points + parseInt(points) || 0
+      );
+      await existingReward.save();
+
+      return res.status(200).json({ success: "Reward updated successfully." });
+    }
+
+    // If no existing reward entry, create a new one
+    const newReward = new Reward({
+      userId: user._id,
+      points: Math.max(0, parseInt(points) || 0), // Set points to the provided value or default to 0
+    });
+
+    await newReward.save();
+
+    res.status(200).json({ success: "Reward added successfully." });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // module.exports = { createOrUpdateRewardPoints };

@@ -8,6 +8,7 @@ const {
   reedemRewardPoints,
   deleteRewardById,
   getAllUserRewardList,
+  findByEmailAndAddPoint,
 } = require("../../controllers/rewardController");
 
 router
@@ -29,5 +30,10 @@ router
 router
   .route("/allUserRewardList")
   .get(userAuthorize, adminAuthorize, getAllUserRewardList);
+
+//<!-- find with email and add reward-->
+router
+  .route("/findByEmailAndAddPoint")
+  .post(userAuthorize, adminAuthorize, findByEmailAndAddPoint);
 
 module.exports = router;
