@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Richard Anthony",
+        "avatar": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        "position": "Front End Developer and IT Support",
+        "company": "Express Biz PTY Ltd.",
+        "feedback": "'MERN Stack Development' is not just a course. It is a complete guideline for the career. If you are determined, you'll surely get a path In Sha Allah. You will learn from scratch and becomes an entry-level developer. Thanks to Almighty Allah for making me suitable for a journey with 'MERN Stack Development Course from Ecera System' "
+    },
+    {
+        "name": "Joshua Jeffrey",
+        "avatar": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+        "position": "Full Stack Developer",
+        "company": "Red Positive (OPC) Service Pvt. Ltd",
+        "feedback": "I am blessed to be a student of 'Ecera System'. It helps me switch to my dream career. Thanks, 'Ecera System' for such a great platform. Just not about learning web development they all also help me to show the career path."
+    },
+    {
+        "name": "Ryan Chakrabarti",
+        "avatar": "https://images.unsplash.com/photo-1615109398623-88346a601842?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fG1hbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+        "position": "Junior web developer",
+        "company": "IBM",
+        "feedback": "Enrolling this course is the best decision of my life. Just amazing 👏just awesome. Never elaborate in word. I am sooooo greatfull to 'Ecera System' ❤️❤️"
+    },
+    {
+        "name": "Ishaan Burman",
+        "avatar": "https://images.unsplash.com/photo-1683130461542-53fcbd04056f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80",
+        "position": "MERN Stack Developer",
+        "company": "DS Legends Pte. Ltd.",
+        "feedback": "'Ecera System' taught me how to work in a dedicated manner. How to get Caught up in the magic of coding. How to do work on time. A Very good time of life has been spent in this course. Learned a lot from here. Much respect and love to the team members of 'Ecera System'. Because as a result of their tireless work. I am successful today as a result of their guidance. Finally, I will say this, Thanks to 'Ecera System' team. You Guys are really Awesome."
+    },
+    {
+        "name": "Ajay Singh Bhadauriya",
+        "avatar": "https://cdn-icons-png.flaticon.com/512/2202/2202112.png",
+        "position": "Software Engineer",
+        "company": "Walmart",
+        "feedback": "This course was a life-changer for me. I learned how to stay consistent, persistent and more importantly, I learned 'how to learn'. The teaching style of 'teacher' is top-notch. Besides, the whole 'Ecera System' team is truly amazing"
+    },
+    {
+        "name": "Hasan Shaikh",
+        "avatar": "https://images.pexels.com/photos/10057618/pexels-photo-10057618.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "position": "Full Stack Developer",
+        "company": "AFPM",
+        "feedback": "I learned how to build real projects in a simple & understandable way. I know that is a kind of work I should be doing early in my career. I got the right guidance & support here to achieve that."
+    }
+]
