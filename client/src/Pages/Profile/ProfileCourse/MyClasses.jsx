@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
-import useGetEnrolledAndNotRefund from "../../../API/useGetEnrolledAndNotRefund";
+import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
+// import useGetEnrolledAndNotRefund from "../../../API/useGetEnrolledAndNotRefund";
 
 import PageTitle from "../../Shared/PageTitle";
 import Spinner from "../../Shared/Spinner/Spinner";
@@ -9,7 +9,8 @@ import ClassContent from "./ClassContent";
 import useGetAllCourses from "../../../API/useGetAllCourses";
 
 const MyClasses = () => {
-  const [enrolledData, loading] = useGetEnrolledAndNotRefund();
+  // const [enrolledData, loading] = useGetEnrolledAndNotRefund();
+  const [enrolledData, loading] = useGetEnrolledCourse();
   const [coursesData] = useGetAllCourses();
   const [content, setContent] = useState();
   const navigate = useNavigate();
@@ -57,12 +58,23 @@ const MyClasses = () => {
                     <h2 className="xl:text-xl text-lg font-semibold">
                       {data?.courseId?.title}
                     </h2>
-                    <button
-                      onClick={() => setContent(data?.courseId)}
-                      className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md mt-5"
-                    >
-                      Continue Learning
-                    </button>
+                    {data?.refundRequest ? (
+                      <button
+                        onClick={() =>
+                          navigate(`/course/checkout/${data?.courseId._id}`)
+                        }
+                        className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md mt-5"
+                      >
+                        Refund Requested, buy again to access
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setContent(data?.courseId)}
+                        className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md mt-5"
+                      >
+                        Continue Learning
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
