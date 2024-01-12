@@ -7,20 +7,54 @@ import PageTitle from "../../Shared/PageTitle";
 import Spinner from "../../Shared/Spinner/Spinner";
 import ClassContent from "./ClassContent";
 import useGetAllCourses from "../../../API/useGetAllCourses";
+import TermsModal from "../CourseAvailable/TermsModal";
+import useGetRefundTerms from "../../../API/useGetRefundTerms";
 
 const MyClasses = () => {
   // const [enrolledData, loading] = useGetEnrolledAndNotRefund();
   const [enrolledData, loading] = useGetEnrolledCourse();
   const [coursesData] = useGetAllCourses();
   const [content, setContent] = useState();
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
-
+  const [refundTermsData] = useGetRefundTerms();
+  // console.log(refundTermsData, "refundTermsData");
   //
   // console.log(coursesData, "coursesData");
   // console.log(enrolledData, "enrolledData");
+  // console.log(content);
   //
   // <!-- Check exist course -->
   const courses = enrolledData?.filter((f) => f.courseId);
+  //
+  // const handleCheckoutButtonClick = (data) => {
+  //   if (data?.refundRequest) {
+  //     setShowTermsModal(true);
+  //   } else {
+  //     navigate(`/course/checkout/${data?.courseId._id}`);
+  //   }
+  // };
+  //
+  const handleAcceptTerms = () => {
+    setShowTermsModal(false);
+    //
+    // console.log(content);
+    navigate(`/course/checkout/${content?._id}`);
+  };
+  //
+  const handleCheckboxChange = () => {
+    setTermsAccepted(!termsAccepted);
+  };
+  //
+  // Function to handle checkout button click
+  const handleCheckoutButtonClick = (data) => {
+    if (termsAccepted) {
+      navigate(`/course/checkout/${data?.courseId._id}`);
+    } else {
+      setShowTermsModal(true);
+    }
+  };
 
   if (loading) return <Spinner />;
 
@@ -59,10 +93,16 @@ const MyClasses = () => {
                       {data?.courseId?.title}
                     </h2>
                     {data?.refundRequest ? (
+                      // <button
+                      //   onClick={() =>
+                      //     navigate(`/course/checkout/${data?.courseId._id}`)
+                      //   }
+                      //   className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md mt-5"
+                      // >
+                      //   Refund Requested, buy again to access
+                      // </button>
                       <button
-                        onClick={() =>
-                          navigate(`/course/checkout/${data?.courseId._id}`)
-                        }
+                        onClick={() => handleCheckoutButtonClick(data)}
                         className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md mt-5"
                       >
                         Refund Requested, buy again to access
@@ -145,6 +185,15 @@ const MyClasses = () => {
           )}
         </div>
       </div>
+      {/* Render TermsModal with necessary props */}
+      <TermsModal
+        isOpen={showTermsModal}
+        toggleModal={() => setShowTermsModal(!showTermsModal)}
+        onCheckboxChange={handleCheckboxChange}
+        isChecked={termsAccepted}
+        // onAccept={handleAcceptTerms}
+        refundTermsData={refundTermsData}
+      />
     </>
   );
 };
