@@ -119,7 +119,7 @@ exports.getAllUserRewardList = async (req, res, next) => {
 exports.findByEmailAndAddPoint = async (req, res, next) => {
   try {
     const { email, points } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     // Check if the email exists in the User collection
     const user = await User.findOne({ email });
