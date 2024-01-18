@@ -18,7 +18,6 @@ const smtpTransportFun = (smtpUser, smtpPassword) => {
 }
 
 exports.verifyEmail = ({ email, code }) => {
-    console.log(envVar)
     smtpTransportFun(envVar.smtpUser, envVar.smtpPassword).sendMail({
         from: {
             name: 'Ecera System Training',
