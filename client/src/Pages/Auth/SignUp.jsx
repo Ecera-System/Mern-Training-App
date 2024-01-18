@@ -1,22 +1,21 @@
-
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineWarning } from "react-icons/ai";
 import { contextProvider } from "../../Context/ContextProvider";
 import GoogleSignIn from "./GoogleSignIn";
-import { IoCloseSharp } from "react-icons/io5";
-import SignIn from "./SignIn";
 import Spinner from "../Shared/Spinner/Spinner";
+import autImage from "../../../public/images/auth/login-img.png";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
-const SignUp = ({ setSignUpPopUp }) => {
+const SignUp = () => {
   const { showToast } = useContext(contextProvider);
   const [loading, setLoading] = useState(false);
-  const [signInPopUp, setSignInPopUp] = useState(false);
-  const [openModal, setOpenModal] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    countryCode: "",
     contactNumber: "",
     password: "",
     confirmPassword: "",
@@ -58,22 +57,25 @@ const SignUp = ({ setSignUpPopUp }) => {
 
     if (!data.contactNumber) {
       errors.contactNumber = "Contact Number is required!";
-    } else if (!/^-?\d+\.?\d*$/.test(data.contactNumber)) {
-      errors.contactNumber = "Contact Number is invalid!";
     }
 
-    if (!data.password) {
+    if (!data.countryCode) {
+      errors.contactNumber = "Country code is required!";
+    }
+
+    if (!data.password && !data.confirmPassword) {
+      errors.password = "Password and confirm password is required!";
+    } 
+    else if (!data.password) {
       errors.password = "Password is required!";
     } else if (
       !/^(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z]).{6,}$/.test(data.password)
     ) {
       errors.password = "Password must be strong or at least 6 characters!";
-    }
-
-    if (!data.confirmPassword) {
-      errors.confirmPassword = "Confirm Password is required!";
+    } else if (!data.confirmPassword) {
+      errors.password = "Confirm Password is required!";
     } else if (data.confirmPassword !== data.password) {
-      errors.confirmPassword = "Confirm Password does not match Password!";
+      errors.password = "Confirm Password does not match Password!";
     }
 
     return errors;
@@ -90,11 +92,15 @@ const SignUp = ({ setSignUpPopUp }) => {
         .post(`${import.meta.env.VITE_API_V1_URL}/user/sign-up`, {
           name: formData.name,
           contactNumber: formData.contactNumber,
+          countryCode: formData.countryCode,
           email: formData.email,
           password: formData.password,
         })
         .then((res) => {
-          res.data && setOpenModal(res.data);
+          res.data && showToast({
+            succuss: "Verification code sent to your mail successfully",
+            error: "",
+          });
 
           const queryParams = new URLSearchParams({
             email: formData.email,
@@ -114,174 +120,145 @@ const SignUp = ({ setSignUpPopUp }) => {
     }
   };
 
-  const closeModel = () =>{
-    navigate('/');
+  const handlePhoneChange = (phone, country) => {
+    setFormData({...formData, contactNumber: phone, countryCode: country.dialCode})
   }
 
   return (
-    <>
-      {/* <PageTitle title="Sign Up" /> */}
-      <div className="h-[80vh]">
-        <div className="fixed inset-0 z-50 bg-black/60 grid place-items-center overflow-y-auto py-5">
-          <div className="md:w-[35rem] w-11/12 bg-black md:p-10 p-6 rounded-lg relative">
-            {/* Close btn */}
-            <div
-              onClick={closeModel}
-              className="absolute top-5 right-5 z-50 rounded-full hover:bg-violet-100 duration-300 p-1 cursor-pointer"
+    <div
+      // style={{backgroundImage: 'url(../../../public/images/auth/auth_bg.jpg)'}}
+      className="w-full h-screen flex justify-center items-center bg-violet-700"
+    >
+      <div className=" w-5/6 h-[90%] flex border shadow-2xl relative">
+        <div className="bg-violet-200 hidden md:flex justify-center items-center">
+          <img src={autImage} alt="" className="w-[450px]" />
+        </div>
+        <div className="md:w-[60%] w-[100%] bg-white ">
+          <div>
+            <Link
+              to={"/"}
+              className=" font-medium border-[2px] px-5 py-1 rounded-3xl absolute left-2 top-3 bg-violet-300 hover:bg-violet-500 hover:text-white"
             >
-              <IoCloseSharp className="text-3xl text-gray-700" />
-            </div>
-            <form
-              onSubmit={handleSubmit}
-              style={{ textShadow: "1px 1px 1px rgb(0,0,0,0.3)" }}
-              className="w-full h-auto lg:p-16 md:px-32 md:py-16 sm:p-10 p-7 text-base text-white flex flex-col gap-6"
-            >
-              <div>
-                <h1 className="text-2xl font-semibold text-yellow-400">
-                  Sign up to ES Training
-                </h1>
-              </div>
-              <div>
-                <label htmlFor="name" className="px-1">
-                  Full Name
-                </label>
-                <input
-                  onChange={handleChange}
-                  placeholder=""
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 placeholder-violet-600 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
-                />
-                {formErrors?.name && (
-                  <p className="relative top-0 mt-1 text-sm text-red-400 flex gap-2 items-start">
-                    <AiOutlineWarning className="text-base mt-0.5" />
-                    {formErrors?.name}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="email" className="px-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 placeholder-violet-600 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
-                  onChange={handleChange}
-                />
-                {formErrors?.email && (
-                  <p className="relative top-0 mt-1 text-sm text-red-400 flex gap-2 items-start">
-                    <AiOutlineWarning className="text-base mt-0.5" />
-                    {formErrors?.email}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label htmlFor="contact" className="px-1 mb-2 block">
-                  Contact Number
-                </label>
-                <div className="flex items-center gap-2">
-                  <select
-                    value={formData.countryCode}
-                    onChange={(e) =>
-                      setFormData({ ...formData, countryCode: e.target.value })
-                    }
-                    className="block mt-2 px-3 py-2 rounded-lg w-32 bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:bg-white focus:border-violet-600 focus:outline-none"
-                  >
-                    <option value="">Country Code</option>
-                    <option value="+1">United States (+1)</option>
-                    <option value="+91">India (+91)</option>
-                    <option value="+44">United Kingdom (+44)</option>
-                    <option value="+49">Germany (+49)</option>
-                    <option value="+33">France (+33)</option>
-                    <option value="+81">Japan (+81)</option>
-                    <option value="+86">China (+86)</option>
-                    <option value="+7">Russia (+7)</option>
-                    {/* Add more countries as needed */}
-                  </select>
-                  <input
-                    type="text"
-                    id="contact"
-                    name="contactNumber"
-                    className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 placeholder-violet-600 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
-                    onChange={handleChange}
-                  />
-                </div>
-                {formErrors?.contactNumber && (
-                  <p className="relative top-0 mt-1 text-sm text-red-400 flex gap-2 items-start">
-                    <AiOutlineWarning className="text-base mt-0.5" />
-                    {formErrors?.contactNumber}
-                  </p>
-                )}
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 items-start gap-5">
-                <div>
-                  <label htmlFor="password" className="px-1">
-                    Password
-                  </label>
-                  <input
-                    placeholder=""
-                    type="password"
-                    name="password"
-                    id="password"
-                    className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 placeholder-violet-600 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
-                    onChange={handleChange}
-                  />
-                  {formErrors?.password && (
-                    <p className="relative top-0 mt-1 text-sm text-red-400 flex gap-2 items-start">
-                      <AiOutlineWarning className="text-base mt-0.5" />
-                      {formErrors?.password}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label htmlFor="confirmPassword" className="px-1">
-                    Confirm Password
-                  </label>
-                  <input
-                    placeholder=""
-                    type="password"
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 placeholder-violet-600 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
-                    onChange={handleChange}
-                  />
-                  {formErrors?.confirmPassword && (
-                    <p className="relative top-0 mt-1 text-sm text-red-400 flex gap-2 items-start">
-                      <AiOutlineWarning className="text-base mt-0.5" />
-                      {formErrors?.confirmPassword}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="flex justify-start">
-                <button
-                  type="submit"
-                  className="px-16 py-2.5 mt-3 text-base font-medium border border-white hover:bg-white duration-300 text-white hover:text-violet-700 flex items-center gap-2 rounded-md shadow-[0_3px_15px_rgb(124,58,237,0.5)]"
-                >
-                  Sign Up
-                </button>
-              </div>
-              <p className="text-base font-light">
-                Already have an account?
-                <Link
-                  to={'/sign-in'}
-                  className="text-yellow-400 ml-2 hover:underline"
-                >
-                  Sign In
-                </Link>
-                
-              </p>
+              Back
+            </Link>
+            <div className="md:absolute md:w-[30%] left-[5%] bottom-4">
               <GoogleSignIn />
-            </form>
+            </div>
+          </div>
+          <div className="w-full h-[90%] md:h-full flex flex-col justify-around items-center">
+            <div className=" w-[95%] flex justify-end items-center ">
+              <p className=" text-stone-500 ">
+                Already have an Account?</p>
+              <Link className=" w-[38%] md:w-fit text-sm font-semibold px-3 py-1 border rounded-2xl mx-3 hover:bg-violet-200 "
+                to={"/sign-in"}>SIGN IN</Link>
+            </div>
+            <div className=" w-[80%] md:w-[60%] ">
+              <h1 className=" text-2xl font-bold ">
+                Welcome to Ecera Training</h1>
+              <h3 className=" text-stone-400 ">
+                Register your account</h3>
+            </div>
+            <div className=" w-[80%] md:w-[60%]">
+              <form onSubmit={handleSubmit}>
+                <div className=" " >
+                  <input
+                    className=" w-full border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
+                    type="text" onChange={handleChange} name="name" placeholder="Enter your Name" />
+                  <div className="h-6" >
+                    {formErrors?.name && (
+                      <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
+                        <AiOutlineWarning className="text-base mt-0.5" />
+                        {formErrors?.name}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <input
+                    className=" w-full border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
+                    onChange={handleChange} name="email"
+                    type="email" placeholder="Enter your Email" />
+                  <div className=" h-6 " >
+                    {formErrors?.email && (
+                      <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
+                        <AiOutlineWarning className="text-base mt-0.5" />
+                        {formErrors?.email}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                <ReactPhoneInput
+                type='tel'
+                defaultCountry='in'
+                inputClass='phone-input'
+                inputProps={{
+                  required: true,
+                  style: {
+                    width: '100%',
+                    color: '#5f07a3',
+                    padding: '10px',
+                    paddingLeft: "40px",
+                    height: '38px',
+                    borderColor: '#454441',
+                    borderRadius: '50px',
+                    outline: '#5f07a3'
+                  },
+                }}
+                name='contactNumber'
+                onChange={handlePhoneChange}
+                containerClass='containerCl'
+                buttonClass='btnCl'
+                searchClass='searchCl'
+
+                buttonStyle={{ backgroundColor: 'transparent', borderRight: 'none', borderColor: '#454441', borderRadius: '50px 0 0 50px' }}
+                containerStyle={{ color: 'black', border: 'none'}}
+
+                country={'in'}
+                placeholder='Phone number'
+              />
+                  <div className="h-6" >
+                    {formErrors?.contactNumber && (
+                      <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
+                        <AiOutlineWarning className="text-base mt-0.5" />
+                        {formErrors?.contactNumber}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="mb-5">
+                  <div className="flex flex-col md:flex-row justify-between">
+                    <input
+                      onChange={handleChange} name="password"
+                      className=" md:w-[47%] mb-2 md:mb-0 border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
+                      type="text" placeholder="Password" />
+                    <input
+                    onChange={handleChange} name="confirmPassword"
+                      className=" md:w-[47%] border border-stone-500 rounded-3xl px-4 py-1.5 text-violet-600 outline-violet-500 "
+                      type="text" placeholder="Confirm Password" />
+                  </div>
+                  <div className="h-6" >
+                    {formErrors?.password && (
+                      <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
+                        <AiOutlineWarning className="text-base mt-0.5" />
+                        {formErrors?.password}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex justify-start">
+                  <button className="font-semibold px-4 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"
+                   type="submit">Register</button>
+                  <Link to={'/'} className="font-semibold px-5 py-1.5 rounded-lg text-violet-600 border-violet-600 hover:bg-violet-600 border hover:text-white mx-3" >
+                    Cancel</Link>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-
       {loading && <Spinner />}
-    </>
+    </div>
   );
 };
 

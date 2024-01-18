@@ -69,17 +69,12 @@ const GoogleSignIn = () => {
             style={{ textShadow: 'none' }}
             className='w-full'
         >
-            <div className='w-full flex items-center gap-3'>
-                <div className='w-full h-px bg-white' />
-                <p>or</p>
-                <div className='w-full h-px bg-white' />
-            </div>
 
             <div
                 onClick={loading ? undefined : handleLogin}
-                className={`w-full h-11 mt-7 bg-white text-gray-700 rounded shadow duration-300 active:bg-gray-50 hover:bg-gray-50 ${loading ? 'bg-gray-50 cursor-progress' : 'cursor-pointer'}`}
+                className={`w-[100%] h-11 mt-7 bg-white text-gray-700 rounded shadow duration-300 active:bg-gray-50 hover:bg-gray-50 ${loading ? 'bg-gray-50 cursor-progress' : 'cursor-pointer'}`}
             >
-                <div className='w-full h-full border border-transparent flex items-center justify-center gap-3'>
+                <div className='w-[100%] h-full border border-transparent flex items-center justify-center gap-3'>
                     <div className='inline-block'>
                         <img
                             className='w-6 h-auto'

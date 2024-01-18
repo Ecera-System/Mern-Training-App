@@ -112,7 +112,7 @@ exports.signin = async (req, res) => {
         if (user.status === 'blocked') return res.status(403).json({ error: "Your account is blocked!" });
 
         const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
-
+        
         res.status(200).json({
             auth_token: 'Bearer ' + token,
             success: "Login success!",
