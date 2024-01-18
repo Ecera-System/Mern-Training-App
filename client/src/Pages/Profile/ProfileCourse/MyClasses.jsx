@@ -56,6 +56,15 @@ const MyClasses = () => {
     }
   };
 
+  //
+  const handleCheckoutForAvailableButton = (data) => {
+    if (termsAccepted) {
+      navigate(`/course/checkout/${data?._id}`);
+    } else {
+      setShowTermsModal(true);
+    }
+  };
+
   if (loading) return <Spinner />;
 
   return content ? (
@@ -166,14 +175,24 @@ const MyClasses = () => {
                             <p className="text-xl font-semibold">
                               ${data?.price}
                             </p>
-                            <button
+                            {/* <button
                               onClick={() =>
                                 navigate(`/course/checkout/${data?._id}`)
                               }
                               className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md"
                             >
                               Checkout
+                            </button> */}
+                            {/*  */}
+                            <button
+                              onClick={() =>
+                                handleCheckoutForAvailableButton(data)
+                              }
+                              className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md mt-5"
+                            >
+                              Checkout
                             </button>
+                            {/*  */}
                           </div>
                         </div>
                       </div>
