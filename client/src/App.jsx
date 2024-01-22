@@ -12,7 +12,7 @@ import AddCourses from "./Admin/AddCourses/AddCourses";
 import AssignmentDetails from "./Admin/Assignments/AssignmentDetails";
 import Certificate from "./Admin/Certificate/Certificate";
 import CouponCode from "./Admin/CouponCode/CouponCode";
-import Settings from "./Admin/Settings/settings";
+import Settings from "./Admin/Settings/Settings";
 import MyProfile from "./Pages/Profile/MyProfile/MyProfile";
 import Checkout from "./Pages/Checkout/Checkout";
 import NotFound from "./Pages/NotFound/NotFound";
