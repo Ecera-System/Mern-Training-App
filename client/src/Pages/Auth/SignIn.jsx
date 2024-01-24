@@ -193,12 +193,12 @@
 //               </Link>
 
 //             </p>
-//             <Link
-//               to={'/forgot-password'}
-//               className="text-violet-400 hover:text-violet-400 ml-2 cursor-pointer hover:underline"
-//             >
-//               Forgot password
-//             </Link>
+// <Link
+//   to={'/forgot-password'}
+//   className="text-violet-400 hover:text-violet-400 ml-2 cursor-pointer hover:underline"
+// >
+//   Forgot password
+// </Link>
 //             <GoogleSignIn />
 //           </form>
 //         </div>
@@ -272,43 +272,43 @@ const SignIn = () => {
     return errors;
   };
 
-    // <!-- Submit Form Data -->
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      const errors = validateForm(formData);
-      if (Object.keys(errors).length === 0 && captcha) {
-        setLoading(true);
-        setFormErrors({});
-        await axios
-          .post(`${import.meta.env.VITE_API_V1_URL}/user/sign-in`, {
-            email: formData.email,
-            password: formData.password,
-          })
-          .then((res) => {
-            if (res.data.auth_token) {
-              localStorage.setItem("auth_token", res.data.auth_token);
-              showToast({
-                succuss: res?.data?.succuss,
-                error: "",
-              });
-              navigate(res.data.redirect);
-  
-              // navigate(from, { replace: true });
-            }
-          })
-          .catch((err) => {
+  // <!-- Submit Form Data -->
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const errors = validateForm(formData);
+    if (Object.keys(errors).length === 0 && captcha) {
+      setLoading(true);
+      setFormErrors({});
+      await axios
+        .post(`${import.meta.env.VITE_API_V1_URL}/user/sign-in`, {
+          email: formData.email,
+          password: formData.password,
+        })
+        .then((res) => {
+          if (res.data.auth_token) {
+            localStorage.setItem("auth_token", res.data.auth_token);
             showToast({
-              succuss: "",
-              error: err?.response?.data?.error,
+              succuss: res?.data?.succuss,
+              error: "",
             });
+            navigate(res.data.redirect);
+
+            // navigate(from, { replace: true });
+          }
+        })
+        .catch((err) => {
+          showToast({
+            succuss: "",
+            error: err?.response?.data?.error,
           });
-        setLoading(false);
-      } else if (!captcha) {
-        showToast({ error: "Captcha verification required", success: '' });
-      } else {
-        setFormErrors(errors);
-      }
-    };
+        });
+      setLoading(false);
+    } else if (!captcha) {
+      showToast({ error: "Captcha verification required", success: '' });
+    } else {
+      setFormErrors(errors);
+    }
+  };
 
   function onCaptchaChange(value) {
     setCaptcha(value);
@@ -335,11 +335,19 @@ const SignIn = () => {
             </div>
           </div>
           <div className="w-full h-[90%] md:h-full flex flex-col justify-around items-center">
-            <div className=" w-[60%] flex justify-end items-center ">
-              <p className=" text-stone-500 ">
-                New User?</p>
-              <Link className=" w-[38%] md:w-fit text-sm font-semibold px-3 py-1 border rounded-2xl mx-3 hover:bg-violet-200 "
-                to={"/sign-up"}>SIGN UP</Link>
+            <div className=" w-[60%] flex justify-between items-center ">
+              <Link
+                to={'/forgot-password'}
+                className="text-violet-400 hover:text-violet-400 ml-2 cursor-pointer hover:underline"
+              >
+                Forgot password
+              </Link>
+              <div>
+                <p className=" text-stone-500 inline ">
+                  New User?</p>
+                <Link className=" w-[38%] md:w-fit text-sm font-semibold px-3 py-1 border rounded-2xl mx-3 hover:bg-violet-200 "
+                  to={"/sign-up"}>SIGN UP</Link>
+              </div>
             </div>
             <div className=" w-[60%] ">
               <h1 className=" text-2xl font-bold ">

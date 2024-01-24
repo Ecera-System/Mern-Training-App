@@ -7,11 +7,13 @@ import GoogleSignIn from "./GoogleSignIn";
 import Spinner from "../Shared/Spinner/Spinner";
 import autImage from "../../../public/images/auth/login-img.png";
 import ReactPhoneInput from "react-phone-input-2";
+import ReCAPTCHA from "react-google-recaptcha";
 import "react-phone-input-2/lib/style.css";
 
 const SignUp = () => {
   const { showToast } = useContext(contextProvider);
   const [loading, setLoading] = useState(false);
+  const [captcha, setCaptcha] = useState('');
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -85,7 +87,7 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm(formData);
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0 && captcha) {
       setFormErrors({});
       setLoading(true);
       await axios
@@ -115,6 +117,11 @@ const SignUp = () => {
           });
         });
       setLoading(false);
+    } else if(!captcha){
+      showToast({
+        succuss: "",
+        error: "Captcha verification required!",
+      });
     } else {
       setFormErrors(errors);
     }
@@ -129,7 +136,7 @@ const SignUp = () => {
       // style={{backgroundImage: 'url(../../../public/images/auth/auth_bg.jpg)'}}
       className="w-full h-screen flex justify-center items-center bg-violet-700"
     >
-      <div className=" w-5/6 h-[90%] flex border shadow-2xl relative">
+      <div className=" w-5/6 h-[90%] flex border shadow-2xl relative overflow-y-scroll ">
         <div className="bg-violet-200 hidden md:flex justify-center items-center">
           <img src={autImage} alt="" className="w-[450px]" />
         </div>
@@ -245,6 +252,11 @@ const SignUp = () => {
                       </p>
                     )}
                   </div>
+                </div>
+                <div>
+                  <ReCAPTCHA
+                    className="w-full my-4"
+                    sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={(value)=>{setCaptcha(value)}} />
                 </div>
                 <div className="flex justify-start">
                   <button className="font-semibold px-4 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"

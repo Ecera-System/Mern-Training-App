@@ -63,34 +63,16 @@ const MobileView = ({ openMenu }) => {
                 </NavLink>
             </li>
 
-            {
-                isLoggedIn ?
-                    <HeaderProfile />
-                    :
-                    <li className='flex items-center justify-between gap-5'>
-                        <button
-                            onClick={() => setSignInPopUp(true)}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-violet-600 hover:text-white border-2 border-violet-600 rounded-full'
-                        >
-                            Sign in
-                        </button>
-                        {
-                            signInPopUp && <SignIn signInPopUp={signInPopUp} setSignInPopUp={setSignInPopUp} />
-                        }
-
-                        <button
-                            onClick={() => setSignUpPopUp(true)}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-violet-600 hover:text-white border-2 border-violet-600 rounded-full'
-                        >
-                            Sign up
-                        </button>
-                        {
-                            signUpPopUp && <SignUp signUpPopUp={signUpPopUp} setSignUpPopUp={setSignUpPopUp} />
-                        }
-
-                    </li>
-
-            }
+            <li className='flex items-center justify-between gap-5'>
+                <Link className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-violet-600 hover:text-white border-2 border-violet-600 rounded-full'
+                 to={'/sign-up'}>
+                    Sign Up
+                </Link>
+                <Link className='text-base font-medium py-1.5 px-6 bg-transparent hover:bg-violet-600 duration-300 text-violet-600 hover:text-white border-2 border-violet-600 rounded-full'
+                to={'/sign-in'}>
+                    Sign In
+                </Link>
+            </li>
         </ul>
     );
 };
