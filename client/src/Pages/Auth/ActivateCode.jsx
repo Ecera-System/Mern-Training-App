@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
 import { AiOutlineWarning } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../Shared/Spinner/Spinner';
 
 
@@ -76,7 +76,7 @@ const ActivateCode = () => {
         <div
             className={`fixed inset-0 grid place-items-center`}
         >
-            <div className={`sm:w-[34rem] w-11/12 h-auto bg-white rounded-md`}>
+            <div className={`sm:w-[34rem] w-11/12 relative h-auto bg-white shadow-2xl border rounded-md`}>
                 <div className={`absolute inset-0 bg-white duration-200 grid place-items-center ${success ? 'scale-100' : 'scale-0'}`}>
                     <div>
                         <div>
@@ -90,13 +90,13 @@ const ActivateCode = () => {
                         </p>
                     </div>
                 </div>
-                <button
+                <Link to={'/sign-up'}
                     // onClick={() => setOpenModal('')}
-                    className='absolute top-5 right-5 rounded-full hover:bg-violet-100 duration-300 p-1'
+                    className='absolute top-2 left-2 rounded-full hover:bg-violet-100 duration-300 p-1'
                 >
                     <IoCloseSharp className='text-4xl text-gray-700' />
-                </button>
-                <h2 className='text-3xl text-gray-700 px-10 pt-6 pb-4'>
+                </Link>
+                <h2 className='text-4xl text-center text-gray-700 font-bold px-10 pt-6 pb-4'>
                     Enter verification code
                 </h2>
                 <hr />
@@ -105,13 +105,13 @@ const ActivateCode = () => {
                     className='p-10 pt-5 flex flex-col gap-10'
                 >
                     <div>
-                        <p className='text-base text-gray-600 pb-1'>
+                        <p className=' w-[82%] mx-auto text-base text-center font-semibold mb-8 text-gray-600 pb-1'>
                             A verification code has been sent to {email}
                         </p>
                         <input
                             placeholder="5 digit code" required
                             type="number" name='code'
-                            className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-gray-600 border border-violet-300 shadow-[5px_5px_0px_rgb(124,58,237,0.5)] focus:shadow-[5px_5px_0px_rgb(124,58,237)] focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
+                            className="block w-[82%] mt-2 px-3 py-2 rounded-lg mx-auto bg-white text-gray-600 border-2 text-center text-2xl tracking-widest border-violet-400 focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
                         />
                         {
                             error &&
@@ -121,10 +121,10 @@ const ActivateCode = () => {
                             </p>
                         }
                     </div>
-                    <div className='flex justify-between items-center'>
+                    <div className='w-[82%] mx-auto flex justify-between items-center'>
                         <button
                             type='submit'
-                            className='px-8 py-3 text-base font-medium bg-violet-600 hover:bg-violet-700 duration-300 text-white flex items-center gap-2 rounded-md'
+                            className='px-8 py-2 text-base font-medium bg-violet-600 hover:bg-violet-700 duration-300 text-white flex items-center gap-2 rounded-md'
                         >
                             Submit
                         </button>

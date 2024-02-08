@@ -13,9 +13,7 @@ const ContextProvider = ({ children }) => {
   const [rewardBalance, setRewardBalance] = useState(0); // Reward Points
 
   const showToast = (message) => {
-    //
-    // console.log("showToast:", message);
-    //
+    
     setToast(message);
     setTimeout(() => {
       setToast({

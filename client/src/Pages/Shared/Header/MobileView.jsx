@@ -29,7 +29,7 @@ const MobileView = ({ openMenu }) => {
             <li className='border-b relative'>
                 <div
                     onClick={() => setOpenPrograms(pre => !pre ? true : false)}
-                    className='w-full h-auto py-3 px-5 text-base hover:text-violet-600 side-nav hover:bg-violet-100 duration-300 cursor-pointer flex items-center gap-1'
+                    className='w-full h-auto py-3 px-5 text-base text-violet-600 side-nav hover:bg-violet-100 duration-300 cursor-pointer flex items-center gap-1'
                     end
                 >
                     Programs <RiArrowDownSLine className='text-xl' />
@@ -49,7 +49,7 @@ const MobileView = ({ openMenu }) => {
             <li className='border-b'>
                 <NavLink
                     to='/projects'
-                    className='block w-full h-auto py-3 px-5 text-base hover:text-violet-600 side-nav hover:bg-violet-100 duration-300'
+                    className='block w-full h-auto py-3 px-5 text-base text-violet-600 side-nav hover:bg-violet-100 duration-300'
                 >
                     Projects
                 </NavLink>
