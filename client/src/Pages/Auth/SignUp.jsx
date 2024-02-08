@@ -13,7 +13,7 @@ import "react-phone-input-2/lib/style.css";
 const SignUp = () => {
   const { showToast } = useContext(contextProvider);
   const [loading, setLoading] = useState(false);
-  const [captcha, setCaptcha] = useState('');
+  const [captcha, setCaptcha] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -67,8 +67,7 @@ const SignUp = () => {
 
     if (!data.password && !data.confirmPassword) {
       errors.password = "Password and confirm password is required!";
-    } 
-    else if (!data.password) {
+    } else if (!data.password) {
       errors.password = "Password is required!";
     } else if (
       !/^(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z]).{6,}$/.test(data.password)
@@ -99,10 +98,11 @@ const SignUp = () => {
           password: formData.password,
         })
         .then((res) => {
-          res.data && showToast({
-            succuss: "Verification code sent to your mail successfully",
-            error: "",
-          });
+          res.data &&
+            showToast({
+              succuss: "Verification code sent to your mail successfully",
+              error: "",
+            });
 
           const queryParams = new URLSearchParams({
             email: formData.email,
@@ -117,7 +117,7 @@ const SignUp = () => {
           });
         });
       setLoading(false);
-    } else if(!captcha){
+    } else if (!captcha) {
       showToast({
         succuss: "",
         error: "Captcha verification required!",
@@ -128,8 +128,12 @@ const SignUp = () => {
   };
 
   const handlePhoneChange = (phone, country) => {
-    setFormData({...formData, contactNumber: phone, countryCode: country.dialCode})
-  }
+    setFormData({
+      ...formData,
+      contactNumber: phone,
+      countryCode: country.dialCode,
+    });
+  };
 
   return (
     <div
@@ -154,24 +158,31 @@ const SignUp = () => {
           </div>
           <div className="w-full h-[90%] md:h-full flex flex-col justify-around items-center">
             <div className=" w-[95%] flex justify-end items-center ">
-              <p className=" text-stone-500 ">
-                Already have an Account?</p>
-              <Link className=" w-[38%] md:w-fit text-sm font-semibold px-3 py-1 border rounded-2xl mx-3 hover:bg-violet-200 "
-                to={"/sign-in"}>SIGN IN</Link>
+              <p className=" text-stone-500 ">Already have an Account?</p>
+              <Link
+                className=" w-[38%] md:w-fit text-sm font-semibold px-3 py-1 border rounded-2xl mx-3 hover:bg-violet-200 "
+                to={"/sign-in"}
+              >
+                SIGN IN
+              </Link>
             </div>
             <div className=" w-[80%] md:w-[60%] ">
               <h1 className=" text-2xl font-bold ">
-                Welcome to Ecera Training</h1>
-              <h3 className=" text-stone-400 ">
-                Register your account</h3>
+                Welcome to Ecera Training
+              </h1>
+              <h3 className=" text-stone-400 ">Register your account</h3>
             </div>
             <div className=" w-[80%] md:w-[60%]">
               <form onSubmit={handleSubmit}>
-                <div className=" " >
+                <div className=" ">
                   <input
                     className=" w-full border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
-                    type="text" onChange={handleChange} name="name" placeholder="Enter your Name" />
-                  <div className="h-6" >
+                    type="text"
+                    onChange={handleChange}
+                    name="name"
+                    placeholder="Enter your Name"
+                  />
+                  <div className="h-6">
                     {formErrors?.name && (
                       <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
                         <AiOutlineWarning className="text-base mt-0.5" />
@@ -183,9 +194,12 @@ const SignUp = () => {
                 <div>
                   <input
                     className=" w-full border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
-                    onChange={handleChange} name="email"
-                    type="email" placeholder="Enter your Email" />
-                  <div className=" h-6 " >
+                    onChange={handleChange}
+                    name="email"
+                    type="email"
+                    placeholder="Enter your Email"
+                  />
+                  <div className=" h-6 ">
                     {formErrors?.email && (
                       <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
                         <AiOutlineWarning className="text-base mt-0.5" />
@@ -195,36 +209,39 @@ const SignUp = () => {
                   </div>
                 </div>
                 <div>
-                <ReactPhoneInput
-                type='tel'
-                defaultCountry='in'
-                inputClass='phone-input'
-                inputProps={{
-                  required: true,
-                  style: {
-                    width: '100%',
-                    color: '#5f07a3',
-                    padding: '10px',
-                    paddingLeft: "40px",
-                    height: '38px',
-                    borderColor: '#454441',
-                    borderRadius: '50px',
-                    outline: '#5f07a3'
-                  },
-                }}
-                name='contactNumber'
-                onChange={handlePhoneChange}
-                containerClass='containerCl'
-                buttonClass='btnCl'
-                searchClass='searchCl'
-
-                buttonStyle={{ backgroundColor: 'transparent', borderRight: 'none', borderColor: '#454441', borderRadius: '50px 0 0 50px' }}
-                containerStyle={{ color: 'black', border: 'none'}}
-
-                country={'in'}
-                placeholder='Phone number'
-              />
-                  <div className="h-6" >
+                  <ReactPhoneInput
+                    type="tel"
+                    defaultCountry="in"
+                    inputClass="phone-input"
+                    inputProps={{
+                      required: true,
+                      style: {
+                        width: "100%",
+                        color: "#5f07a3",
+                        padding: "10px",
+                        paddingLeft: "40px",
+                        height: "38px",
+                        borderColor: "#454441",
+                        borderRadius: "50px",
+                        outline: "#5f07a3",
+                      },
+                    }}
+                    name="contactNumber"
+                    onChange={handlePhoneChange}
+                    containerClass="containerCl"
+                    buttonClass="btnCl"
+                    searchClass="searchCl"
+                    buttonStyle={{
+                      backgroundColor: "transparent",
+                      borderRight: "none",
+                      borderColor: "#454441",
+                      borderRadius: "50px 0 0 50px",
+                    }}
+                    containerStyle={{ color: "black", border: "none" }}
+                    country={"in"}
+                    placeholder="Phone number"
+                  />
+                  <div className="h-6">
                     {formErrors?.contactNumber && (
                       <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
                         <AiOutlineWarning className="text-base mt-0.5" />
@@ -236,15 +253,21 @@ const SignUp = () => {
                 <div className="mb-5">
                   <div className="flex flex-col md:flex-row justify-between">
                     <input
-                      onChange={handleChange} name="password"
+                      onChange={handleChange}
+                      name="password"
                       className=" md:w-[47%] mb-2 md:mb-0 border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
-                      type="text" placeholder="Password" />
+                      type="text"
+                      placeholder="Password"
+                    />
                     <input
-                    onChange={handleChange} name="confirmPassword"
+                      onChange={handleChange}
+                      name="confirmPassword"
                       className=" md:w-[47%] border border-stone-500 rounded-3xl px-4 py-1.5 text-violet-600 outline-violet-500 "
-                      type="text" placeholder="Confirm Password" />
+                      type="text"
+                      placeholder="Confirm Password"
+                    />
                   </div>
-                  <div className="h-6" >
+                  <div className="h-6">
                     {formErrors?.password && (
                       <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
                         <AiOutlineWarning className="text-base mt-0.5" />
@@ -256,13 +279,25 @@ const SignUp = () => {
                 <div>
                   <ReCAPTCHA
                     className="w-full my-4"
-                    sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={(value)=>{setCaptcha(value)}} />
+                    sitekey={`${import.meta.env.VITE_SITE_KEY}`}
+                    onChange={(value) => {
+                      setCaptcha(value);
+                    }}
+                  />
                 </div>
                 <div className="flex justify-start">
-                  <button className="font-semibold px-4 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"
-                   type="submit">Register</button>
-                  <Link to={'/'} className="font-semibold px-5 py-1.5 rounded-lg text-violet-600 border-violet-600 hover:bg-violet-600 border hover:text-white mx-3" >
-                    Cancel</Link>
+                  <button
+                    className="font-semibold px-4 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"
+                    type="submit"
+                  >
+                    Register
+                  </button>
+                  <Link
+                    to={"/"}
+                    className="font-semibold px-5 py-1.5 rounded-lg text-violet-600 border-violet-600 hover:bg-violet-600 border hover:text-white mx-3"
+                  >
+                    Cancel
+                  </Link>
                 </div>
               </form>
             </div>

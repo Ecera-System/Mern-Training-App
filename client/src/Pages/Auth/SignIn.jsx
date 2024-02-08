@@ -8,8 +8,6 @@
 // import Spinner from "../Shared/Spinner/Spinner";
 // import ReCAPTCHA from "react-google-recaptcha";
 
-
-
 // const SignIn = () => {
 //   const { showToast, setIsLoggedIn } = useContext(contextProvider);
 //   const [loading, setLoading] = useState(false);
@@ -209,8 +207,6 @@
 
 // export default SignIn;
 
-
-
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -221,11 +217,14 @@ import Spinner from "../Shared/Spinner/Spinner";
 import autImage from "../../../public/images/auth/login-img.png";
 import ReCAPTCHA from "react-google-recaptcha";
 import "react-phone-input-2/lib/style.css";
+//
+
+//
 
 const SignIn = () => {
-  const { showToast } = useContext(contextProvider);
+  const { showToast, setIsLoggedIn } = useContext(contextProvider);
   const [loading, setLoading] = useState(false);
-  const [captcha, setCaptcha] = useState('');
+  const [captcha, setCaptcha] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -291,6 +290,9 @@ const SignIn = () => {
               succuss: res?.data?.succuss,
               error: "",
             });
+            //
+            setIsLoggedIn(true);
+            //
             navigate(res.data.redirect);
 
             // navigate(from, { replace: true });
@@ -304,7 +306,7 @@ const SignIn = () => {
         });
       setLoading(false);
     } else if (!captcha) {
-      showToast({ error: "Captcha verification required", success: '' });
+      showToast({ error: "Captcha verification required", success: "" });
     } else {
       setFormErrors(errors);
     }
@@ -315,9 +317,7 @@ const SignIn = () => {
   }
 
   return (
-    <div
-      className="w-full h-screen flex justify-center items-center bg-violet-700"
-    >
+    <div className="w-full h-screen flex justify-center items-center bg-violet-700">
       <div className=" w-5/6 h-[90%] flex border shadow-2xl relative">
         <div className="bg-violet-200 hidden md:flex justify-center items-center">
           <img src={autImage} alt="" className="w-[450px]" />
@@ -337,32 +337,38 @@ const SignIn = () => {
           <div className="w-full h-[90%] md:h-full flex flex-col justify-around items-center">
             <div className=" w-[60%] flex justify-between items-center ">
               <Link
-                to={'/forgot-password'}
+                to={"/forgot-password"}
                 className="text-violet-400 hover:text-violet-400 ml-2 cursor-pointer hover:underline"
               >
                 Forgot password
               </Link>
               <div>
-                <p className=" text-stone-500 inline ">
-                  New User?</p>
-                <Link className=" w-[38%] md:w-fit text-sm font-semibold px-3 py-1 border rounded-2xl mx-3 hover:bg-violet-200 "
-                  to={"/sign-up"}>SIGN UP</Link>
+                <p className=" text-stone-500 inline ">New User?</p>
+                <Link
+                  className=" w-[38%] md:w-fit text-sm font-semibold px-3 py-1 border rounded-2xl mx-3 hover:bg-violet-200 "
+                  to={"/sign-up"}
+                >
+                  SIGN UP
+                </Link>
               </div>
             </div>
             <div className=" w-[60%] ">
               <h1 className=" text-2xl font-bold ">
-                Welcome to Ecera Training</h1>
-              <h3 className=" text-stone-400 ">
-                Login to your account</h3>
+                Welcome to Ecera Training
+              </h1>
+              <h3 className=" text-stone-400 ">Login to your account</h3>
             </div>
             <div className=" w-[60%]">
               <form onSubmit={handleSubmit}>
                 <div>
                   <input
                     className=" w-full border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
-                    onChange={handleChange} name="email"
-                    type="email" placeholder="Enter your Email" />
-                  <div className=" h-6 " >
+                    onChange={handleChange}
+                    name="email"
+                    type="email"
+                    placeholder="Enter your Email"
+                  />
+                  <div className=" h-6 ">
                     {formErrors?.email && (
                       <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
                         <AiOutlineWarning className="text-base mt-0.5" />
@@ -373,10 +379,13 @@ const SignIn = () => {
                 </div>
                 <div className="">
                   <input
-                    onChange={handleChange} name="password"
+                    onChange={handleChange}
+                    name="password"
                     className=" w-full border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500"
-                    type="text" placeholder="Enter your Password" />
-                  <div className="h-6" >
+                    type="text"
+                    placeholder="Enter your Password"
+                  />
+                  <div className="h-6">
                     {formErrors?.password && (
                       <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
                         <AiOutlineWarning className="text-base mt-0.5" />
@@ -388,13 +397,23 @@ const SignIn = () => {
                 <div>
                   <ReCAPTCHA
                     className="w-full my-5 mb-8"
-                    sitekey={`${import.meta.env.VITE_SITE_KEY}`} onChange={onCaptchaChange} />
+                    sitekey={`${import.meta.env.VITE_SITE_KEY}`}
+                    onChange={onCaptchaChange}
+                  />
                 </div>
                 <div className="flex justify-start">
-                  <button className="font-semibold px-5 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"
-                    type="submit">Login</button>
-                  <Link to={'/'} className="font-semibold px-5 py-1.5 rounded-lg text-violet-600 border-violet-600 hover:bg-violet-600 border hover:text-white mx-3" >
-                    Cancel</Link>
+                  <button
+                    className="font-semibold px-5 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"
+                    type="submit"
+                  >
+                    Login
+                  </button>
+                  <Link
+                    to={"/"}
+                    className="font-semibold px-5 py-1.5 rounded-lg text-violet-600 border-violet-600 hover:bg-violet-600 border hover:text-white mx-3"
+                  >
+                    Cancel
+                  </Link>
                 </div>
               </form>
             </div>

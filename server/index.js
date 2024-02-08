@@ -1,7 +1,7 @@
 require("dotenv").config();
 const app = require("./app");
 const mongoose = require("mongoose");
-const {getEnvVar} = require("./utils/getEnvVar");
+const { getEnvVar } = require("./utils/getEnvVar");
 
 getEnvVar();
 
