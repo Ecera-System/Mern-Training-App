@@ -38,7 +38,8 @@ const TermsModal = ({
             </button>
             <button
               onClick={toggleModal}
-              className="bg-violet-600 hover:bg-violet-700 text-white py-2 px-4 rounded-md"
+              className={`bg-violet-600 hover:bg-violet-700 text-white py-2 px-4 rounded-md ${!isChecked &&
+                "disabled:opacity-50 cursor-not-allowed"}`}
               disabled={!isChecked}
             >
               Accept
