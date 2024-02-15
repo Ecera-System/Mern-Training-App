@@ -47,6 +47,9 @@ import UpdatePassword from "./Pages/Profile/UpdatePassword/UpdatePassword.jsx";
 import UpdatePasswordByAdmin from "./Admin/AllUsers/UpdatePasswordByAdmin.jsx";
 import EnvVariables from "./Admin/EnvVariables/EnvVariables.jsx";
 import AllUserRewards from "./Admin/AllUserRewards/AllUserRewards.jsx";
+//
+import InactiveActivateCode from "./Pages/Auth/inactiveActivateCode.jsx";
+//
 const App = () => {
   return (
     <>
@@ -63,6 +66,12 @@ const App = () => {
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        {/*  */}
+        <Route
+          path="/inactive-activateCode"
+          element={<InactiveActivateCode />}
+        ></Route>
+        {/*  */}
         <Route
           path="/reset-password/:token"
           element={<ResetPassword />}
