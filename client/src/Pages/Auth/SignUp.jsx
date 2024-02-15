@@ -238,11 +238,11 @@ const SignUp = () => {
                     <input
                       onChange={handleChange} name="password"
                       className=" md:w-[47%] mb-2 md:mb-0 border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
-                      type="text" placeholder="Password" />
+                      type="password" placeholder="Password" />
                     <input
                     onChange={handleChange} name="confirmPassword"
                       className=" md:w-[47%] border border-stone-500 rounded-3xl px-4 py-1.5 text-violet-600 outline-violet-500 "
-                      type="text" placeholder="Confirm Password" />
+                      type="password" placeholder="Confirm Password" />
                   </div>
                   <div className="h-6" >
                     {formErrors?.password && (
