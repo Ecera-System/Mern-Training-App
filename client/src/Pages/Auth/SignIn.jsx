@@ -8,6 +8,8 @@
 // import Spinner from "../Shared/Spinner/Spinner";
 // import ReCAPTCHA from "react-google-recaptcha";
 
+
+
 // const SignIn = () => {
 //   const { showToast, setIsLoggedIn } = useContext(contextProvider);
 //   const [loading, setLoading] = useState(false);
@@ -207,6 +209,8 @@
 
 // export default SignIn;
 
+
+
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -382,10 +386,8 @@ const SignIn = () => {
                     onChange={handleChange}
                     name="password"
                     className=" w-full border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500"
-                    type="text"
-                    placeholder="Enter your Password"
-                  />
-                  <div className="h-6">
+                    type="password" placeholder="Enter your Password" />
+                  <div className="h-6" >
                     {formErrors?.password && (
                       <p className="relative top-0 text-sm font-semibold text-red-400 flex gap-2 items-start">
                         <AiOutlineWarning className="text-base mt-0.5" />

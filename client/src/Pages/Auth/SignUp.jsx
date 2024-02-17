@@ -59,25 +59,39 @@ const SignUp = () => {
 
     if (!data.contactNumber) {
       errors.contactNumber = "Contact Number is required!";
-    }
-
-    if (!data.countryCode) {
+    }else if (!data.countryCode) {
       errors.contactNumber = "Country code is required!";
     }
 
-    if (!data.password && !data.confirmPassword) {
-      errors.password = "Password and confirm password is required!";
-    } else if (!data.password) {
-      errors.password = "Password is required!";
-    } else if (
-      !/^(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z]).{6,}$/.test(data.password)
-    ) {
-      errors.password = "Password must be strong or at least 6 characters!";
-    } else if (!data.confirmPassword) {
-      errors.password = "Confirm Password is required!";
-    } else if (data.confirmPassword !== data.password) {
-      errors.password = "Confirm Password does not match Password!";
-    }
+    //adding password errors
+    if (!data.password) {
+      errors.password = 'Password is required';
+
+    } else if ((data.password).length < 6) {
+      errors.password = 'Atleast 6 characters required';
+
+    } else if (!(/[A-Z]/).test(data.password)) {
+      errors.password = 'Atleast 1 capital letter required';
+
+    } else if (!(/[a-z]/).test(data.password)) {
+      errors.password = 'Atleast 1 small letter required';
+
+    } else if (!(/[!@#$%^&*(),.?":{}|<>]/).test(data.password)) {
+      errors.password = 'Atleast 1 special char required';
+
+    } else if (!(/\d/).test(data.password)) {
+      errors.password = "Atleast 1 numeric value required";
+
+    } else if ((data.confirmPassword).includes(' ')) {
+      errors.password = "Password can't contains space";
+
+    } else if ((data.confirmPassword) !== (data.password)) {
+      errors.password = "Password doesn't match";
+
+    }else if (!data.confirmPassword) {
+      errors.password = 'Confirm-password is required';
+
+    } 
 
     return errors;
   };
@@ -256,16 +270,12 @@ const SignUp = () => {
                       onChange={handleChange}
                       name="password"
                       className=" md:w-[47%] mb-2 md:mb-0 border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
-                      type="text"
-                      placeholder="Password"
-                    />
+                      type="password" placeholder="Password" />
                     <input
                       onChange={handleChange}
                       name="confirmPassword"
                       className=" md:w-[47%] border border-stone-500 rounded-3xl px-4 py-1.5 text-violet-600 outline-violet-500 "
-                      type="text"
-                      placeholder="Confirm Password"
-                    />
+                      type="password" placeholder="Confirm Password" />
                   </div>
                   <div className="h-6">
                     {formErrors?.password && (

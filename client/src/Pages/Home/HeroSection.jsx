@@ -146,7 +146,7 @@ const HeroSection = () => {
                             </div>
                             <div className='border px-5 py-2 text-center bg-[#E2ECFF] rounded-lg '>
                                 <h2 className='text-3xl font-semibold'>12+</h2>
-                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Technologies Tought</h3>
+                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Technologies Taught</h3>
                             </div>
                         </div>
 
