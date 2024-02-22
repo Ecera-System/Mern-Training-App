@@ -1,32 +1,33 @@
-const nodemailer = require('nodemailer');
-const { envVar } = require('../utils/getEnvVar');
-require('dotenv').config();
+const nodemailer = require("nodemailer");
+const { envVar } = require("../utils/getEnvVar");
+require("dotenv").config();
 
 const smtpTransportFun = (smtpUser, smtpPassword) => {
-    const smtpTransport = nodemailer.createTransport({
-        host: "mail.smtp2go.com",
-        port: 2525, // 8025, 587 and 25 can also be used.
-        auth: {
-            // user: process.env.SMTP_USER,
-            // pass: process.env.SMTP_PASS,
-            user: smtpUser,
-            pass: smtpPassword,
-        }
-    });
+  const smtpTransport = nodemailer.createTransport({
+    host: "mail.smtp2go.com",
+    port: 2525, // 8025, 587 and 25 can also be used.
+    auth: {
+      // user: process.env.SMTP_USER,
+      // pass: process.env.SMTP_PASS,
+      user: smtpUser,
+      pass: smtpPassword,
+    },
+  });
 
-    return smtpTransport;
-}
+  return smtpTransport;
+};
 
 exports.verifyEmail = ({ email, code }) => {
-    smtpTransportFun(envVar.smtpUser, envVar.smtpPassword).sendMail({
-        from: {
-            name: 'Ecera System Training',
-            // address: process.env.SENDER_EMAIL,
-            address: envVar.senderEmail,
-        },
-        to: email,
-        subject: `Email verification code`,
-        html: `
+  smtpTransportFun(envVar.smtpUser, envVar.smtpPassword).sendMail(
+    {
+      from: {
+        name: "Ecera System Training",
+        // address: process.env.SENDER_EMAIL,
+        address: envVar.senderEmail,
+      },
+      to: email,
+      subject: `Email verification code`,
+      html: `
         <div style="width: 100%; background-color: #F1F5F9; padding: 40px 0; font-family: 'Lato',sans-serif;">
         <style>
             @media (max-width: 600px) {
@@ -52,20 +53,23 @@ exports.verifyEmail = ({ email, code }) => {
         </div>
         <p style="text-align: center; color: #363636;">&copy; Ecera System</p>
     </div>
-        `
-    }, function (error, response) { });
+        `,
+    },
+    function (error, response) {}
+  );
 };
 
 exports.sendResetPasswordMail = ({ req, email, resetPasswordToken }) => {
-    smtpTransportFun(envVar.smtpUser, envVar.smtpPassword).sendMail({
-        from: {
-            name: 'Ecera System Training',
-            // address: process.env.SENDER_EMAIL,
-            address: envVar.senderEmail,
-        },
-        to: email,
-        subject: `Ecera System Training Reset Password`,
-        html: `
+  smtpTransportFun(envVar.smtpUser, envVar.smtpPassword).sendMail(
+    {
+      from: {
+        name: "Ecera System Training",
+        // address: process.env.SENDER_EMAIL,
+        address: envVar.senderEmail,
+      },
+      to: email,
+      subject: `Ecera System Training Reset Password`,
+      html: `
         <div style="width: 100%; background-color: #F1F5F9; padding: 40px 0; font-family: 'Lato',sans-serif;">
         <style>
             @media (max-width: 600px) {
@@ -84,7 +88,9 @@ exports.sendResetPasswordMail = ({ req, email, resetPasswordToken }) => {
             <h3 style="margin: 15px 0; text-align: center; font-size: 16px; font-weight: 500; color: #363636;">
                 To Reset your password click on the below link/button. I you didn't requested this email then inform to admin
             </h3>
-            <a href='${req.protocol}://${req.get('host')}/reset-password/${resetPasswordToken}' 
+            <a href='${req.protocol}://${req.get(
+        "host"
+      )}/reset-password/${resetPasswordToken}' 
             style="text-decoration: none; margin: 0 40%; font-size: 18px; padding: 5px 10px; background-color: blue; color: #fff; text-align: center;">
             Reset Password
             </a>
@@ -94,6 +100,8 @@ exports.sendResetPasswordMail = ({ req, email, resetPasswordToken }) => {
         </div>
         <p style="text-align: center; color: #363636;">&copy; Ecera System</p>
     </div>
-        `
-    }, function (error, response) { });
+        `,
+    },
+    function (error, response) {}
+  );
 };
