@@ -55,7 +55,13 @@ exports.verifyEmail = ({ email, code }) => {
     </div>
         `,
     },
-    function (error, response) {}
+    function (error, response) {
+      if (error) {
+        console.error(`Error sending email to ${email}: ${error}`);
+      } else {
+        console.log(`Email sent successfully to ${email}`);
+      }
+    }
   );
 };
 
