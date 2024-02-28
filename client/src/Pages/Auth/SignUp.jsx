@@ -59,39 +59,30 @@ const SignUp = () => {
 
     if (!data.contactNumber) {
       errors.contactNumber = "Contact Number is required!";
-    }else if (!data.countryCode) {
+    } else if (!data.countryCode) {
       errors.contactNumber = "Country code is required!";
     }
 
     //adding password errors
     if (!data.password) {
-      errors.password = 'Password is required';
-
-    } else if ((data.password).length < 6) {
-      errors.password = 'Atleast 6 characters required';
-
-    } else if (!(/[A-Z]/).test(data.password)) {
-      errors.password = 'Atleast 1 capital letter required';
-
-    } else if (!(/[a-z]/).test(data.password)) {
-      errors.password = 'Atleast 1 small letter required';
-
-    } else if (!(/[!@#$%^&*(),.?":{}|<>]/).test(data.password)) {
-      errors.password = 'Atleast 1 special char required';
-
-    } else if (!(/\d/).test(data.password)) {
+      errors.password = "Password is required";
+    } else if (data.password.length < 6) {
+      errors.password = "Atleast 6 characters required";
+    } else if (!/[A-Z]/.test(data.password)) {
+      errors.password = "Atleast 1 capital letter required";
+    } else if (!/[a-z]/.test(data.password)) {
+      errors.password = "Atleast 1 small letter required";
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(data.password)) {
+      errors.password = "Atleast 1 special char required";
+    } else if (!/\d/.test(data.password)) {
       errors.password = "Atleast 1 numeric value required";
-
-    } else if ((data.confirmPassword).includes(' ')) {
+    } else if (data.confirmPassword.includes(" ")) {
       errors.password = "Password can't contains space";
-
-    } else if ((data.confirmPassword) !== (data.password)) {
+    } else if (data.confirmPassword !== data.password) {
       errors.password = "Password doesn't match";
-
-    }else if (!data.confirmPassword) {
-      errors.password = 'Confirm-password is required';
-
-    } 
+    } else if (!data.confirmPassword) {
+      errors.password = "Confirm-password is required";
+    }
 
     return errors;
   };
@@ -166,9 +157,9 @@ const SignUp = () => {
             >
               Back
             </Link>
-            <div className="md:absolute md:w-[30%] left-[5%] bottom-4">
+            {/* <div className="md:absolute md:w-[30%] left-[5%] bottom-4">
               <GoogleSignIn />
-            </div>
+            </div> */}
           </div>
           <div className="w-full h-[90%] md:h-full flex flex-col justify-around items-center">
             <div className=" w-[95%] flex justify-end items-center ">
@@ -270,12 +261,16 @@ const SignUp = () => {
                       onChange={handleChange}
                       name="password"
                       className=" md:w-[47%] mb-2 md:mb-0 border border-stone-500 rounded-3xl px-5 py-1.5 text-violet-600 outline-violet-500 "
-                      type="password" placeholder="Password" />
+                      type="password"
+                      placeholder="Password"
+                    />
                     <input
                       onChange={handleChange}
                       name="confirmPassword"
                       className=" md:w-[47%] border border-stone-500 rounded-3xl px-4 py-1.5 text-violet-600 outline-violet-500 "
-                      type="password" placeholder="Confirm Password" />
+                      type="password"
+                      placeholder="Confirm Password"
+                    />
                   </div>
                   <div className="h-6">
                     {formErrors?.password && (
