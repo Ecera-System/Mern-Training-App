@@ -228,7 +228,7 @@ import "react-phone-input-2/lib/style.css";
 const SignIn = () => {
   const { showToast, setIsLoggedIn } = useContext(contextProvider);
   const [loading, setLoading] = useState(false);
-  const [captcha, setCaptcha] = useState("");
+  // const [captcha, setCaptcha] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -279,7 +279,7 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm(formData);
-    if (Object.keys(errors).length === 0 && captcha) {
+    if (Object.keys(errors).length === 0) {
       setLoading(true);
       setFormErrors({});
       await axios
@@ -309,16 +309,14 @@ const SignIn = () => {
           });
         });
       setLoading(false);
-    } else if (!captcha) {
-      showToast({ error: "Captcha verification required", success: "" });
     } else {
       setFormErrors(errors);
     }
   };
 
-  function onCaptchaChange(value) {
-    setCaptcha(value);
-  }
+  // function onCaptchaChange(value) {
+  //   setCaptcha(value);
+  // }
 
   return (
     <div className="w-full h-screen flex justify-center items-center bg-violet-700">
@@ -396,13 +394,13 @@ const SignIn = () => {
                     )}
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <ReCAPTCHA
                     className="w-full my-5 mb-8"
                     sitekey={`${import.meta.env.VITE_SITE_KEY}`}
                     onChange={onCaptchaChange}
                   />
-                </div>
+                </div> */}
                 <div className="flex justify-start">
                   <button
                     className="font-semibold px-5 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"
