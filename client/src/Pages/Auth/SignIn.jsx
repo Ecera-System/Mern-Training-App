@@ -443,7 +443,7 @@ import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineWarning } from "react-icons/ai";
 import { contextProvider } from "../../Context/ContextProvider";
-import GoogleSignIn from "./GoogleSignIn";
+// import GoogleSignIn from "./GoogleSignIn";
 import Spinner from "../Shared/Spinner/Spinner";
 import autImage from "../../../public/images/auth/login-img.png";
 // import ReCAPTCHA from "react-google-recaptcha";
@@ -561,8 +561,8 @@ const SignIn = () => {
               Back
             </Link>
             {/* <div className="md:absolute md:w-[30%] left-[5%] bottom-4">
-              <GoogleSignIn />
-            </div> */}
+             <GoogleSignIn />
+           </div> */}
           </div>
           <div className="w-full h-[90%] md:h-full flex flex-col justify-around items-center">
             <div className=" w-[60%] flex justify-between items-center ">
@@ -635,12 +635,12 @@ const SignIn = () => {
                   </div>
                 </div>
                 {/* <div>
-                  <ReCAPTCHA
-                    className="w-full my-5 mb-8"
-                    sitekey={`${import.meta.env.VITE_SITE_KEY}`}
-                    onChange={onCaptchaChange}
-                  />
-                </div> */}
+                 <ReCAPTCHA
+                   className="w-full my-5 mb-8"
+                   sitekey={`${import.meta.env.VITE_SITE_KEY}`}
+                   onChange={onCaptchaChange}
+                 />
+               </div> */}
                 <div className="flex justify-start">
                   <button
                     className="font-semibold px-5 py-1.5 rounded-lg border-violet-600  text-white bg-violet-600 hover:bg-violet-800 border"
