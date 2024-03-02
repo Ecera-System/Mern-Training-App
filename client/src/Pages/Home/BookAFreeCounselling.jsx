@@ -113,7 +113,7 @@ const BookAFreeCounselling = () => {
                                         <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                                     </svg>
                                 </div>
-                                <p className='text-base text-center mt-5 text-white'>
+                                <p className='text-base text-center mt-5 text-gray-600'>
                                     The request has been submitted. Someone from the team will contact you shortly.
                                 </p>
                             </div> :
