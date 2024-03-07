@@ -62,7 +62,7 @@ const BookAFreeCounselling = () => {
             console.log(formData)
             setFormErrors({});
             setLoading(true);
-            await axios.post(`${import.meta.env.VITE_API_V1_URL}/book-counselling`, {...formData, slots: [{...formData.slots}]})
+            await axios.post(`${import.meta.env.VITE_API_V1_URL}/book-counselling`, { ...formData, slots: [{ ...formData.slots }] })
                 .then(res => {
                     res?.data?.success && setIsSuccess(true);
                 })
@@ -79,10 +79,40 @@ const BookAFreeCounselling = () => {
 
     const handlePhoneChange = (phone, country) => {
         setFormData({
-          ...formData,
-          contactNumber: phone,
+            ...formData,
+            contactNumber: phone,
         });
-      };
+    };
+
+
+  // Function to handle time selection
+  const handleTimeChange = (event) => {
+    const newTime = event.target.value;
+    // Check if the selected time is within the allowed range
+    if (isTimeInRange(newTime)) {
+        setFormData({ ...formData, slots: { ...formData.slots, time: newTime } })
+        setFormErrors({
+        ...formErrors,
+        slots: ''
+      })
+    } else {
+      // Handle invalid time (e.g., show an error message)
+    //   formErrors.slots = 'Please select the time in between 4:00 PM - 01:00 AM';
+      setFormErrors({
+        ...formErrors,
+        slots: 'Please select the time in between 4:00 PM - 01:00 AM'
+      })
+    }
+  };
+
+  // Function to check if a given time is within the allowed range
+  const isTimeInRange = (time) => {
+    const startTime = '16:00'; // 4:00 PM
+    const endTime = '01:00'; // 1:00 AM (next day)
+
+    // Compare times (assuming 24-hour format)
+    return time >= startTime || time <= endTime;
+  };
 
     return (<>
         <div className='flex justify-center'>
@@ -216,27 +246,29 @@ const BookAFreeCounselling = () => {
                                             type="date" name='date' id='date'
                                             className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-black border border-gray-400 focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
                                         />
-                                        {formErrors?.slots &&
-                                            <p className='mt-1 text-sm text-red-500 flex gap-1 items-start'>
-                                                <RiErrorWarningFill className="text-base mt-0.5" />
-                                                {formErrors?.slots}
-                                            </p>
-                                        }
+                                        
                                     </div>
 
                                     <div className='w-[48%]'>
                                         <label htmlFor='time' className="px-1 text-gray-600">Time</label>
                                         <input
-                                            onChange={(e) => setFormData({ ...formData, slots: { ...formData.slots, time: e.target.value } })}
+                                            onChange={handleTimeChange}
                                             value={formData.slots.time}
+                                            min="16:00" // 4:00 PM
+                                            max="01:00" // 1:00 AM (next day)
                                             placeholder="Select the time"
                                             type="time" name='time' id='time'
                                             className="block mt-2 px-3 py-2 rounded-lg w-full bg-white text-black border border-gray-400 focus:placeholder-violet-500 focus:bg-white focus:border-violet-600 focus:outline-none"
                                         />
-                                        
-                                    </div>
 
+                                    </div>
                                 </div>
+                                {formErrors?.slots &&
+                                            <p className='mt-1 text-sm text-red-500 flex gap-1 items-start'>
+                                                <RiErrorWarningFill className="text-base mt-0.5" />
+                                                {formErrors?.slots}
+                                            </p>
+                                        }
 
                                 <div className='flex flex-col items-center justify-center'>
                                     <button

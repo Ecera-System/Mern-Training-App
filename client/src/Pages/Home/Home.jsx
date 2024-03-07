@@ -95,7 +95,7 @@ const Home = () => {
             <div className='max-w-7xl w-[90%] mx-auto'>
                 <div className='text-center'>
                     <h1 className='lg:text-5xl md:text-4xl text-3xl font-semibold text-gray-700 pb-3'>
-                        Featured Courses
+                    A Comprehensive Course
                     </h1>
                 </div>
                 <div className='grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 mt-10'>

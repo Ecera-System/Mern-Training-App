@@ -135,8 +135,8 @@ const HeroSection = () => {
                                 <LiaChalkboardTeacherSolid />
                             </div>
                             <div className='border px-5 py-2 text-center bg-[#E7F9E7] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>10+</h2>
-                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Qualified Mentors</h3>
+                                <h2 className='text-3xl font-semibold'>12+</h2>
+                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Projects</h3>
                             </div>
                         </div>
 
@@ -145,7 +145,7 @@ const HeroSection = () => {
                                 <FaLaptopCode />
                             </div>
                             <div className='border px-5 py-2 text-center bg-[#E2ECFF] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>12+</h2>
+                                <h2 className='text-3xl font-semibold'>10+</h2>
                                 <h3 className='mt-1 text-sm font-medium text-gray-500'>Technologies Taught</h3>
                             </div>
                         </div>
@@ -155,7 +155,7 @@ const HeroSection = () => {
                                 <PiStudentFill />
                             </div>
                             <div className='border px-5 py-2 text-center bg-[#f200fa20] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>1000+</h2>
+                                <h2 className='text-3xl font-semibold'>100+</h2>
                                 <h3 className='mt-1 text-sm font-medium text-gray-500'>Students placed</h3>
                             </div>
                         </div>
@@ -165,7 +165,7 @@ const HeroSection = () => {
                                 <BsGraphUpArrow />
                             </div>
                             <div className='border px-5 py-2 text-center bg-[#ff000015] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>12 LPA+</h2>
+                                <h2 className='text-3xl font-semibold'>06 LPA+</h2>
                                 <h3 className='mt-1 text-sm font-medium text-gray-500'>Highest package offered</h3>
                             </div>
                         </div>

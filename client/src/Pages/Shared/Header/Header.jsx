@@ -28,7 +28,7 @@ const Header = ({ profile, textColor = 'text-gray-600' }) => {
                 <div className='2xl:w-[1280px] xl:w-full mx-auto flex items-center justify-between 2xl:px-0 lg:px-14 sm:px-6 px-3 py-2'>
 
                     {/* <== == == == Right Logo == == == ==> */}
-                    <div>
+                    {/* <div>
                         <Link to={'/'}>
                             <img
                                 className='w-14 h-14'
@@ -36,7 +36,7 @@ const Header = ({ profile, textColor = 'text-gray-600' }) => {
                                 alt="ecera-system-logo"
                             />
                         </Link>
-                    </div>
+                    </div> */}
 
                     {/* <== == == == Left Menu items == == == ==> */}
                     {/* <!-- Desktop view --> */}
@@ -52,7 +52,7 @@ const Header = ({ profile, textColor = 'text-gray-600' }) => {
                                 className={`absolute inset-0 text-[40px] leading-none duration-300 ${openMenu ? 'opacity-100 visible rotate-0' : 'opacity-0 invisible rotate-90'}`}
                             />
                             <HiBars3CenterLeft
-                                className={`absolute inset-0 text-[40px] leading-none duration-300 ${openMenu ? 'opacity-0 invisible rotate-90' : 'opacity-100 visible rotate-0'}`}
+                                className={`absolute inset-0 text-[40px] leading-none duration-300 ${openMenu ? 'opacity-100 invisible rotate-90' : 'opacity-100 visible rotate-0'}`}
                             />
                         </button>
 
