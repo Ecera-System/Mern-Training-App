@@ -93,7 +93,10 @@ const MyClasses = () => {
                     <img
                       className="object-cover w-full h-32 rounded-lg"
                       loading="lazy"
-                      src={import.meta.env.VITE_API_V1_URL + data?.cover_photo}
+                      src={
+                        import.meta.env.VITE_API_V1_URL +
+                        data?.courseId.cover_photo
+                      }
                       alt={data?.title}
                     />
                   </div>
@@ -135,11 +138,11 @@ const MyClasses = () => {
                   No course enrolled yet!
                 </p>
                 {/* <Link
-                                    to='/programs/mern-stack-web-development'
-                                    className='inline-block px-6 py-2.5 text-base font-medium bg-violet-600 hover:bg-violet-700 text-white duration-300 rounded'
-                                >
-                                    See Course
-                                </Link> */}
+                                   to='/programs/mern-stack-web-development'
+                                   className='inline-block px-6 py-2.5 text-base font-medium bg-violet-600 hover:bg-violet-700 text-white duration-300 rounded'
+                               >
+                                   See Course
+                               </Link> */}
               </div>
               {coursesData.length !== 0 && (
                 <div>
@@ -176,13 +179,13 @@ const MyClasses = () => {
                               ${data?.price}
                             </p>
                             {/* <button
-                              onClick={() =>
-                                navigate(`/course/checkout/${data?._id}`)
-                              }
-                              className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md"
-                            >
-                              Checkout
-                            </button> */}
+                             onClick={() =>
+                               navigate(`/course/checkout/${data?._id}`)
+                             }
+                             className="bg-violet-600 hover:bg-violet-700 duration-300 text-white py-2.5 px-5 rounded-md"
+                           >
+                             Checkout
+                           </button> */}
                             {/*  */}
                             <button
                               onClick={() =>
