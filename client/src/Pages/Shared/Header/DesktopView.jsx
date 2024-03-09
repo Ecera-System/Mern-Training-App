@@ -95,10 +95,11 @@ const DesktopView = ({ profile }) => {
 
     return (
         <ul className='list-none hidden lg:w-full lg:flex items-center justify-between gap-10 text-lg font-normal'>
-            {
+            {/* {
                 profile ? <>
                     <li></li>
-                </> : <div className='lg:flex lg:w-[50%] px-14 items-center justify-between'>
+                </> :  */}
+                <div className='lg:flex lg:w-[50%] px-14 items-center justify-between'>
                     <li>
                         <NavLink
                             to='/'
@@ -144,7 +145,7 @@ const DesktopView = ({ profile }) => {
                         </NavLink>
                     </li>
                 </div>
-            }
+            {/* // } */}
             {
                 isLoggedIn ?
                     <HeaderProfile />
@@ -152,14 +153,14 @@ const DesktopView = ({ profile }) => {
                     <li className='flex items-center justify-between gap-5'>
                         <Link
                             to={'/sign-in'}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent bg-violet-600 hover:bg-white duration-300 text-white-600 hover:text-violet-600 rounded-full'
+                            className='text-base font-medium py-1.5 px-6 bg-transparent bg-violet-600 hover:bg-white duration-300 text-white hover:text-violet-600 rounded-full'
                         >
                             Sign in
                         </Link>
 
                         <Link
                             to={'/sign-up'}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent bg-violet-600 hover:bg-white duration-300 text-white-600 hover:text-violet-600 rounded-full'
+                            className='text-base font-medium py-1.5 px-6 bg-transparent bg-violet-600 hover:bg-white duration-300 text-white hover:text-violet-600 rounded-full'
                         >
                             Sign up
                         </Link>

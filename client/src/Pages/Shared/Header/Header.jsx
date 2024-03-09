@@ -23,7 +23,7 @@ const Header = ({ profile, textColor = 'text-gray-600' }) => {
     return (
         <header className={`w-full h-[76px]`}>
             <nav
-                className={`w-full ${scroll ? 'fixed top-0 left-0 right-0 backdrop-blur-sm bg-white/70 z-40 shadow' : `bg-transparent ${textColor} relative z-40`}`}
+                className={`w-full ${scroll ? 'fixed top-0 left-0 right-0 backdrop-blur-sm bg-white/70 z-40 shadow' : `bg-transparent text-gray-700 relative z-40`}`}
             >
                 <div className='2xl:w-[1280px] xl:w-full mx-auto flex items-center justify-between 2xl:px-0 lg:px-14 sm:px-6 px-3 py-2'>
 

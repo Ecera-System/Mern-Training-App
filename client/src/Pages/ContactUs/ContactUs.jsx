@@ -8,7 +8,7 @@ const ContactUs = () => {
         <PageTitle title="Contact us" />
         <Header />
         <div
-            className='pb-20 pt-44 lg:mt-10 bg-no-repeat bg-cover'
+            className='pb-20 pt-20 lg:mt-10 bg-no-repeat bg-cover'
             style={{ backgroundImage: `url(/images/hp-img-closer-bg.png)` }}
         >
             <section className='2xl:w-[1280px] xl:w-4/5 lg:w-11/12 md:w-4/5 w-11/12 mx-auto flex lg:flex-row flex-col-reverse justify-between'>
@@ -17,12 +17,12 @@ const ContactUs = () => {
                         Questions? We'll put you on the right path.
                     </h2>
                     <p className='text-base text-gray-500 my-5'>
-                        Ask about Ecera System products, pricing, implementation, or anything else. Our highly trained reps are standing by, ready to help.
+                        Ask about Ecera System Training products, pricing, implementation, or anything else. Our highly trained reps are standing by, ready to help.
                     </p>
                     <p className='text-lg font-medium text-gray-700'>
                         Please write to -
                         <a href="mailto:sales@ecerasystem.com" className='ml-2'>
-                            sales@ecerasystem.com
+                        mernprogram@ecerasystem.com
                         </a>
                     </p>
                 </div>

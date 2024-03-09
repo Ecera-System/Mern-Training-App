@@ -1,16 +1,22 @@
 import './Footer.css';
 import logo from '../../../../public/images/ecera-system-logo.png'
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
 
     return (<>
         <footer className='w-full bg-[#381e0f]'>
             <div className='2xl:w-[1280px] w-11/12 mx-auto'>
-                <div className='w-full py-10 lg:pl-16 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-2 items-start gap-12'>
+                <div className='w-full py-10 lg:pl-16 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 items-start gap-12'>
                     <ul className='list-none flex flex-col gap-3'>
                         <li>
                             <img className='w-16 h-auto'
                                 src={logo} alt="" />
+                        </li>
+                        <li>
+                            <p className='text-white text-sm'>
+                                Website owned by Ecera System
+                            </p>
                         </li>
                         <li>
                             <p className='text-white text-sm'>
@@ -35,14 +41,7 @@ const Footer = () => {
                                     Ecera System
                                 </h2>
                             </li>
-                            <li>
-                                <a
-                                    className='text-gray-300 text-sm hover:underline hover:text-gray-400 duration-300'
-                                    href={'https://ecerasystem.com/about'}
-                                >
-                                    About Us
-                                </a>
-                            </li>
+                            
                             <li>
                                 <a
                                     className='text-gray-300 text-sm hover:underline hover:text-gray-400 duration-300'
@@ -87,10 +86,18 @@ const Footer = () => {
                             </h2>
                         </li>
                         <li>
-                            <a
-                                href={'https://ecerasystem.com/contact'}
+                                <a
+                                    className='text-gray-300 text-sm hover:underline hover:text-gray-400 duration-300'
+                                    href={'https://ecerasystem.com/about'}
+                                >
+                                    About Us
+                                </a>
+                            </li>
+                        <li>
+                            <Link
+                                to={'/contact'}
                                 className='text-gray-300 text-sm hover:underline hover:text-gray-400 duration-300'
-                            >Contact Us</a>
+                            >Contact Us</Link>
                         </li>
                         <li>
                             <a href="https://ecerasystem.com/" className='text-gray-300 text-sm hover:underline hover:text-gray-400 duration-300'>
@@ -102,7 +109,7 @@ const Footer = () => {
                                 Cookies Policy
                             </a>
                         </li>
-                        <li>
+                        {/* <li>
                             <a
                                 href={'/programs/mern-stack-web-development'}
                                 className='text-gray-300 text-sm hover:underline hover:text-gray-400 duration-300'
@@ -115,9 +122,9 @@ const Footer = () => {
                             >
                                 Terms of Services
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
-                    <ul className='list-none flex flex-col gap-3'>
+                    {/* <ul className='list-none flex flex-col gap-3'>
                         <li>
                             <h2 className='text-white text-xl font-medium'>
                                 For Business
@@ -139,7 +146,7 @@ const Footer = () => {
                                 Testimonial
                             </a>
                         </li>
-                    </ul>
+                    </ul> */}
                 </div>
                 <hr />
                 <div className='py-5 flex sm:flex-row flex-col-reverse justify-between items-center gap-2'>
