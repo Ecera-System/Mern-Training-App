@@ -50,6 +50,8 @@ import AllUserRewards from "./Admin/AllUserRewards/AllUserRewards.jsx";
 //
 import InactiveActivateCode from "./Pages/Auth/inactiveActivateCode.jsx";
 import AboutUs from "./Pages/AboutUs/AboutUs.jsx";
+import PrivacyPolicy from "./Pages/PrivacyPolicy/PrivacyPolicy.jsx";
+import CookiesPolicy from "./Pages/CookiePolicy/CookiesPolicy.jsx";
 //
 const App = () => {
   return (
@@ -111,6 +113,8 @@ const App = () => {
         ></Route>
         <Route path="/about" element={<AboutUs />}></Route>
         <Route path="/contact" element={<ContactUs />}></Route>
+        <Route path="/privacy" element={<PrivacyPolicy />}></Route>
+        <Route path="/cookies-policy" element={<CookiesPolicy />}></Route>
 
         <Route
           path="/profile"
