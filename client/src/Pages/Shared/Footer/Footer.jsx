@@ -86,12 +86,12 @@ const Footer = () => {
                             </h2>
                         </li>
                         <li>
-                                <a
+                                <Link
                                     className='text-gray-300 text-sm hover:underline hover:text-gray-400 duration-300'
-                                    href={'https://ecerasystem.com/about'}
+                                    to={'/about'}
                                 >
                                     About Us
-                                </a>
+                                </Link>
                             </li>
                         <li>
                             <Link

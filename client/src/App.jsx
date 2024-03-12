@@ -49,6 +49,7 @@ import EnvVariables from "./Admin/EnvVariables/EnvVariables.jsx";
 import AllUserRewards from "./Admin/AllUserRewards/AllUserRewards.jsx";
 //
 import InactiveActivateCode from "./Pages/Auth/inactiveActivateCode.jsx";
+import AboutUs from "./Pages/AboutUs/AboutUs.jsx";
 //
 const App = () => {
   return (
@@ -108,6 +109,7 @@ const App = () => {
           path="/stripe/checkout/course/:id"
           element={<StripeCheckoutMsg />}
         ></Route>
+        <Route path="/about" element={<AboutUs />}></Route>
         <Route path="/contact" element={<ContactUs />}></Route>
 
         <Route
