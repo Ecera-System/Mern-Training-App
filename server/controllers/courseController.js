@@ -5,7 +5,7 @@ const User = require("../models/User");
 const CouponCode = require("../models/CouponCode");
 const Certificate = require("../models/Certificate");
 const Assignment = require("../models/Assignment");
-
+const cloudinary = require("cloudinary").v2;
 // <!-- Get a course -->
 exports.getCourseById = async (req, res, next) => {
   try {
@@ -139,6 +139,66 @@ exports.uploadCourseVideo = async (req, res, next) => {
     next(error);
   }
 };
+//
+cloudinary.config({
+  cloud_name: "dtmewd80h",
+  api_key: "296223717733129",
+  api_secret: "LVD3OifJ294_vkmKVF6VWTfxVMc",
+});
+
+//
+exports.uploadCourseFile = async (req, res, next) => {
+  try {
+    console.log(req.body, "req.body");
+
+    // Destructure the request body
+    const { courseId, module, title, description } = req.body;
+
+    // Assuming the file is uploaded using multer or similar middleware
+    const file = req.file;
+
+    // Find the course by courseId
+    const course = await Course.findById(courseId);
+    if (!course) return res.status(404).json({ error: "Course not found" });
+
+    // Upload file to Cloudinary
+    const cloudinaryResponse = await cloudinary.uploader.upload(file.path, {
+      resource_type: "raw",
+      // Add any other Cloudinary upload options as needed
+    });
+
+    // Find the module
+    const existingModule = course.modules.find((f) => f.title === module);
+
+    if (existingModule) {
+      existingModule.videos.push({
+        title,
+        description,
+        video: cloudinaryResponse.secure_url, // Save Cloudinary URL to the database
+      });
+    } else {
+      // If the module doesn't exist, create a new module and add the video
+      course.modules.push({
+        title: module,
+        videos: [
+          {
+            title,
+            description,
+            video: cloudinaryResponse.secure_url, // Save Cloudinary URL to the database
+          },
+        ],
+      });
+    }
+
+    // Save the updated course
+    await course.save();
+    res.status(200).json({ success: "File uploaded successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//
 
 // <!-- Get all courses -->
 exports.getAllCourses = async (req, res, next) => {
