@@ -6,6 +6,7 @@ const CouponCode = require("../models/CouponCode");
 const Certificate = require("../models/Certificate");
 const Assignment = require("../models/Assignment");
 const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 // <!-- Get a course -->
 exports.getCourseById = async (req, res, next) => {
   try {
@@ -167,6 +168,9 @@ exports.uploadCourseFile = async (req, res, next) => {
       // Add any other Cloudinary upload options as needed
     });
 
+    // Delete the file from the local upload folder
+    fs.unlinkSync(file.path);
+
     // Find the module
     const existingModule = course.modules.find((f) => f.title === module);
 
@@ -197,7 +201,6 @@ exports.uploadCourseFile = async (req, res, next) => {
     next(error);
   }
 };
-
 //
 
 // <!-- Get all courses -->

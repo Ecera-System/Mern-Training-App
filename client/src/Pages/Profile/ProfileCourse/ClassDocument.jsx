@@ -50,105 +50,63 @@ const ClassDocument = ({ content, setContent }) => {
           content.modules[0].videos.length !== 0 ? (
             <div className="flex items-start justify-between gap-7 mt-5">
               <div className="w-2/3">
-                <h1 className="text-2xl font-medium text-violet-600">
-                  {content.modules[moduleIndex].videos[videoIndex].title ||
-                    "Select a video"}
-                </h1>
-                {/* <div className="pt-3">
-                  <a
-                    href={
-                      content.modules[moduleIndex].videos[videoIndex].video // Assuming video property contains document URL
-                    }
-                    className="w-full max-w-full h-[25rem] bg-black block rounded-lg overflow-hidden"
-                    download // Add download attribute for forcing download
-                  >
-                    <div className="flex items-center justify-center h-full bg-black bg-opacity-50 text-white text-lg font-semibold">
-                      Download Document
-                    </div>
-                  </a>
-                  <div className="flex items-center justify-end gap-3 mt-2">
-                    <button
-                      onClick={handlePreviousVideo}
-                      disabled={videoIndex === 0 && moduleIndex === 0}
-                      className={`px-3 py-1 text-white rounded text-sm ${
-                        videoIndex === 0 && moduleIndex === 0
-                          ? "bg-slate-400"
-                          : "bg-slate-900"
-                      }`}
-                    >
-                      Previous
-                    </button>
-                    <button
-                      onClick={handleNextVideo}
-                      disabled={
-                        videoIndex ===
-                          content.modules[moduleIndex].videos.length - 1 &&
-                        moduleIndex === content.modules.length - 1
-                      }
-                      className={`px-5 py-1 text-white rounded text-sm ${
-                        videoIndex ===
-                          content.modules[moduleIndex].videos.length - 1 &&
-                        moduleIndex === content.modules.length - 1
-                          ? "bg-slate-400"
-                          : "bg-slate-900"
-                      }`}
-                    >
-                      Next
-                    </button>
-                  </div>
-                  <p className="mt-1 text-sm">
-                    {
-                      content.modules[moduleIndex].videos[videoIndex]
-                        .description
-                    }
-                  </p>
-                </div> */}
-                {/*  */}
-                <div className="pt-3 flex flex-col items-center">
+                <div className="flex flex-col items-center">
                   {" "}
-                  {/* Added flexbox properties */}
-                  <a
-                    href="https://res.cloudinary.com/dtmewd80h/raw/upload/v1710445392/k3crjwn0wqn3rrhbohtk.docx"
-                    className="bg-violet-600 text-white text-lg font-semibold px-5 py-3 rounded inline-block"
-                    download
-                  >
-                    Download Document
-                  </a>
-                  <div className="flex items-center justify-between gap-3 mt-2">
-                    {/* Previous and Next buttons */}
-                    <button
-                      onClick={handlePreviousVideo}
-                      disabled={videoIndex === 0 && moduleIndex === 0}
-                      className={`px-3 py-1 text-white rounded text-sm ${
-                        videoIndex === 0 && moduleIndex === 0
-                          ? "bg-slate-400"
-                          : "bg-slate-900"
-                      }`}
-                    >
-                      Previous
-                    </button>
-                    <button
-                      onClick={handleNextVideo}
-                      disabled={
-                        videoIndex ===
-                          content.modules[moduleIndex].videos.length - 1 &&
-                        moduleIndex === content.modules.length - 1
+                  {/* Centering */}
+                  <h1 className="my-1 py-3 text-2xl font-medium text-violet-600">
+                    {content.modules[moduleIndex].videos[videoIndex].title ||
+                      "Select a video"}
+                  </h1>
+                  <div className="py-5 my-5">
+                    <a
+                      href={
+                        content.modules[moduleIndex].videos[videoIndex].video // Assuming video property contains document URL
                       }
-                      className={`px-5 py-1 text-white rounded text-sm ${
-                        videoIndex ===
-                          content.modules[moduleIndex].videos.length - 1 &&
-                        moduleIndex === content.modules.length - 1
-                          ? "bg-slate-400"
-                          : "bg-slate-900"
-                      }`}
+                      className="bg-violet-600 text-white text-lg font-semibold px-5 py-3 rounded inline-block"
+                      download // Add download attribute for forcing download
                     >
-                      Next
-                    </button>
+                      Download{" "}
+                      {content.modules[moduleIndex].videos[videoIndex].title}
+                    </a>
                   </div>
-                  <p className="mt-1 text-sm">description</p>
                 </div>
-
-                {/*  */}
+                <div className="flex items-center justify-between gap-3 mt-2">
+                  {/* Previous and Next buttons */}
+                  <button
+                    onClick={handlePreviousVideo}
+                    disabled={videoIndex === 0 && moduleIndex === 0}
+                    className={`px-3 py-1 text-white rounded text-sm ${
+                      videoIndex === 0 && moduleIndex === 0
+                        ? "bg-slate-400"
+                        : "bg-slate-900"
+                    }`}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={handleNextVideo}
+                    disabled={
+                      videoIndex ===
+                        content.modules[moduleIndex].videos.length - 1 &&
+                      moduleIndex === content.modules.length - 1
+                    }
+                    className={`px-5 py-1 text-white rounded text-sm ${
+                      videoIndex ===
+                        content.modules[moduleIndex].videos.length - 1 &&
+                      moduleIndex === content.modules.length - 1
+                        ? "bg-slate-400"
+                        : "bg-slate-900"
+                    }`}
+                  >
+                    Next
+                  </button>
+                </div>
+                {/* <p className="mt-1 text-sm">
+                  {
+                    content.modules[moduleIndex].videos[videoIndex]
+                      .description
+                  }
+                </p> */}
               </div>
               <div className="w-1/3">
                 <ul className="list-none flex flex-col gap-4">
@@ -211,14 +169,14 @@ const ClassDocument = ({ content, setContent }) => {
           ) : (
             <div className="text-center py-20 bg-white border rounded-lg mt-6">
               <h4 className="md:text-3xl text-xl font-medium text-gray-500">
-                The video is not cooked yet!
+                The video is not available!
               </h4>
             </div>
           )
         ) : (
           <div className="text-center py-20 bg-white border rounded-lg mt-6">
             <h4 className="md:text-3xl text-xl font-medium text-gray-500">
-              The module is not cooked yet!
+              The module is not available!
             </h4>
           </div>
         )}
