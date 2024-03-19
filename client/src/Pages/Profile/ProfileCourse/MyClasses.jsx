@@ -6,6 +6,9 @@ import useGetEnrolledCourse from "../../../API/useGetEnrolledCourse";
 import PageTitle from "../../Shared/PageTitle";
 import Spinner from "../../Shared/Spinner/Spinner";
 import ClassContent from "./ClassContent";
+//
+import ClassDocument from "./ClassDocument";
+//
 import useGetAllCourses from "../../../API/useGetAllCourses";
 import TermsModal from "../CourseAvailable/TermsModal";
 import useGetRefundTerms from "../../../API/useGetRefundTerms";
@@ -68,7 +71,8 @@ const MyClasses = () => {
   if (loading) return <Spinner />;
 
   return content ? (
-    <ClassContent content={content} setContent={setContent} />
+    // <ClassContent content={content} setContent={setContent} />
+    <ClassDocument content={content} setContent={setContent} />
   ) : (
     <>
       <PageTitle title="Course" />
