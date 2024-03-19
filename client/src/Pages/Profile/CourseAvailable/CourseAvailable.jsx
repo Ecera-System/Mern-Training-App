@@ -76,7 +76,7 @@ const CourseAvailable = () => {
                         {data?.title}
                       </Link>
                       <div className="flex items-center justify-between mt-5">
-                        <p className="text-xl font-semibold">${data?.price}</p>
+                        <p className="text-xl font-semibold">₹{data?.price}</p>
                         {isEnrolled ? (
                           <button
                             onClick={() => navigate("/profile/course")}

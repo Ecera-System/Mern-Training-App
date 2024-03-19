@@ -231,7 +231,7 @@ const Checkout = () => {
           }
         );
         //
-        // console.log("Response-of-enroll-in-inr", res.data); // Log the response
+        console.log("Response-of-enroll-in-inr", res); // Log the response
         //
         const options = {
           key: import.meta.env.VITE_RAZORPAY_KEY_ID,

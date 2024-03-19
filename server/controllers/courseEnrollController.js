@@ -232,7 +232,7 @@ exports.enrollCourseByINR = async (req, res, next) => {
     const { _id, email } = req.decoded;
     const order = await instance.orders.create({
       amount: req.body.price * 100,
-      currency: "USD",
+      currency: "INR",
     });
 
     // console.log(order, "order from enrollCourseByINR");
