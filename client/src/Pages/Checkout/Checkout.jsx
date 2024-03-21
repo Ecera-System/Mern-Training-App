@@ -375,7 +375,7 @@ const Checkout = () => {
                   Total discount from Rewards:
                   {rewardData && rewardData.points !== undefined
                     ? `${rewardData.points} `
-                    : "0 USD"}
+                    : "0 INR"}
                 </p>
               ) : (
                 // Content before redemption

@@ -17,7 +17,7 @@ const   Summary = ({ data, isDiscount }) => {
             </div>
             <div className='lg:text-xl text-lg font-semibold text-gray-700 flex lg:justify-between items-center gap-5'>
                 <span>Total:</span>
-                <span>${isDiscount}</span>
+                <span>₹{isDiscount}</span>
             </div>
         </div>
     );
