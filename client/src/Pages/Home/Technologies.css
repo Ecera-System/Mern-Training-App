@@ -1,0 +1,136 @@
+.techsWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.techsWrapper > .text{
+    width: 25%;
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.techsWrapper > .text > h1{
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.techsWrapper > .text > h1 > span{
+    color: rgb(6, 6, 145);
+}
+
+.techsWrapper > .box{
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.techsWrapper > .box > div{
+    width: 22%;
+    min-width: 180px;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: 0.3s ease-in-out;
+}
+
+.techsWrapper > .box > div:hover{
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 255, 0.168);
+}
+
+.techsWrapper > .box > div > div{
+    width: 80px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
+}
+
+.techsWrapper > .box > div > div > .icon{
+    font-size: 30px;
+}
+
+
+.techsWrapper > .box > div:nth-child(1){
+    background-color: rgba(12, 128, 186, 0.13);
+}
+
+.techsWrapper > .box > div:nth-child(2){
+    background-color: rgba(9, 152, 16, 0.127);
+}
+
+.techsWrapper > .box > div:nth-child(3){
+    background-color: rgba(43, 83, 3, 0.123);
+}
+
+.techsWrapper > .box > div:nth-child(4){
+    background-color: rgba(186, 157, 12, 0.12);
+}
+
+
+.techsWrapper > .box > div:nth-child(1) > div{
+    background-color: rgb(12, 128, 186);
+}
+
+.techsWrapper > .box > div:nth-child(2) > div{
+    background-color: rgb(9, 152, 16);
+}
+
+.techsWrapper > .box > div:nth-child(3) > div{
+    background-color: rgb(37, 72, 2);
+}
+
+.techsWrapper > .box > div:nth-child(4) > div{
+    background-color: rgb(186, 157, 12);
+}
+
+
+.techsWrapper > .box > div > h1{
+    font-size: 22px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+.techsWrapper > .box > div > p{
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.572);
+    text-align: center;
+}
+
+
+@media screen and (max-width: 700px) {
+    .techsWrapper{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .techsWrapper > .text{
+        width: 100%;
+        max-width: fit-content;
+    }
+
+    .techsWrapper > .text > h1{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .techsWrapper > .box{
+        width: 100%;
+    }
+    
+
+    .techsWrapper > .box > div{
+        width: 100%;
+    }
+}

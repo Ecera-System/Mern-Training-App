@@ -1,0 +1,118 @@
+/*********************best*******************/
+
+.best {
+    margin-top: 4rem;
+}
+
+.best > h1{
+    font-size: 2.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.best > table {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 2rem auto;
+    width: 85vw;
+    max-width: 1280px;
+    border-radius: 2rem;
+    box-shadow: #ffdede 0px 0px 5px;
+}
+
+.best > table tr {
+    height: 5rem;
+}
+
+.best > table tr:first-of-type {
+    border-radius: 2rem 2rem 0 0;
+    /* background: #ffe2e2; */
+    background: linear-gradient( 180deg, #0040ff65 0%, rgba(0, 4, 255, 0) 135.92%);
+}
+
+.best > table tr:last-of-type {
+    border-radius: 0 0 2rem 2rem;
+}
+
+.best > table th {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 2.1rem;
+}
+
+.best > table th img {
+    mix-blend-mode: darken;
+    width: 4.6rem;
+}
+
+.best > table th:first-of-type {
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 3rem;
+    color: #000000;
+    border-radius: 2rem 0 0 0;
+}
+
+.best > th:last-of-type {
+    border-radius: 0 2rem 0 0;
+    font-weight: 600;
+    text-align: center;
+    color: #000000;
+}
+
+.best td{
+    font-size: 1.1rem;
+}
+
+.best td,
+.best th {
+    border-left: 1.5px solid #ffdede;
+    padding: 5px;
+}
+
+.best tr td:first-of-type,
+.best tr th:first-of-type {
+    border: none;
+}  
+
+.best tr:nth-child(even) {
+    background: #fffefe;
+}
+
+.best tr:nth-child(odd) {
+    background: linear-gradient( 180deg, #0040ff2d 0%, rgba(0, 4, 255, 0) 135.92%);
+}
+
+.best .checktick {
+    width: 2.5rem;
+    height: 2.5rem;
+    fill: #29bf12;
+    margin: 0 auto;
+}
+
+.best .cross {
+    width: 2rem;
+    height: 2rem;
+    fill: #d00000;
+    margin: 0 auto;
+}
+
+.best button {
+    width: 29rem;
+    height: 5rem;
+    background: linear-gradient(176.18deg, #800080 -2.53%, #7e267e 27.29%);
+    border-radius: 1rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: #ffffff;
+    margin-top: 2rem;
+}
+
+.best .hear {
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+}

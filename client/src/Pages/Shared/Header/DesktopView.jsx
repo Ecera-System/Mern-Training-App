@@ -94,16 +94,16 @@ const DesktopView = ({ profile }) => {
     const { isLoggedIn } = useContext(contextProvider);
 
     return (
-        <ul className='list-none hidden lg:w-full lg:flex items-center justify-between gap-10 text-lg font-normal'>
+        <ul className='list-none hidden w-full lg:w-[95%] 2xl:w-full lg:flex items-center justify-between gap-10 text-sm font-normal'>
             {/* {
                 profile ? <>
                     <li></li>
                 </> :  */}
-                <div className='lg:flex lg:w-[50%] px-14 items-center justify-between'>
+                <div className='lg:flex lg:w-[50%] px-14 2xl:px-0 items-center justify-between'>
                     <li>
                         <NavLink
                             to='/'
-                            className='py-2 text-violet-800 font-semibold duration-300 relative hover-border'
+                            className='py-2 text-gray-700 font-semibold duration-300 relative hover-border'
                         >
                             Home
                         </NavLink>
@@ -111,7 +111,7 @@ const DesktopView = ({ profile }) => {
                     <li className='relative group/program'>
                         <div
                             // to='/programs'
-                            className='py-2 text-violet-800 font-semibold font duration-300 relative hover-border flex items-center gap-1'
+                            className='py-2 text-gray-700 font-semibold font duration-300 relative hover-border flex items-center gap-1'
                         >
                             Programs <RiArrowDownSLine className='text-xl' />
                         </div>
@@ -120,7 +120,7 @@ const DesktopView = ({ profile }) => {
                             <li className='w-full'>
                                 <NavLink
                                     to='/programs/mern-stack-web-development'
-                                    className='block w-full h-auto py-3 px-8 text-base text-violet-700 side-nav hover:bg-violet-100 duration-300'
+                                    className='block w-full h-auto py-3 px-8 text-base text-gray-700 side-nav hover:bg-violet-100 duration-300'
                                     end
                                 >
                                     MERN Stack Web Development
@@ -131,7 +131,7 @@ const DesktopView = ({ profile }) => {
                     <li>
                         <NavLink
                             to='/projects'
-                            className='py-2 text-violet-800 font-semibold duration-300 relative hover-border'
+                            className='py-2  text-gray-700 font-semibold duration-300 relative hover-border'
                         >
                             Projects
                         </NavLink>
@@ -139,7 +139,7 @@ const DesktopView = ({ profile }) => {
                     <li>
                         <NavLink
                             to='/placements'
-                            className='py-2 text-violet-800 font-semibold duration-300 relative hover-border'
+                            className='py-2 text-gray-700 font-semibold duration-300 relative hover-border'
                         >
                             Placements
                         </NavLink>
@@ -153,14 +153,14 @@ const DesktopView = ({ profile }) => {
                     <li className='flex items-center justify-between gap-5'>
                         <Link
                             to={'/sign-in'}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent bg-violet-600 hover:bg-white duration-300 text-white hover:text-violet-600 rounded-full'
+                            className='text-base font-medium py-1.5 px-6 bg-transparent  hover:bg-violet-600 duration-300 text-violet-600 border-2 border-violet-600 hover:text-white rounded-full'
                         >
                             Sign in
                         </Link>
 
                         <Link
                             to={'/sign-up'}
-                            className='text-base font-medium py-1.5 px-6 bg-transparent bg-violet-600 hover:bg-white duration-300 text-white hover:text-violet-600 rounded-full'
+                            className='text-base font-medium py-1.5 px-6 bg-transparent  hover:bg-violet-600 duration-300 text-violet-600 border-2 border-violet-600 hover:text-white rounded-full'
                         >
                             Sign up
                         </Link>

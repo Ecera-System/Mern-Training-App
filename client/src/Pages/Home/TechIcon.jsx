@@ -93,6 +93,9 @@ const TechIcon = () => {
     return (
         <section className='pt-16 pb-20'>
             <div className='2xl:w-[1280px] sm:w-11/12 w-4/5 mx-auto text-center'>
+                <h1 className='w-4/5 mx-auto my-5 lg:text-5xl md:text-4xl text-3xl font-semibold text-gray-700 text-center'>
+                    Technologies we teach
+                </h1>
                 <div className='w-full'>
                     <Slider {...settings}>
                         {

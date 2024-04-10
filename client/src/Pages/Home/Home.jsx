@@ -3,6 +3,11 @@ import HeroSection from './HeroSection';
 import TechIcon from './TechIcon';
 import Footer from '../Shared/Footer/Footer';
 import './Home.css';
+import SuccessfullStudents from './SuccessfullStudents';
+import WhyWeBest from './WhyWeBest';
+import HomeFAQs from './HomeFAQs';
+import FAQSection from './FAQSection';
+import CallUsBanner from './CallUsBanner';
 
 const Home = () => {
     return (<>
@@ -88,7 +93,11 @@ const Home = () => {
                 </div>
             </div>
         </section>
-        <section
+        {/* <SuccessfullStudents /> */}
+        <WhyWeBest />
+        {/* <HomeFAQs /> */}
+        <FAQSection />
+        {/* <section
             style={{ backgroundImage: `url(/images/bg_img1.jpg)` }}
             className='w-full md:pt-24 md:pb-32 py-20 bg-no-repeat bg-cover bg-center'
         >
@@ -149,8 +158,9 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </section>
-        <hr className='bg-violet-500 h-0.5' />
+        </section> */}
+        <CallUsBanner />
+        {/* <hr className='bg-violet-500 h-0.5' /> */}
         <Footer />
     </>);
 };

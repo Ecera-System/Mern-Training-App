@@ -264,14 +264,14 @@ const MERNStackWebDevelopment = () => {
           <h1 className="lg:text-5xl md:text-4xl text-2xl font-semibold mb-12">
             Have any further questions?
           </h1>
-          <Link to={"https://ecerasystem.com/contact"}>
+          <Link to={"/contact"}>
             <button className="border border-white py-3 px-10 text-base hover:bg-white hover:text-violet-600 duration-500">
               Contact Us
             </button>
           </Link>
         </div>
       </section>
-      <section className="md:py-32 py-20">
+      {/* <section className="md:py-32 py-20">
         <div className="max-w-3xl sm:w-4/5 w-[90%] mx-auto">
           <h1 className="lg:text-5xl md:text-4xl text-3xl font-semibold text-gray-800 text-center">
             FAQs
@@ -432,7 +432,7 @@ const MERNStackWebDevelopment = () => {
             </li>
           </ul>
         </div>
-      </section>
+      </section> */}
       <Footer />
     </>
   );

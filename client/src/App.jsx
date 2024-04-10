@@ -32,9 +32,7 @@ import ReactJSDetails from "./Pages/Projects/ReactJSDetails";
 import NodeJSDetails from "./Pages/Projects/NodeJSDetails";
 import OrderHistory from "./Pages/Profile/OrderHistory/OrderHistory";
 import MyReward from "./Pages/Profile/MyReward/MyReward";
-//
 import CourseAvailable from "./Pages/Profile/CourseAvailable/CourseAvailable.jsx";
-//
 import ProfileAssignments from "./Pages/Profile/Assignments/ProfileAssignments";
 import "@fortawesome/fontawesome-free/css/all.css";
 import BillingAddress from "./Pages/Profile/BillingAddress/BillingAddress.jsx";

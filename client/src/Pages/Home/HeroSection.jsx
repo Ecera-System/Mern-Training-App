@@ -8,13 +8,13 @@ import { contextProvider } from '../../Context/ContextProvider';
 import Header from '../Shared/Header/Header';
 import SignUp from '../Auth/SignUp';
 import axios from 'axios';
-import Slider from 'react-slick';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
-import heroImage from '../../../public/images/home/MERN-hero.png';
+import heroImage from '../../../public/images/home/laptop-hero.svg';
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
-import { FaLaptopCode } from "react-icons/fa";
+import { MdOutlineAccessAlarm } from "react-icons/md";
+import { MdOutlineSupportAgent } from "react-icons/md";
 import { PiStudentFill } from "react-icons/pi";
-import { BsGraphUpArrow } from "react-icons/bs";
+import Technologies from './Technologies';
 
 
 
@@ -87,23 +87,32 @@ const HeroSection = () => {
     return (<>
         <section
             // style={{ backgroundImage: `url(/images/home/banner_code.jpg)` }}
-            className='w-full h-auto bg-no-repeat bg-center bg-cover'
+            className=''
         >
-            <div className='hero_gradient'>
+            <div className=' bg-sky-50 relative'>
                 <Header textColor="text-white" />
-                <div className=' shadow-lg'>
-                    <div className='w-full border-t border-gray-300 flex flex-col-reverse md:flex-row justify-between md:px-20 py-5'>
-                        <div className=' w-full md:w-[50%] pl-10' >
+                <div className=' 2xl:w-[1280px] w-10/12 mx-auto bg-contain bg-top z-10'
+                    style={{ backgroundImage: 'url(/images/placements/star.png)' }}
+                >
+                        
+                        <span
+                            className='absolute bottom-[-25%] left-[13%] z-0 w-[30rem] h-[32rem] bg-no-repeat bg-contain'
+                            style={{ backgroundImage: 'url(/images/placements/line-2.png)' }}
+                        />
+
+
+                    <div className='w-[100%] z-1 flex flex-col-reverse md:flex-row justify-between py-5'>
+                        <div className=' w-[100%] md:w-[50%]' >
                             <div className='flex flex-col items-start w-[100%]'>
-                                <h3 className='font-semibold text-gray-500'>Kick start your career with </h3>
+                                <h3 className='font-bold text-[40px] w-[400px ] text-gray-900'>Kick start your career with </h3>
                                 <h1 className='text-[50px] w-[400px] font-bold text-[#4249F8] '>
                                     <span className='text-[#FEBF1B]'>M</span>
                                     <span className='text-[#5E5454]'>E</span>
                                     <span className='text-[#19A9F9]'>R</span>
                                     <span className='text-[#096407]'>N</span> Stack
-                                    </h1>
+                                </h1>
                                 <h2 className='text-[27px] font-semibold text-gray-600 pb-2 border-b mb-4 border-gray-600'>Training and Certification</h2>
-                                <ul className='ml-4 w-[400px] marker:text-[#FEBF1B] text-md text-[#000080]'>
+                                <ul className='ml-4 w-[400px] marker:text-[#FEBF1B] text-md font-semibold text-[#000080]'>
                                     <li className=''>One to One Doubt support</li>
                                     <li className=''>Projects based Learning</li>
                                     <li className=''>Highly Qualified Mentors</li>
@@ -123,60 +132,51 @@ const HeroSection = () => {
                                 signUpPopUp && <SignUp signUpPopUp={signUpPopUp} setSignUpPopUp={setSignUpPopUp} />
                             }
                         </div>
-                        <div className='w-full md:w-[50%] flex justify-center items-center'>
-                            <img className='w-[350px] h-auto object-cover'
+                        <div className='w-[100%] md:w-[50%] flex justify-center items-center'>
+                            <img className='h-[320px] w-auto rounded-[50px] object-cover hover:scale-105 transition-all '
                                 src={heroImage} alt="MERN" />
                         </div>
                     </div>
 
-                    <div className=' w-full flex md:px-[10%] pb-[8%] flex-wrap justify-between  align-middle'>
-                        <div className=' w-[200px] flex flex-col justify-center align-middle'>
-                            <div className=' text-4xl text-[#31C10D] mb-3 mx-auto'>
+                    <div className=' w-[100%] flex py-[6%] flex-wrap justify-between align-middle'>
+                        <div className='lg:w-[22%] w-[48%] 2xl:w-[18%] px-6 py-4 my-2 lg:my-0 text-[#2e2e9d] border-2 rounded-full flex justify-between align-middle'>
+                            <div className=' text-3xl'>
                                 <LiaChalkboardTeacherSolid />
                             </div>
-                            <div className='border px-5 py-2 text-center bg-[#E7F9E7] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>12+</h2>
-                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Projects</h3>
-                            </div>
+                            <h2 className='text-sm lg:text-lg font-semibold '>Learn Anywhere</h2>
                         </div>
 
-                        <div className=' w-[200px] flex flex-col justify-center align-middle'>
-                            <div className=' text-4xl text-[#335FFC] mb-3 mx-auto'>
-                                <FaLaptopCode />
+                        <div className='lg:w-[22%] w-[48%] 2xl:w-[18%] px-6 py-4 my-2 lg:my-0  text-[#55a636] border-2 rounded-full flex justify-between align-middle'>
+                            <div className=' text-3xl'>
+                                <MdOutlineAccessAlarm />
                             </div>
-                            <div className='border px-5 py-2 text-center bg-[#E2ECFF] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>10+</h2>
-                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Technologies Taught</h3>
-                            </div>
+                            <h2 className='text-sm lg:text-lg font-semibold'>Lifetime Access</h2>
                         </div>
 
-                        <div className=' w-[200px] flex flex-col justify-center align-middle'>
-                            <div className=' text-4xl text-[#ff39de] mb-3 mx-auto'>
+                        <div className='lg:w-[22%] w-[48%] 2xl:w-[18%] px-6 py-4 my-2 lg:my-0  text-[#ff39de] border-2 rounded-full flex justify-between align-middle'>
+                            <div className=' text-3xl '>
+                                <MdOutlineSupportAgent />
+                            </div>
+                            <h2 className='text-sm lg:text-lg font-semibold'>24/7 Support</h2>
+                        </div>
+
+                        <div className='lg:w-[22%] w-[48%] 2xl:w-[18%] px-6 py-4 my-2 lg:my-0  text-[#F92323]  border-2 rounded-full flex justify-between align-middle'>
+                            <div className=' text-3xl '>
                                 <PiStudentFill />
                             </div>
-                            <div className='border px-5 py-2 text-center bg-[#f200fa20] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>100+</h2>
-                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Students placed</h3>
-                            </div>
-                        </div>
-
-                        <div className=' w-[200px] flex flex-col justify-center align-middle'>
-                            <div className=' text-3xl text-[#F92323] mb-3 mx-auto'>
-                                <BsGraphUpArrow />
-                            </div>
-                            <div className='border px-5 py-2 text-center bg-[#ff000015] rounded-lg '>
-                                <h2 className='text-3xl font-semibold'>06 LPA+</h2>
-                                <h3 className='mt-1 text-sm font-medium text-gray-500'>Highest package offered</h3>
-                            </div>
+                            <h2 className='text-sm lg:text-lg font-semibold'>Expert Mentors</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <div className='relative -top-7 '>
+        <section className='2xl:w-[1280px] w-10/12 mx-auto my-10 mt-24 '>
+            <Technologies />
+        </section>
+        {/* <div className='relative -top-7 '>
             <BookAFreeCounselling />
-        </div>
-        <section>
+        </div> */}
+        {/* <section>
             <div className='max-w-7xl w-[90%] mx-auto text-center mt-16'>
                 <h2 className='max-w-4xl w-4/5 max-sm:w-[90%] mx-auto lg:text-5xl lg:leading-[1.2] md:text-4xl text-3xl font-semibold text-gray-800 text-center'>
                     Benefits After Course Completion
@@ -199,56 +199,12 @@ const HeroSection = () => {
                                     &#128293; Personalized Recommendation Letter from Industry Experts &#128293;
                                 </div>
                             </li>
-                            {/* Add more benefits as needed */}
                         </ul>
                     </marquee>
                 </div>
             </div>
-        </section>
-
-        <section className='lg:pt-24 pb-20'>
-            <div className='text-center'>
-                <h1 className='max-w-4xl w-4/5 max-sm:w-[90%] mx-auto lg:text-5xl lg:leading-[1.2] md:text-4xl text-3xl font-semibold text-gray-800 text-center'>
-                    Our Successful Students
-                </h1>
-                <p className='w-4/5 mx-auto mt-5 text-lg text-gray-600'>
-                    Here are some of our students who have learned from our programs and got jobs/interns in various places
-                </p>
-            </div>
-            <div className='max-w-[68rem] xl:w-4/5 lg:w-[90%] md:w-4/5 w-full mx-auto'>
-                <Slider {...settings}>
-                    {reviews.map((review, index) => (
-                        <div
-                            key={index}
-                            className={`py-28 ${index === imageIndex ? "slide activeSlide" : "slide"}`}
-                        >
-                            <div className='max-lg:w-[20rem_!important] mx-auto text-center xl:p-12 max-xl:pt-12 p-8 bg-white shadow-[0_2px_50px_rgba(124,58,237,0.2)] relative'>
-                                <span
-                                    className='absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 w-24 h-24 rounded-full overflow-hidden p-1 bg-white shadow-[0_2px_20px_2px_rgba(124,58,237,0.3)]'
-                                >
-                                    <img
-                                        src={review.avatar}
-                                        alt={`Avatar of ${review.name}`}
-                                        loading='lazy'
-                                        className='w-full h-full object-cover rounded-full'
-                                    />
-                                </span>
-                                <p className='text-sm text-gray-500 mt-5'>
-                                    {review.feedback}
-                                </p>
-                                <h2 className='text-base font-medium text-gray-800 mt-5'>
-                                    {review.name}
-                                </h2>
-                                <h5 className='text-sm text-gray-600'>
-                                    {review.position}, <br /> {review.company}
-                                </h5>
-                            </div>
-                        </div>
-                    ))}
-                </Slider>
-            </div>
-        </section>
-        <section
+        </section> */}
+        {/* <section
             className='pt-20 pb-40 bg-contain bg-center relative z-10'
             style={{ backgroundImage: 'url(/images/placements/star.png)' }}
         >
@@ -265,7 +221,7 @@ const HeroSection = () => {
                     Proceed with professional work experience and grab your dream job.
                 </h1>
             </div>
-        </section>
+        </section> */}
 
 
 
@@ -295,3 +251,49 @@ export default HeroSection;
                             Enroll Now
                             <HiArrowNarrowRight className='text-2xl font-bold' />
                         </Link> */}
+
+
+
+
+
+                    //     <div className=' w-[100%] flex pb-[8%] flex-wrap justify-between align-middle'>
+                    //     <div className=' w-[200px] flex flex-col justify-center align-middle'>
+                    //         <div className=' text-4xl text-[#31C10D] mb-3 mx-auto'>
+                    //             <LiaChalkboardTeacherSolid />
+                    //         </div>
+                    //         <div className='border px-5 py-2 text-center bg-[#E7F9E7] rounded-lg '>
+                    //             <h2 className='text-3xl font-semibold'>12+</h2>
+                    //             <h3 className='mt-1 text-sm font-medium text-gray-500'>Projects</h3>
+                    //         </div>
+                    //     </div>
+
+                    //     <div className=' w-[200px] flex flex-col justify-center align-middle'>
+                    //         <div className=' text-4xl text-[#335FFC] mb-3 mx-auto'>
+                    //             <FaLaptopCode />
+                    //         </div>
+                    //         <div className='border px-5 py-2 text-center bg-[#E2ECFF] rounded-lg '>
+                    //             <h2 className='text-3xl font-semibold'>10+</h2>
+                    //             <h3 className='mt-1 text-sm font-medium text-gray-500'>Technologies Taught</h3>
+                    //         </div>
+                    //     </div>
+
+                    //     <div className=' w-[200px] flex flex-col justify-center align-middle'>
+                    //         <div className=' text-4xl text-[#ff39de] mb-3 mx-auto'>
+                    //             <PiStudentFill />
+                    //         </div>
+                    //         <div className='border px-5 py-2 text-center bg-[#f200fa20] rounded-lg '>
+                    //             <h2 className='text-3xl font-semibold'>100+</h2>
+                    //             <h3 className='mt-1 text-sm font-medium text-gray-500'>Students placed</h3>
+                    //         </div>
+                    //     </div>
+
+                    //     <div className=' w-[200px] flex flex-col justify-center align-middle'>
+                    //         <div className=' text-3xl text-[#F92323] mb-3 mx-auto'>
+                    //             <BsGraphUpArrow />
+                    //         </div>
+                    //         <div className='border px-5 py-2 text-center bg-[#ff000015] rounded-lg '>
+                    //             <h2 className='text-3xl font-semibold'>06 LPA+</h2>
+                    //             <h3 className='mt-1 text-sm font-medium text-gray-500'>Highest package offered</h3>
+                    //         </div>
+                    //     </div>
+                    // </div>
